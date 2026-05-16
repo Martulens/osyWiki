@@ -1,5 +1,6 @@
 site_name: BI-OSY Wiki
 site_description: Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT
+site_url: https://martulens.github.io/osyWiki/
 theme:
   name: material
   language: cs
