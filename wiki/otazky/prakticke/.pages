@@ -1,0 +1,10 @@
+title: Praktické příklady
+nav:
+  - Přehled: index.md
+  - 01-procesy-vlakna.md
+  - 02-synchronizace.md
+  - 03-deadlock.md
+  - 04-planovani.md
+  - 05-pamet.md
+  - 06-disky-raid.md
+  - 07-souborove-systemy.md

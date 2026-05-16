@@ -1,0 +1,10 @@
+title: Skripta
+nav:
+  - Přehled kapitol: index.md
+  - 01-uvod.md
+  - 02-procesy-vlakna.md
+  - 03-synchronizace.md
+  - 04-deadlock.md
+  - 05-planovani.md
+  - 06-pamet.md
+  - 07-souborove-systemy.md
