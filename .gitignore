@@ -9,10 +9,10 @@ site/
 # Claude Code (lokální nastavení a stav)
 .claude/
 
-# Zdrojové podklady (nepotřebné k prohlížení wiki)
-prednasky/
-prednasky_text/
-sbirka/
+# Zdrojové podklady (nepotřebné k prohlížení wiki) — jen v kořeni repozitáře
+/prednasky/
+/prednasky_text/
+/sbirka/
 
 # OS / editor
 .DS_Store
