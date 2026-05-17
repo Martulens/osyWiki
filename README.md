@@ -1,16 +1,15 @@
-# 📘 BI-OSY Wiki — Operační systémy
+# BI-OSY Wiki — Operační systémy
 
-Studijní wiki k předmětu **BI-OSY (Operační systémy)** na FIT ČVUT. Celá látka,
-pojmy, řešené zkouškové úlohy a studijní plán na jednom přehledném místě.
+[![Deploy wiki](https://github.com/Martulens/osyWiki/actions/workflows/deploy.yml/badge.svg)](https://github.com/Martulens/osyWiki/actions/workflows/deploy.yml)
 
-> ### 🌐 Otevřít online: **<https://martulens.github.io/osyWiki/>**
->
-> Stačí kliknout — **žádné klonování, žádná instalace**. Funguje vyhledávání,
-> tmavý režim i prohlížení na mobilu.
->
-> *(Odkaz začne fungovat po prvním nasazení — viz sekce **Nasazení na web** níže.)*
+Studijní wiki k předmětu **BI-OSY (Operační systémy)** na FIT ČVUT.
+Celá látka, pojmy, řešené zkouškové úlohy a studijní plán přehledně na jednom místě.
 
-## 📑 Co tu najdeš
+## Otevřít wiki
+
+> ### **<https://martulens.github.io/osyWiki/>**
+
+## Co tu najdeš
 
 | Sekce | Obsah |
 |-------|-------|
@@ -20,12 +19,15 @@ pojmy, řešené zkouškové úlohy a studijní plán na jednom přehledném mí
 | 📒 **Sbírka řešených úloh** | Přepis studentské sbírky „Ivetčina kuchařka". |
 | 🎓 **Učební pomocník** | Doporučený studijní plán, harmonogram a kontrolní seznam před zkouškou. |
 
-## 👀 Prohlížení
+## Jak wiki používat
 
-**Online (doporučeno):** otevři <https://martulens.github.io/osyWiki/>. Nic se
-nestahuje, nic se neinstaluje.
+- **Hledání** — lupa v horní liště nebo klávesa <kbd>/</kbd>; prohledá celou wiki.
+- **Tmavý / světlý režim** — přepínač v horní liště.
+- **Mobil** — wiki je plně responzivní, funguje i na telefonu.
 
-**Lokálně** — jen pokud chceš obsah upravovat:
+## Spuštění lokálně (nepovinné)
+
+Jen pokud chceš obsah **upravovat** nebo si ho prohlížet offline:
 
 ```bash
 git clone https://github.com/Martulens/osyWiki.git
@@ -36,35 +38,15 @@ pip install -r requirements.txt
 mkdocs serve
 ```
 
-Wiki pak poběží na <http://127.0.0.1:8000/> a po každé úpravě se sama obnoví.
+Wiki pak běží na <http://127.0.0.1:8000/> a po každé úpravě se sama obnoví.
 
-## 🚀 Nasazení na web
+## Přispívání
 
-Wiki se hostuje **zdarma** přes GitHub Pages. Repozitář musí být **veřejný**
-(Pages na privátních repozitářích vyžadují placený účet).
+Našel jsi chybu nebo chceš něco doplnit? Uprav příslušný soubor v `wiki/`
+a pošli pull request, nebo [založ issue](https://github.com/Martulens/osyWiki/issues).
+Obsah je obyčejný Markdown.
 
-### Automaticky — doporučeno
-
-V repozitáři je workflow [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
-Při každém pushi do větve `master` se wiki sestaví a publikuje. Stačí jednorázově:
-
-1. **Settings → Pages → Build and deployment → Source: `GitHub Actions`**
-2. Pushnout do `master` (nebo workflow spustit ručně přes **Actions → Deploy wiki → Run workflow**).
-
-Za chvíli je wiki živá na `https://<účet>.github.io/<repo>/`.
-
-### Ručně
-
-```bash
-mkdocs gh-deploy
-```
-
-Sestaví wiki a pushne ji do větve `gh-pages`; tu pak v **Settings → Pages**
-nastav jako zdroj.
-
-> 💡 Pokud repozitář nepojmenuješ `osyWiki`, uprav `site_url` v `mkdocs.yml`.
-
-## 🗂️ Struktura repozitáře
+## Struktura repozitáře
 
 ```text
 wiki/                        zdrojový obsah (Markdown) — docs_dir pro MkDocs
@@ -79,11 +61,11 @@ requirements.txt             Python závislosti
 .github/workflows/deploy.yml automatické nasazení na GitHub Pages
 ```
 
-## 🛠️ Postaveno na
+## Postaveno na
 
 [MkDocs](https://www.mkdocs.org/) + [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/).
 
-## 🙏 Poděkování
+## Poděkování
 
 Sekce *Sbírka řešených úloh* obsahuje přepis studentské sbírky „Ivetčina kuchařka
 — Sbírka řešených úloh z BI-OSY", jejíž autorkou je **Iveta**. Děkujeme.
