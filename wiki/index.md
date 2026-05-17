@@ -30,8 +30,8 @@ Wiki je postavená kolem čtyř částí, které tě provedou od výkladu látky
 
     ---
 
-    Přepis studentské sbírky „Ivetčina kuchařka" — řešené zkouškové
-    úlohy ze sedmi okruhů, krok za krokem.
+    Řešené zkouškové úlohy ze sedmi tematických okruhů —
+    zadání, postup a kompletní řešení.
 
 -   ### 🎓 [Učební pomocník](pomocnik.md)
 
@@ -52,5 +52,4 @@ Wiki je postavená kolem čtyř částí, které tě provedou od výkladu látky
 !!! info "O zdrojích"
     Skripta vznikla přepracováním 12 přednášek předmětu BI-OSY. Testové otázky jsou
     deduplikované z veřejně dostupných zkouškových testů z minulých let (2010–2025)
-    a z ukázkových otázek předmětu. Součástí materiálů je i přepis studentské
-    [Sbírky řešených úloh](sbirka/index.md).
+    a z ukázkových otázek předmětu. Součástí je i [Sbírka řešených úloh](sbirka/index.md).
