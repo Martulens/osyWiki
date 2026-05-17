@@ -1,0 +1,3120 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/skripta/01-uvod/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../02-procesy-vlakna/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Úvod do operačních systémů - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hardware-model-vypocetniho-systemu" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Úvod do operačních systémů
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../otazky/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-model-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware: Model výpočetního systému
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware: Model výpočetního systému">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pamet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paměť
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periferni-zarizeni-a-sbernice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Periferní zařízení a sběrnice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pametovy-a-io-prostor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paměťový a I/O prostor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivacni-priklad-c-1-pocitac-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivační příklad č. 1: Počítač bez OS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Motivační příklad č. 1: Počítač bez OS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-spustit-program-na-pocitaci-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak spustit program na počítači bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-tisknout-znaky-na-monitor-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak tisknout znaky na monitor bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-cist-znaky-z-klavesnice-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak číst znaky z klávesnice bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kod-motivacniho-prikladu-c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kód motivačního příkladu č. 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kompilace-a-spusteni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kompilace a spuštění
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumarizace-motivacniho-prikladu-c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sumarizace motivačního příkladu č. 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivacni-priklad-c-2-pocitac-s-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivační příklad č. 2: Počítač s OS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-model-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software: Model výpočetního systému
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacni-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operační systém
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operační systém">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-a-ukoly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice a úkoly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jadro-os-a-jeho-soucasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jádro OS a jeho součásti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architektura-jadra-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architektura jádra OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlastnosti-modernich-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlastnosti moderních OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-a-ruzne-typy-vypocetnich-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS a různé typy výpočetních systémů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzivatele-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uživatelé výpočetního systému
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-z-pohledu-programatora-systemova-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS z pohledu programátora: Systémová volání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OS z pohledu programátora: Systémová volání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#co-os-programatorum-nabizi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co OS programátorům nabízí?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-neprime-volani-systemoveho-volani-pres-knihovni-funkce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: nepřímé volání systémového volání (přes knihovní funkce)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-prime-volani-systemoveho-volani-assembler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: přímé volání systémového volání (assembler)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrnuti-mechanismu-systemoveho-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí mechanismu systémového volání
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kviz-kdy-jadro-os-bezi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kvíz: kdy jádro OS běží?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#hardware-model-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hardware: Model výpočetního systému
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Hardware: Model výpočetního systému">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cpu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        CPU
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pamet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paměť
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#periferni-zarizeni-a-sbernice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Periferní zařízení a sběrnice
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pametovy-a-io-prostor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Paměťový a I/O prostor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivacni-priklad-c-1-pocitac-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivační příklad č. 1: Počítač bez OS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Motivační příklad č. 1: Počítač bez OS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-spustit-program-na-pocitaci-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak spustit program na počítači bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-tisknout-znaky-na-monitor-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak tisknout znaky na monitor bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-cist-znaky-z-klavesnice-bez-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak číst znaky z klávesnice bez OS?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kod-motivacniho-prikladu-c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kód motivačního příkladu č. 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kompilace-a-spusteni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kompilace a spuštění
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sumarizace-motivacniho-prikladu-c-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sumarizace motivačního příkladu č. 1
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#motivacni-priklad-c-2-pocitac-s-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Motivační příklad č. 2: Počítač s OS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#software-model-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software: Model výpočetního systému
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operacni-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operační systém
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Operační systém">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-a-ukoly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice a úkoly
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jadro-os-a-jeho-soucasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jádro OS a jeho součásti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#architektura-jadra-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architektura jádra OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlastnosti-modernich-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlastnosti moderních OS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#os-a-ruzne-typy-vypocetnich-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS a různé typy výpočetních systémů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uzivatele-vypocetniho-systemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uživatelé výpočetního systému
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os-z-pohledu-programatora-systemova-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS z pohledu programátora: Systémová volání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OS z pohledu programátora: Systémová volání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#co-os-programatorum-nabizi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co OS programátorům nabízí?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-neprime-volani-systemoveho-volani-pres-knihovni-funkce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: nepřímé volání systémového volání (přes knihovní funkce)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-prime-volani-systemoveho-volani-assembler" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: přímé volání systémového volání (assembler)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrnuti-mechanismu-systemoveho-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí mechanismu systémového volání
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kviz-kdy-jadro-os-bezi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kvíz: kdy jádro OS běží?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="uvod-do-operacnich-systemu">Úvod do operačních systémů<a class="headerlink" href="#uvod-do-operacnich-systemu" title="Permanent link">&para;</a></h1>
+<p>Tato kapitola pokládá základy pro celý předmět BI-OSY. Nejprve si popíšeme, z čeho se fyzicky skládá výpočetní systém — CPU, paměti, periferní zařízení a sběrnice. Poté si na dvou motivačních příkladech ukážeme rozdíl mezi programováním <em>bez</em> operačního systému a <em>s</em> ním. Nakonec definujeme, co operační systém vlastně je, jak je organizováno jeho jádro a jakým způsobem s ním aplikace komunikují prostřednictvím <strong>systémových volání</strong> (system calls).</p>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#hardware-model-vypocetniho-systemu">Hardware: Model výpočetního systému</a><ul>
+<li><a href="#cpu">CPU</a></li>
+<li><a href="#pamet">Paměť</a></li>
+<li><a href="#periferni-zarizeni-a-sbernice">Periferní zařízení a sběrnice</a></li>
+<li><a href="#pametovy-a-io-prostor">Paměťový a I/O prostor</a></li>
+</ul>
+</li>
+<li><a href="#motivacni-priklad-c-1-pocitac-bez-os">Motivační příklad č. 1: Počítač bez OS</a><ul>
+<li><a href="#jak-spustit-program-na-pocitaci-bez-os">Jak spustit program na počítači bez OS?</a></li>
+<li><a href="#jak-tisknout-znaky-na-monitor-bez-os">Jak tisknout znaky na monitor bez OS?</a></li>
+<li><a href="#jak-cist-znaky-z-klavesnice-bez-os">Jak číst znaky z klávesnice bez OS?</a></li>
+<li><a href="#kod-motivacniho-prikladu-c-1">Kód motivačního příkladu č. 1</a></li>
+<li><a href="#kompilace-a-spusteni">Kompilace a spuštění</a></li>
+<li><a href="#sumarizace-motivacniho-prikladu-c-1">Sumarizace motivačního příkladu č. 1</a></li>
+</ul>
+</li>
+<li><a href="#motivacni-priklad-c-2-pocitac-s-os">Motivační příklad č. 2: Počítač s OS</a></li>
+<li><a href="#software-model-vypocetniho-systemu">Software: Model výpočetního systému</a></li>
+<li><a href="#operacni-system">Operační systém</a><ul>
+<li><a href="#definice-a-ukoly">Definice a úkoly</a></li>
+<li><a href="#jadro-os-a-jeho-soucasti">Jádro OS a jeho součásti</a></li>
+<li><a href="#architektura-jadra-os">Architektura jádra OS</a></li>
+<li><a href="#vlastnosti-modernich-os">Vlastnosti moderních OS</a></li>
+<li><a href="#os-a-ruzne-typy-vypocetnich-systemu">OS a různé typy výpočetních systémů</a></li>
+<li><a href="#uzivatele-vypocetniho-systemu">Uživatelé výpočetního systému</a></li>
+</ul>
+</li>
+<li><a href="#os-z-pohledu-programatora-systemova-volani">OS z pohledu programátora: Systémová volání</a><ul>
+<li><a href="#co-os-programatorum-nabizi">Co OS programátorům nabízí?</a></li>
+<li><a href="#priklad-neprime-volani-systemoveho-volani-pres-knihovni-funkce">Příklad: nepřímé volání systémového volání (přes knihovní funkce)</a></li>
+<li><a href="#priklad-prime-volani-systemoveho-volani-assembler">Příklad: přímé volání systémového volání (assembler)</a></li>
+<li><a href="#shrnuti-mechanismu-systemoveho-volani">Shrnutí mechanismu systémového volání</a></li>
+<li><a href="#kviz-kdy-jadro-os-bezi">Kvíz: kdy jádro OS běží?</a></li>
+</ul>
+</li>
+<li><a href="#shrnuti">Shrnutí</a></li>
+<li><a href="#klicove-pojmy">Klíčové pojmy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="hardware-model-vypocetniho-systemu">Hardware: Model výpočetního systému<a class="headerlink" href="#hardware-model-vypocetniho-systemu" title="Permanent link">&para;</a></h2>
+<p>Moderní počítač není monolitické zařízení — jde o souhrn specializovaných komponent propojených <strong>základní deskou</strong> (motherboard). Ta kromě fyzického propojení obsahuje jižní můstek (south bridge / chipset) a pomocné obvody pro komunikaci s periferiemi, správu napájení a čip s firmwarem BIOS/UEFI.</p>
+<p><img alt="Blokové schéma výpočetního systému — propojení CPU, RAM, čipsetu a periferií" src="../img/p01-s04-1.png" />
+<img alt="Podrobné schéma základní desky se sběrnicemi PCIe, SATA a USB" src="../img/p01-s04-2.png" />
+<img alt="Schéma propojení komponent výpočetního systému" src="../img/p01-s04-3.png" /></p>
+<h3 id="cpu">CPU<a class="headerlink" href="#cpu" title="Permanent link">&para;</a></h3>
+<p><strong>Central processing unit (CPU)</strong> je primární procesor počítače. Implementuje konkrétní <strong>architekturu souboru instrukcí</strong> (Instruction Set Architecture, ISA), která definuje:</p>
+<ul>
+<li>množinu instrukcí a adresní režimy,</li>
+<li>množinu registrů, organizaci paměti a organizaci vstupu/výstupu.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Příklad: různé systémy, různé ISA</p>
+<table>
+<thead>
+<tr>
+<th>Systém</th>
+<th>CPU</th>
+<th>Výrobce</th>
+<th>ISA</th>
+<th>OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>AMD Ryzen 3 2200G</td>
+<td>AMD</td>
+<td>x86-64</td>
+<td>Linux</td>
+</tr>
+<tr>
+<td>B</td>
+<td>Intel Core i5-8400</td>
+<td>Intel</td>
+<td>x86-64</td>
+<td>Windows 10</td>
+</tr>
+<tr>
+<td>C</td>
+<td>Intel Xeon E3-1225 v6</td>
+<td>Intel</td>
+<td>x86-64</td>
+<td>Linux</td>
+</tr>
+<tr>
+<td>D</td>
+<td>Ultra SPARC T2</td>
+<td>Oracle</td>
+<td>SPARC V9</td>
+<td>Solaris</td>
+</tr>
+</tbody>
+</table>
+<p>CPU od různých výrobců mohou implementovat <strong>stejnou ISA</strong> — proto binární program ze systému A poběží i na systému C (stejná ISA i OS). Program ze systému B naproti tomu na ostatních systémech fungovat nebude, protože se liší buď ISA, nebo OS. Pokud kód nezávisí na konkrétní ISA ani OS, lze ho přeložit pro cílovou platformu a spustit.</p>
+</div>
+<h4 id="preruseni-a-vyjimky">Přerušení a výjimky<a class="headerlink" href="#preruseni-a-vyjimky" title="Permanent link">&para;</a></h4>
+<p><img alt="Typy přerušení a výjimek v CPU — vnější a vnitřní" src="../img/p01-s06-1.png" /></p>
+<p><strong>Přerušení</strong> (interrupts) a <strong>výjimky</strong> (exceptions) jsou mechanismy, které umožňují CPU reagovat na události mimo normální tok instrukcí. Normální zpracování instrukčního proudu je dočasně přerušeno a spustí se <strong>obslužná rutina přerušení</strong> (Interrupt Service Routine, ISR). Celý mechanismus je definován ISA.</p>
+<p><strong>Vnější přerušení</strong> (external interrupts) jsou <em>asynchronní</em> — přicházejí z okolí CPU:</p>
+<ul>
+<li>řadič zařízení signalizuje dokončení I/O operace (např. disk dokončil čtení),</li>
+<li>přetečení systémového časovače (OS pak může naplánovat jiný proces),</li>
+<li>hardwarová chyba (např. chyba na sběrnici).</li>
+</ul>
+<p><strong>Výjimky</strong> (vnitřní přerušení) jsou <em>synchronní</em> — vznikají přímo při zpracování instrukce:</p>
+<ul>
+<li>vykonání instrukce systémového volání (na x86-64 to je instrukce <code>syscall</code>),</li>
+<li>softwarová chyba — dělení nulou, přetečení, výpadek stránky (page fault) apod.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Rozlišení <strong>synchronní výjimky</strong> vs. <strong>asynchronního přerušení</strong> je základní pojmová dvojice. Systémové volání je <em>synchronní výjimka</em> — aplikace ji záměrně vyvolá instrukcí <code>syscall</code>.</p>
+</div>
+<h4 id="privilegovane-mody-cpu">Privilegované módy CPU<a class="headerlink" href="#privilegovane-mody-cpu" title="Permanent link">&para;</a></h4>
+<p><img alt="Schéma privilegovaných módů — rings v x86-64" src="../img/p01-s07-1.png" /></p>
+<p>ISA definuje <strong>privilegované módy</strong> (privilege levels / rings) běhu CPU. Software běžící v daném módu smí:</p>
+<ul>
+<li>používat pouze instrukce povolené v tomto módu,</li>
+<li>modifikovat pouze povolené registry a oblasti paměti.</li>
+</ul>
+<p>Pro operační systémy jsou klíčové dva základní módy:</p>
+<ul>
+<li><strong>Kernel mód</strong> (ring 0 / EL1 / S-mode): vše je povoleno — jádro OS,</li>
+<li><strong>User mód</strong> (ring 3 / EL0 / U-mode): omezený přístup — uživatelské procesy nemohou přímo manipulovat s I/O zařízeními, měnit tabulku stránek ani registrovat obslužné rutiny přerušení.</li>
+</ul>
+<p>Srovnání privilegovaných módů napříč architekturami:</p>
+<table>
+<thead>
+<tr>
+<th>Úroveň</th>
+<th>x86-64</th>
+<th>RISC-V</th>
+<th>ARM (AArch64)</th>
+<th>Popis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nejvyšší (firmware)</td>
+<td>Ring 0</td>
+<td>Machine mode (M-mode)</td>
+<td>EL3 (Secure Monitor)</td>
+<td>Přímý přístup k HW, firmware</td>
+</tr>
+<tr>
+<td>Operační systém</td>
+<td>Ring 0</td>
+<td>Supervisor mode (S-mode)</td>
+<td>EL1 (Kernel/OS)</td>
+<td>Správa paměti, procesů, privilegované operace</td>
+</tr>
+<tr>
+<td>Uživatelské aplikace</td>
+<td>Ring 3</td>
+<td>User mode (U-mode)</td>
+<td>EL0 (User Space)</td>
+<td>Omezený přístup k prostředkům</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Poznámka k x86-64</p>
+<p>Procesory Intel/AMD definují rings 0–3, ale <strong>ring 1 a ring 2 se v praxi nepoužívají</strong>. OS běží v ring 0, aplikace v ring 3.</p>
+</div>
+<h4 id="stav-cpu-po-resetu">Stav CPU po resetu<a class="headerlink" href="#stav-cpu-po-resetu" title="Permanent link">&para;</a></h4>
+<p>Po resetu je CPU vždy ve stavu s nejvyššími oprávněními. Nepoužívá stránkování ani virtuální paměť — adresy jsou fyzické. Vykonávání začíná od předem definované <strong>reset vektoru</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Architektura</th>
+<th>Reset vector</th>
+<th>Komentář</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>x86-64</td>
+<td><code>0xFFFFFFFF0</code></td>
+<td>Adresa je zrcadlena do <code>0xFFFF0</code></td>
+</tr>
+<tr>
+<td>RISC-V</td>
+<td><code>0x200</code> (obvykle)</td>
+<td>Libovolná adresa dle implementace</td>
+</tr>
+<tr>
+<td>ARM (AArch64)</td>
+<td><code>0x0</code> nebo <code>0xFFFF0000</code></td>
+<td>Závisí na implementaci</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Specifika x86-64: cesta k 64-bitovému režimu</p>
+<p>Procesor x86-64 po resetu startuje v <strong>16-bitovém reálném režimu</strong> s 20-bitovým fyzickým adresním prostorem (díky segmentaci). Teprve poté firmware přepíná CPU do <strong>32-bitového chráněného režimu</strong> (protected mode), kde jsou dostupné privilegované módy a stránkování. Nakonec se procesor přepíná do <strong>64-bitového long mode</strong>, kde je k dispozici plnohodnotná 64-bitová adresace.</p>
+</div>
+<h3 id="pamet">Paměť<a class="headerlink" href="#pamet" title="Permanent link">&para;</a></h3>
+<p>Výpočetní systém pracuje s několika typy paměti:</p>
+<table>
+<thead>
+<tr>
+<th>Typ</th>
+<th>Zkratka</th>
+<th>Typická velikost</th>
+<th>Vlastnosti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hlavní paměť</strong></td>
+<td>RAM</td>
+<td>16–128 GB</td>
+<td>Přímý přístup, volatile (ztrácí obsah po odpojení napájení), nachází se zde jádro OS a běžící procesy</td>
+</tr>
+<tr>
+<td><strong>Skrytá paměť</strong> (cache)</td>
+<td>L1/L2/L3 cache</td>
+<td>16–64 MB</td>
+<td>Umístěna uvnitř CPU, programátorovi „neviditelná", maskuje latenci hlavní paměti</td>
+</tr>
+<tr>
+<td><strong>Paměť pro firmware</strong></td>
+<td>NVRAM / Flash</td>
+<td>10–50 MB</td>
+<td>Non-volatile, obsahuje firmware (BIOS, UEFI) a konfigurační proměnné HW</td>
+</tr>
+</tbody>
+</table>
+<h3 id="periferni-zarizeni-a-sbernice">Periferní zařízení a sběrnice<a class="headerlink" href="#periferni-zarizeni-a-sbernice" title="Permanent link">&para;</a></h3>
+<p><strong>Periferní zařízení</strong> rozšiřují základní výpočetní schopnosti systému:</p>
+<ul>
+<li><strong>Datová úložiště</strong> — sekundární paměť (HDD, SSD, RAID) pro trvalé uchování dat,</li>
+<li>síťové karty, grafické karty, monitory, klávesnice, myš, napájecí zdroje.</li>
+</ul>
+<p><strong>Sběrnice</strong> (bus) zajišťuje přenos dat a řídicích povelů mezi jednotlivými částmi výpočetního systému. Příklady: PCI-Express, Fibre Channel, SCSI, SATA.</p>
+<h3 id="pametovy-a-io-prostor">Paměťový a I/O prostor<a class="headerlink" href="#pametovy-a-io-prostor" title="Permanent link">&para;</a></h3>
+<p>CPU přistupuje k zařízením dvěma různými způsoby:</p>
+<p><strong>Paměťový prostor</strong> (memory space): přístupný pomocí standardních paměťových instrukcí (<code>mov</code> na x86-64, <code>lw</code>/<code>sw</code> na RISC-V, <code>ldr</code>/<code>str</code> na ARM). Zahrnuje hlavní paměť <strong>i</strong> paměťově mapovaná I/O zařízení (memory-mapped I/O).</p>
+<p><strong>I/O prostor</strong> (I/O space): přístupný pouze speciálními I/O instrukcemi (<code>in</code>, <code>out</code> na x86-64). Zahrnuje zařízení mapovaná do I/O prostoru.</p>
+<div class="admonition example">
+<p class="admonition-title">Příklad: výpis paměťového prostoru na Linuxu</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo cat /proc/iomem
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>00000000-00000fff : Reserved
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>00001000-000907ff : System RAM
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>000a0000-000bffff : PCI Bus 0000:00
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>b0000000-efffffff : PCI Bus 0000:00
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>  d0000000-dfffffff : 0000:00:02.0    // Onboard IGD
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>100000000-44dffffff : System RAM
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>  241a00000-2428018c1 : Kernel code
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>  242a00000-2432dafff : Kernel rodata
+</span></code></pre></div>
+Vypsané adresy jsou fyzické. Délka adresy je odvozena od velikosti instalované RAM. OS může při startu přiřadit I/O zařízením nové adresy.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad: výpis I/O prostoru na Linuxu</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>sudo cat /proc/ioports
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>0000-001f : dma1
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>0020-0021 : pic1
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>0040-0043 : timer0
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>0060-0060 : keyboard
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>0070-0077 : rtc0
+</span></code></pre></div>
+Čísla portů pro tradiční zařízení (klávesnice, časovač, řadič přerušení) jsou <strong>pevně daná standardy</strong> a OS je při startu nemění.</p>
+</div>
+<p>Každé PCI/PCIe zařízení obsahuje <strong>BARs</strong> (Base Address Registers), které umožňují dynamickou konfiguraci — přiřazení paměťových adres nebo čísel portů. Zobrazit je lze příkazem <code>sudo lspci -v</code>.</p>
+<hr />
+<h2 id="motivacni-priklad-c-1-pocitac-bez-os">Motivační příklad č. 1: Počítač bez OS<a class="headerlink" href="#motivacni-priklad-c-1-pocitac-bez-os" title="Permanent link">&para;</a></h2>
+<p>Abychom pochopili, co nám operační systém vlastně přináší, zkusme si nejprve naprogramovat jednoduchý program <em>bez</em> OS. Úkolem je na x86-64 PC bez OS vytisknout znak na monitor a poté číst znaky z klávesnice — bez jakýchkoli služeb BIOS nebo UEFI.</p>
+<h3 id="jak-spustit-program-na-pocitaci-bez-os">Jak spustit program na počítači bez OS?<a class="headerlink" href="#jak-spustit-program-na-pocitaci-bez-os" title="Permanent link">&para;</a></h3>
+<p>Procesor po resetu běží v <strong>16-bitovém reálném režimu</strong> a začíná vykonávat kód na adrese <code>0xFFFF0</code>. Řadič paměti přesměruje čtení z této adresy do ROM/Flash, kde leží BIOS nebo UEFI.</p>
+<p>BIOS/UEFI provede POST (Power-On Self Test), detekuje periferie a zahájí <strong>bootování</strong>:</p>
+<ul>
+<li><strong>BIOS</strong> načte bootovací kód (Bootstrap code) z prvního sektoru bootovacího zařízení — tzv. <strong>boot sektor</strong> = Master Boot Record (MBR) — do paměti na adresu <code>0x07C00</code>.</li>
+<li><strong>UEFI</strong> hledá soubor EFI v oddíle typu EFI System Partition (ESP); pokud to selže a je povolen Legacy boot, kontroluje MBR.</li>
+</ul>
+<p>V obou případech je binární kód z disku nahrán do paměti a spuštěn. <strong>To je naše příležitost, jak spustit vlastní program bez OS.</strong></p>
+<h3 id="jak-tisknout-znaky-na-monitor-bez-os">Jak tisknout znaky na monitor bez OS?<a class="headerlink" href="#jak-tisknout-znaky-na-monitor-bez-os" title="Permanent link">&para;</a></h3>
+<p>V reálném režimu (16-bitová adresace) je adresa <code>0xB8000</code> <strong>textový VGA framebuffer</strong> grafické karty. Zápis na tuto adresu je automaticky přesměrován čipsetem na grafickou kartu. Každý znak je uložen jako 2 bajty: bajt 0 = ASCII kód znaku, bajt 1 = barva textu a pozadí.</p>
+<h3 id="jak-cist-znaky-z-klavesnice-bez-os">Jak číst znaky z klávesnice bez OS?<a class="headerlink" href="#jak-cist-znaky-z-klavesnice-bez-os" title="Permanent link">&para;</a></h3>
+<p>Klávesnice <strong>není</strong> namapována do paměťového prostoru — přistupujeme k ní přes <strong>I/O porty</strong> pomocí instrukcí <code>in</code> a <code>out</code>. Konkrétně:</p>
+<ul>
+<li>data se čtou z portu <code>0x60</code> instrukcí <code>inb</code>,</li>
+<li>vrácená hodnota je <strong>scancode</strong> — kód reprezentující stisk nebo uvolnění klávesy, nikoliv ASCII znak,</li>
+<li>pro stisk klávesy platí, že hodnota scancodu je menší než <code>0x80</code> (bit 7 = 0 znamená stisk, bit 7 = 1 znamená uvolnění).</li>
+</ul>
+<h3 id="kod-motivacniho-prikladu-c-1">Kód motivačního příkladu č. 1<a class="headerlink" href="#kod-motivacniho-prikladu-c-1" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="cp">#define VIDEO_MEM       0xB8000</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="cp">#define KEYBOARD_DATA   0x60</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="cp">#define KEYBOARD_STATUS 0x64</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="cp">#define SCREEN_COLS 80</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="cp">#define SCREEN_ROWS 25</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">putchar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">);</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">getchar</span><span class="p">();</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">inb</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">port</span><span class="p">);</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">__attribute__</span><span class="p">((</span><span class="kr">naked</span><span class="p">))</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="n">_start</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="n">putchar</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;x&#39;</span><span class="p">);</span><span class="w">     </span><span class="c1">// Vytiskni &#39;x&#39; na pozici (0,0)</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">               </span><span class="c1">// Nekonečná smyčka — OS neexistuje!</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">        </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getchar</span><span class="p">();</span><span class="w">        </span><span class="c1">// Přečti scancode</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">        </span><span class="n">putchar</span><span class="p">(</span><span class="n">r</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">++</span><span class="p">,</span><span class="w"> </span><span class="n">v</span><span class="p">);</span><span class="w">   </span><span class="c1">// Vypiš scancode jako znak</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">SCREEN_COLS</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">r</span><span class="o">++</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">SCREEN_ROWS</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">r</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">putchar</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">row</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">volatile</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="o">*</span><span class="n">video_mem</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">short</span><span class="w"> </span><span class="o">*</span><span class="p">)</span><span class="n">VIDEO_MEM</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">volatile</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">row</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">SCREEN_COLS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">col</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">video_mem</span><span class="p">[</span><span class="n">offset</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mh">0x02</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="c1">// Bajt 1: barva textu a pozadí (zelená na černé); Bajt 0: znak</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="p">}</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">getchar</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="n">scancode</span><span class="p">;</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">inb</span><span class="p">(</span><span class="n">KEYBOARD_STATUS</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="mh">0x01</span><span class="p">){</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="w">            </span><span class="n">scancode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inb</span><span class="p">(</span><span class="n">KEYBOARD_DATA</span><span class="p">);</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">scancode</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">0x80</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">scancode</span><span class="p">;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p">}</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="nf">inb</span><span class="p">(</span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">short</span><span class="w"> </span><span class="n">port</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="k">asm</span><span class="w"> </span><span class="k">volatile</span><span class="w"> </span><span class="p">(</span><span class="s">&quot;inb %1, %0&quot;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;=a&quot;</span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Nd&quot;</span><span class="p">(</span><span class="n">port</span><span class="p">));</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Poznámky ke kódu</p>
+<ul>
+<li>Neexistuje funkce <code>main()</code>. První definovaná funkce musí být <code>void _start()</code>. Atribut <code>naked</code> zabrání kompilátoru vkládat prolog/epilog pro zásobník.</li>
+<li>Všechny funkce jsou <code>inline</code>, protože <strong>zásobník nebyl inicializován</strong> (registry <code>ss</code> a <code>sp</code> nebyly nastaveny) a nelze ho použít pro předávání parametrů.</li>
+<li>Komunikace s klávesnicí vyžaduje inline assembler (<code>asm volatile</code>).</li>
+</ul>
+</div>
+<h3 id="kompilace-a-spusteni">Kompilace a spuštění<a class="headerlink" href="#kompilace-a-spusteni" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a># Kompilace do 16-bitového binárního kódu bez knihoven
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>gcc -m16 -ffreestanding -nostdlib -fno-stack-protector -fno-builtin \
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    -fno-asynchronous-unwind-tables -fno-exceptions -fno-pic \
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    -fomit-frame-pointer -O1 program.c -o boot.bin -Wl,--oformat=binary
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a># Rozšíření na 510 bajtů (sektor má 512 B)
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>dd if=/dev/zero bs=1 count=$((510-$(stat -c%s boot.bin))) &gt;&gt; boot.bin
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a># Přidání bootovací signatury 0xAA55
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>echo -ne &#39;\x55\xAA&#39; &gt;&gt; boot.bin
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a># Test v emulátoru
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>qemu-system-x86_64 -drive format=raw,file=boot.bin
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Bootovací signatura</p>
+<p>BIOS rozpozná boot sektor tak, že na offsetech 510–511 (poslední 2 bajty sektoru) najde hodnoty <code>0x55 0xAA</code>. Proto musíme výsledný binární soubor na přesně 512 bajtů doplnit nulami a signaturu přidat.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">UEFI bez CSM</p>
+<p>Na moderních systémech s UEFI <strong>bez</strong> režimu kompatibility s BIOSem (CSM) nemusí být textový VGA framebuffer na adrese <code>0xB8000</code> dostupný. V takovém případě je nutné najít adresu framebufferu z BARs grafické karty (obvykle zařízení <code>00:02.0</code> na PCIe) nebo využít UEFI Graphics Output Protocol (GOP).</p>
+</div>
+<h3 id="sumarizace-motivacniho-prikladu-c-1">Sumarizace motivačního příkladu č. 1<a class="headerlink" href="#sumarizace-motivacniho-prikladu-c-1" title="Permanent link">&para;</a></h3>
+<p>Bez OS musí programátor řešit vše sám:</p>
+<ul>
+<li>Pracuje přímo s fyzickou pamětí, zná konkrétní adresy VGA bufferu i čísla I/O portů.</li>
+<li>Musí znát interpretaci dat na daných adresách (formát VGA záznamu, formát scancodu).</li>
+<li>Kód <strong>není přenositelný</strong> — závisí na konkrétní architektuře (x86-64) a hardwarových konvencích.</li>
+<li>Chybí převod scancodu na ASCII, rolování obrazovky a jakákoli abstrakce HW.</li>
+</ul>
+<hr />
+<h2 id="motivacni-priklad-c-2-pocitac-s-os">Motivační příklad č. 2: Počítač s OS<a class="headerlink" href="#motivacni-priklad-c-2-pocitac-s-os" title="Permanent link">&para;</a></h2>
+<p>Stejný úkol — ale nyní se zavedeným OS a standardní knihovnou jazyka C:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="n">putchar</span><span class="p">(</span><span class="sc">&#39;x&#39;</span><span class="p">);</span><span class="w">          </span><span class="c1">// Vytiskni &#39;x&#39;</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">            </span><span class="c1">// Nekonečná smyčka</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getchar</span><span class="p">();</span><span class="w">     </span><span class="c1">// Přečti ASCII znak</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="n">putchar</span><span class="p">(</span><span class="n">c</span><span class="p">);</span><span class="w">        </span><span class="c1">// Vytiskni ASCII znak</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Program je <strong>přenositelný</strong> — funguje na libovolné architektuře se zavedeným OS a standardní knihovnou C. Programátor neví nic o fyzických adresách VGA paměti, I/O portech ani scancodeech. Veškerou komunikaci s hardwarem za něj zajistí OS prostřednictvím <strong>systémových volání</strong>.</p>
+<hr />
+<h2 id="software-model-vypocetniho-systemu">Software: Model výpočetního systému<a class="headerlink" href="#software-model-vypocetniho-systemu" title="Permanent link">&para;</a></h2>
+<p>Softwarové vrstvy moderního výpočetního systému lze znázornit takto (od nejnižší po nejvyšší):</p>
+<table>
+<thead>
+<tr>
+<th>Vrstva</th>
+<th>Komponenty</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hardware</strong></td>
+<td>CPU, NVRAM, RAM, sběrnice, HDD, SSD, GPU, NIC, …</td>
+</tr>
+<tr>
+<td><strong>Firmware</strong></td>
+<td>BIOS/UEFI, SMC, …</td>
+</tr>
+<tr>
+<td><strong>OS — jádro</strong></td>
+<td>Kernel (vč. ISR) + moduly</td>
+</tr>
+<tr>
+<td><strong>Knihovny</strong></td>
+<td>libc, pthreads, …</td>
+</tr>
+<tr>
+<td><strong>Aplikace</strong></td>
+<td>GNU nástroje, GNOME, jiné aplikace</td>
+</tr>
+<tr>
+<td><strong>Uživatelé</strong></td>
+<td>root, sys, user1, …</td>
+</tr>
+</tbody>
+</table>
+<p>Klíčová rozhraní:</p>
+<ul>
+<li><strong>ISA</strong> (Instruction Set Architecture) — rozhraní mezi HW a SW (dělí se na System ISA pro jádro a User ISA pro aplikace).</li>
+<li><strong>ABI</strong> (Application Binary Interface) — rozhraní mezi aplikacemi a jádrem OS, implementováno systémovými voláními.</li>
+<li><strong>API</strong> (Application Programming Interface) — rozhraní mezi aplikacemi a knihovnami (volání knihovních funkcí).</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Pamatujte si, že <strong>ABI = systémová volání</strong> a <strong>API = knihovní funkce</strong>. Aplikace volají knihovní funkce (API), které interně volají jádro OS přes ABI (systémová volání).</p>
+</div>
+<hr />
+<h2 id="operacni-system">Operační systém<a class="headerlink" href="#operacni-system" title="Permanent link">&para;</a></h2>
+<h3 id="definice-a-ukoly">Definice a úkoly<a class="headerlink" href="#definice-a-ukoly" title="Permanent link">&para;</a></h3>
+<p><strong>Operační systém</strong> (OS) je základní software fungující jako prostředník mezi hardwarem a aplikacemi/uživateli.</p>
+<p>Hlavní úkoly OS:</p>
+<ol>
+<li><strong>Správa a sdílení výpočetních prostředků:</strong><ul>
+<li>fyzických: procesor, paměť, disky, …</li>
+<li>logických: uživatelská konta, procesy, soubory, přístupová práva, …</li>
+</ul>
+</li>
+<li><strong>Poskytuje rozhraní</strong> (abstrakce složitosti HW):<ul>
+<li>aplikacím: Win32 API, Win64 API, systémová volání Unixu, …</li>
+<li>uživatelům: CLI (příkazová řádka) a GUI (grafické prostředí)</li>
+</ul>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Zaměření předmětu BI-OSY</p>
+<p>Předmět se zaměřuje na <strong>principy univerzálních OS</strong>: MS Windows, OS unixového typu (Linux, Solaris, MacOS, BSD,...), VMS a další. Konkrétně na problematiku správy procesů a vláken, synchronizace, meziprocesové komunikace, správy paměti, správy datových úložišť a systémů souborů.</p>
+</div>
+<h3 id="jadro-os-a-jeho-soucasti">Jádro OS a jeho součásti<a class="headerlink" href="#jadro-os-a-jeho-soucasti" title="Permanent link">&para;</a></h3>
+<p>OS jako celek tvoří dvě skupiny:</p>
+<p><strong>Jádro OS</strong> (kernel) implementuje:</p>
+<ol>
+<li>Správu I/O (přerušení, ovladače, …)</li>
+<li>Správu procesů a vláken (vytváření, plánování, …)</li>
+<li>Správu prostředků pro synchronizaci a meziprocesovou komunikaci</li>
+<li>Správu paměti (alokace/dealokace, překlad adres, …)</li>
+<li>Správu datových úložišť (RAID, HDD, SSD, USB flash, …)</li>
+<li>Správu systému souborů</li>
+<li>Správu síťové infrastruktury (síťová rozhraní, IP stack, …)</li>
+</ol>
+<p><strong>Aplikace součástí OS</strong> (běží v user módu) implementují:</p>
+<ul>
+<li>CLI (např. GNU nástroje, PowerShell)</li>
+<li>GUI (např. X11, GNOME, KDE)</li>
+<li>správu SW (instalace aplikací)</li>
+<li>správu uživatelů</li>
+<li><strong>démony</strong> (daemons) — služby běžící na pozadí, reagující na události (např. připojení USB) nebo požadavky jiných procesů, komunikující s jádrem přes systémová volání.</li>
+</ul>
+<h3 id="architektura-jadra-os">Architektura jádra OS<a class="headerlink" href="#architektura-jadra-os" title="Permanent link">&para;</a></h3>
+<p>Jádro OS se typicky skládá z těchto subsystémů:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>           User applications / libraries
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>                        |
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>              System call interface
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    ┌───────────────────┼──────────────────┐
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    │  Process mgmt  Memory mgmt  I/O subsystem │
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>    │  - tvorba/ukončení  - virtual memory   - VFS │
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    │  - plánování    - page replacement  - FS │
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    │  - IPC/signály  - kernel alloc   - device drivers │
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>    │                                            │
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    │       Interrupt service routines (ISR)     │
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    └────────────────────────────────────────────┘
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>                        |
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>                   Hardware
+</span></code></pre></div>
+<h3 id="vlastnosti-modernich-os">Vlastnosti moderních OS<a class="headerlink" href="#vlastnosti-modernich-os" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Vlastnost</th>
+<th>Popis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multitasking</strong> (víceúlohový)</td>
+<td>Běh více procesů se sdílením času CPU, ochrana paměti</td>
+</tr>
+<tr>
+<td><strong>Multithreading</strong> (vícevláknový)</td>
+<td>Proces se skládá z vláken; OS plánuje vlákna, ne jen procesy</td>
+</tr>
+<tr>
+<td><strong>Multi-user</strong> (víceuživatelský)</td>
+<td>Současná práce více uživatelů, vzájemná ochrana a identifikace</td>
+</tr>
+<tr>
+<td><strong>SMP</strong> (symetrický multiprocesor)</td>
+<td>Vlákna jádra i aplikací lze plánovat na různá jádra CPU</td>
+</tr>
+<tr>
+<td><strong>Přenositelnost</strong></td>
+<td>~90 % jádra napsáno v jazyce C, přenositelné mezi platformami</td>
+</tr>
+<tr>
+<td><strong>Licencování</strong></td>
+<td>Různé podmínky (open source, proprietární, copyleft, …)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="os-a-ruzne-typy-vypocetnich-systemu">OS a různé typy výpočetních systémů<a class="headerlink" href="#os-a-ruzne-typy-vypocetnich-systemu" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Typ zařízení</th>
+<th>Typické OS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vestavěná zařízení</td>
+<td>Linux, proprietární OS</td>
+</tr>
+<tr>
+<td>Chytrá zařízení</td>
+<td>Android, iOS, watchOS, tvOS</td>
+</tr>
+<tr>
+<td>Stolní počítače, notebooky</td>
+<td>MS Windows, macOS, Linux, ChromeOS</td>
+</tr>
+<tr>
+<td>Servery</td>
+<td>Linux, Solaris, HP-UX, AIX, MS Windows</td>
+</tr>
+<tr>
+<td>Superpočítače</td>
+<td>Linux, proprietární OS</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Tržní podíly OS (2024)</p>
+<table>
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>1. místo</th>
+<th>2. místo</th>
+<th>3. místo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Desktop PC</td>
+<td>MS Windows (73 %)</td>
+<td>macOS (14 %)</td>
+<td>Linux (4 %)</td>
+</tr>
+<tr>
+<td>Smartphone</td>
+<td>Android (74 %)</td>
+<td>iOS (26 %)</td>
+<td>ostatní</td>
+</tr>
+<tr>
+<td>Smart TV</td>
+<td>Tizen (13 %)</td>
+<td>VIDAA (8 %)</td>
+<td>WebOS (7 %)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="uzivatele-vypocetniho-systemu">Uživatelé výpočetního systému<a class="headerlink" href="#uzivatele-vypocetniho-systemu" title="Permanent link">&para;</a></h3>
+<p>Z hlediska způsobu používání rozlišujeme tři kategorie uživatelů:</p>
+<ul>
+<li><strong>Uživatel</strong> — běžný (přístup přes GUI, minimální znalosti OS) nebo pokročilý (CLI, skripty, API).</li>
+<li><strong>Správce</strong> — systémový (instalace, konfigurace HW a OS) nebo aplikační (správa konkrétních aplikací).</li>
+<li><strong>Vývojář</strong> — systémový (vyvíjí jádro, ovladače) nebo aplikační (vyvíjí aplikace).</li>
+</ul>
+<hr />
+<h2 id="os-z-pohledu-programatora-systemova-volani">OS z pohledu programátora: Systémová volání<a class="headerlink" href="#os-z-pohledu-programatora-systemova-volani" title="Permanent link">&para;</a></h2>
+<h3 id="co-os-programatorum-nabizi">Co OS programátorům nabízí?<a class="headerlink" href="#co-os-programatorum-nabizi" title="Permanent link">&para;</a></h3>
+<p>OS poskytuje programátorům <strong>ABI</strong> (Application Binary Interface) implementované prostřednictvím <strong>systémových volání</strong> (syscalls). Pro Linux na x86-64 platí tato konvence:</p>
+<ul>
+<li>Číslo systémového volání se uloží do registru <code>rax</code>.</li>
+<li>Argumenty se předávají v registrech <code>rdi</code>, <code>rsi</code>, <code>rdx</code>, <code>r10</code>, <code>r8</code>, <code>r9</code>.</li>
+<li>Systémové volání se vyvolá instrukcí <code>syscall</code>.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Výběr systémových volání Linux x86-64</p>
+<table>
+<thead>
+<tr>
+<th>rax</th>
+<th>Syscall</th>
+<th>Arg1 (rdi)</th>
+<th>Arg2 (rsi)</th>
+<th>Arg3 (rdx)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>read</code></td>
+<td>fd</td>
+<td>buf</td>
+<td>count</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>write</code></td>
+<td>fd</td>
+<td>buf</td>
+<td>count</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>open</code></td>
+<td>pathname</td>
+<td>flags</td>
+<td>mode</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>close</code></td>
+<td>fd</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>9</td>
+<td><code>mmap</code></td>
+<td>addr</td>
+<td>length</td>
+<td>prot</td>
+</tr>
+<tr>
+<td>57</td>
+<td><code>fork</code></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>60</td>
+<td><code>exit</code></td>
+<td>status</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>62</td>
+<td><code>kill</code></td>
+<td>pid</td>
+<td>sig</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>K dispozici jsou stovky systémových volání. Nad nimi jsou postaveny knihovní funkce.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>OS <strong>neposkytuje</strong> funkce jako <code>printf</code> — ty jsou součástí <em>knihovny</em> (libc). OS poskytuje pouze systémová volání, jako je <code>write</code>. Knihovní funkce jsou tenká nadstavba nad systémovými voláními.</p>
+</div>
+<h3 id="priklad-neprime-volani-systemoveho-volani-pres-knihovni-funkce">Příklad: nepřímé volání systémového volání (přes knihovní funkce)<a class="headerlink" href="#priklad-neprime-volani-systemoveho-volani-pres-knihovni-funkce" title="Permanent link">&para;</a></h3>
+<p>Tři ekvivalentní způsoby, jak vypsat řetězec v Linuxu:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;unistd.h&gt;</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/syscall.h&gt;</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="kt">char</span><span class="w"> </span><span class="n">msg</span><span class="p">[</span><span class="mi">14</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Hello world!</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;%s&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">);</span><span class="w">                           </span><span class="c1">// 1. Knihovní funkce (formátovaný výstup)</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="n">write</span><span class="p">(</span><span class="n">STDOUT_FILENO</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span><span class="w">               </span><span class="c1">// 2. Přímá obálka systémového volání</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">    </span><span class="n">syscall</span><span class="p">(</span><span class="n">__NR_write</span><span class="p">,</span><span class="w"> </span><span class="n">STDOUT_FILENO</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span><span class="w"> </span><span class="c1">// 3. Explicitní volání přes syscall()</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Porovnání přístupů:</p>
+<ul>
+<li><code>printf()</code> — sama sestaví výstupní řetězec a spočítá délku; nabízí formátovaný výstup.</li>
+<li><code>write()</code> — délku musíme zadat ručně; konstanta <code>STDOUT_FILENO</code> (hodnota 1) označuje standardní výstup (definováno standardem POSIX).</li>
+<li><code>syscall(__NR_write, ...)</code> — ukázka, jak volat systémové volání, pokud neexistuje odpovídající knihovní funkce; <code>__NR_write</code> má pro Linux x86-64 hodnotu 1.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Pojmenování</p>
+<p>Většina systémových volání má svůj ekvivalent v podobě knihovní funkce se <strong>stejným názvem</strong> (např. <code>write</code>, <code>read</code>, <code>open</code>). To může být matoucí — jde o dvě různé věci: funkce v libc a samotné systémové volání jádra.</p>
+</div>
+<h3 id="priklad-prime-volani-systemoveho-volani-assembler">Příklad: přímé volání systémového volání (assembler)<a class="headerlink" href="#priklad-prime-volani-systemoveho-volani-assembler" title="Permanent link">&para;</a></h3>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="nf">section</span><span class="w"> </span><span class="no">.rodata</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nl">msg:</span><span class="w"> </span><span class="nf">db</span><span class="w"> </span><span class="err">&quot;</span><span class="no">Hello</span><span class="w"> </span><span class="no">world</span><span class="p">!</span><span class="err">&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nf">global</span><span class="w"> </span><span class="no">_start</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nf">section</span><span class="w"> </span><span class="no">.text</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nl">_start:</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w">          </span><span class="c1">; číslo syscall: write (__NR_write)</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w">          </span><span class="c1">; STDOUT_FILENO</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rsi</span><span class="p">,</span><span class="w"> </span><span class="no">msg</span><span class="w">        </span><span class="c1">; ukazatel na zprávu</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdx</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="w">         </span><span class="c1">; délka zprávy (13 znaků)</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">  </span><span class="nf">syscall</span><span class="w">             </span><span class="c1">; &lt;- volání OS, přechod do kernel módu</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rax</span><span class="p">,</span><span class="w"> </span><span class="mi">60</span><span class="w">         </span><span class="c1">; číslo syscall: exit (__NR_exit)</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="w">  </span><span class="nf">mov</span><span class="w"> </span><span class="no">rdi</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w">          </span><span class="c1">; EXIT_SUCCESS</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="w">  </span><span class="nf">syscall</span><span class="w">             </span><span class="c1">; &lt;- volání OS</span>
+</span></code></pre></div>
+<p>Sestavení a linkování:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>nasm -f elf64 hello_world.s -o program.o
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>ld program.o -o program
+</span></code></pre></div>
+<p>Co se stane při vykonání instrukce <code>syscall</code>:</p>
+<ol>
+<li>CPU přepne do <strong>kernel módu</strong> (ring 0).</li>
+<li>Spustí se obslužná rutina v jádře OS.</li>
+<li>OS z registru <code>rax</code> pozná číslo požadované služby.</li>
+<li>OS ověří oprávnění a vykoná požadovanou operaci (nebo ji zamítne a ukončí proces).</li>
+</ol>
+<h3 id="shrnuti-mechanismu-systemoveho-volani">Shrnutí mechanismu systémového volání<a class="headerlink" href="#shrnuti-mechanismu-systemoveho-volani" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Toto je nejdůležitější část přednášky. Systémové volání je <strong>jediný způsob</strong>, jak uživatelský proces může legálně komunikovat s jádrem OS.</p>
+</div>
+<p>Aplikace:</p>
+<ul>
+<li>běží v <strong>user módu</strong> CPU — nemůže přímo přistupovat k prostředkům systému,</li>
+<li>pokud chce využít prostředek (soubor, síť, paměť, …), musí požádat jádro OS systémovým voláním.</li>
+</ul>
+<p>Mechanismus (na příkladu <code>write</code>):</p>
+<ol>
+<li>Aplikace zavolá knihovní funkci <code>write(fd, buf, N)</code>.</li>
+<li>Funkce uloží parametry do registrů dle ABI konvence (rax = číslo syscall, rdi = fd, rsi = buf, rdx = N).</li>
+<li>Vyvolá výjimku instrukcí <code>syscall</code> → CPU přepne do <strong>kernel módu</strong> a spustí obsluhu v jádře.</li>
+<li>Jádro OS ověří přístupová práva a pokusí se zapsat N bajtů.</li>
+<li>Vrátí výsledek a CPU se přepne zpět do <strong>user módu</strong>.</li>
+</ol>
+<h3 id="kviz-kdy-jadro-os-bezi">Kvíz: kdy jádro OS běží?<a class="headerlink" href="#kviz-kdy-jadro-os-bezi" title="Permanent link">&para;</a></h3>
+<p>Na základě všeho výše popsaného platí správná odpověď:</p>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Jádro OS běží <strong>při spuštění počítače</strong> (inicializace) a poté <strong>pouze při obsluze přerušení</strong> — tedy výhradně tehdy, kdy nastane:
+- systémové volání (synchronní výjimka instrukcí <code>syscall</code>),
+- přetečení časovače (vnější přerušení — viz plánování vláken),
+- výpadek stránky (výjimka — viz virtuální paměť),
+- jiné přerušení od periferie nebo HW/SW chyba.</p>
+<p>Jádro OS <strong>neběží</strong> nepřetržitě na pozadí a <strong>aktivně nemonitoruje</strong> procesy. Nespouští se ani po každém volání knihovní funkce — většina knihovních funkcí systémové volání nevyvolá.</p>
+</div>
+<p>Po inicializaci (vytvoření stránkovacích tabulek, nastavení přerušení, připojení kořenového FS) OS přepne do user módu a spustí první proces — v Linuxu je to <code>systemd</code> (process init). Od té chvíle OS zasahuje výhradně jako reakce na přerušení.</p>
+<hr />
+<h2 id="shrnuti">Shrnutí<a class="headerlink" href="#shrnuti" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Výpočetní systém tvoří CPU (s ISA a privilegovanými módy), RAM, NVRAM a periferní zařízení propojená základní deskou.</li>
+<li>CPU definuje dva klíčové privilegované módy: <strong>kernel mód</strong> (vše povoleno) a <strong>user mód</strong> (omezený přístup).</li>
+<li><strong>Vnější přerušení</strong> jsou asynchronní (od HW); <strong>výjimky</strong> jsou synchronní (vznikají při vykonávání instrukce).</li>
+<li>Bez OS musí programátor znát fyzické adresy VGA bufferu, I/O porty a formáty dat — kód není přenositelný.</li>
+<li>S OS programátor pracuje přes abstrakce (soubory, procesy, sockety); přenositelnost zajistí standardní ABI.</li>
+<li><strong>Operační systém</strong> je prostředník mezi HW a aplikacemi — spravuje prostředky a poskytuje rozhraní.</li>
+<li><strong>Systémové volání</strong> je jediný způsob, jak user mód může požádat jádro OS o privilegovanou operaci.</li>
+<li>Na x86-64/Linux se syscall vyvolá instrukcí <code>syscall</code>; číslo služby je v <code>rax</code>, argumenty v <code>rdi</code>, <code>rsi</code>, <code>rdx</code>, …</li>
+<li>Jádro OS <strong>neběží</strong> nepřetržitě — spouští se pouze při přerušeních (syscall, časovač, výpadek stránky, HW přerušení).</li>
+<li>Moderní OS jsou multitaskingové, víceuživatelské, vícevláknové a přenositelné (~90 % v jazyce C).</li>
+</ul>
+<hr />
+<h2 id="klicove-pojmy">Klíčové pojmy<a class="headerlink" href="#klicove-pojmy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>CPU</strong> (Central Processing Unit) — primární procesor počítače, implementuje ISA.</li>
+<li><strong>ISA</strong> (Instruction Set Architecture) — architektura souboru instrukcí definující instrukce, registry a organizaci paměti/I/O.</li>
+<li><strong>Kernel mód</strong> — privilegovaný režim CPU, v němž běží jádro OS; vše je povoleno.</li>
+<li><strong>User mód</strong> — omezený režim CPU pro uživatelské procesy; přímý přístup k I/O ani ke správě paměti není povolen.</li>
+<li><strong>Ring 0</strong> — nejvyšší privilegovaný stupeň v x86-64 (= kernel mód).</li>
+<li><strong>Ring 3</strong> — nejnižší privilegovaný stupeň v x86-64 (= user mód pro aplikace).</li>
+<li><strong>Přerušení</strong> (interrupt) — asynchronní reakce CPU na vnější událost (I/O dokončení, přetečení časovače, HW chyba).</li>
+<li><strong>Výjimka</strong> (exception) — synchronní přerušení vzniklé při zpracování instrukce (syscall, dělení nulou, výpadek stránky).</li>
+<li><strong>Reset vector</strong> — předem definovaná fyzická adresa, od níž CPU po resetu začíná vykonávat kód.</li>
+<li><strong>Real mode</strong> (reálný 16-bitový režim) — počáteční režim x86-64 po resetu; 20-bitový fyzický adresní prostor.</li>
+<li><strong>Protected mode</strong> (chráněný 32-bitový režim) — umožňuje privilegované módy, stránkování a virtuální paměť.</li>
+<li><strong>Long mode</strong> (64-bitový režim) — plnohodnotný 64-bitový mód procesoru x86-64.</li>
+<li><strong>RAM</strong> (Random-Access Memory) — hlavní operační paměť; volatile, obsahuje jádro OS a běžící procesy.</li>
+<li><strong>Cache</strong> — skrytá paměť uvnitř CPU (L1/L2/L3); maskuje latenci hlavní paměti.</li>
+<li><strong>NVRAM / Flash</strong> — non-volatile paměť pro firmware (BIOS, UEFI) a konfiguraci HW.</li>
+<li><strong>BIOS</strong> (Basic Input-Output System) — firmware pro inicializaci HW a bootování; starší standard.</li>
+<li><strong>UEFI</strong> (Unified Extensible Firmware Interface) — moderní náhrada BIOSu s rozšířenými možnostmi.</li>
+<li><strong>Boot sektor</strong> (MBR) — první sektor bootovacího zařízení (512 B); obsahuje bootstrap kód a podpisový bajt <code>0xAA55</code>.</li>
+<li><strong>Bootovací signatura</strong> — hodnoty <code>0x55 0xAA</code> na offsetech 510–511 boot sektoru, podle nichž BIOS rozpozná bootovatelné médium.</li>
+<li><strong>Sběrnice</strong> (bus) — přenosové médium pro data a řídicí povely mezi částmi systému (PCIe, SATA, USB).</li>
+<li><strong>Memory-mapped I/O</strong> — přístup k I/O zařízením přes paměťový adresní prostor (instrukce <code>mov</code>, <code>ldr</code>, …).</li>
+<li><strong>I/O prostor</strong> (port-mapped I/O) — přístup k I/O zařízením přes speciální instrukce (<code>in</code>, <code>out</code> na x86-64).</li>
+<li><strong>BARs</strong> (Base Address Registers) — registry PCI/PCIe zařízení umožňující dynamické přiřazení adres a portů.</li>
+<li><strong>Scancode</strong> — kód vrácený klávesnicí (port <code>0x60</code>), reprezentující stisk nebo uvolnění klávesy; není to ASCII.</li>
+<li><strong>VGA framebuffer</strong> — textový video buffer grafické karty dostupný na adrese <code>0xB8000</code> v reálném režimu.</li>
+<li><strong>Operační systém</strong> (OS) — základní software, prostředník mezi HW a aplikacemi; spravuje prostředky a poskytuje rozhraní.</li>
+<li><strong>Jádro OS</strong> (kernel) — část OS běžící v kernel módu; implementuje správu I/O, procesů, paměti, FS a sítě.</li>
+<li><strong>Démon</strong> (daemon) — systémová služba běžící v user módu na pozadí, komunikující s jádrem přes syscalls.</li>
+<li><strong>ISA (SW)</strong> — rozhraní mezi HW a SW; dělí se na System ISA (pro kernel) a User ISA (pro aplikace).</li>
+<li><strong>ABI</strong> (Application Binary Interface) — binární rozhraní mezi aplikacemi a jádrem OS; implementováno syscalls.</li>
+<li><strong>API</strong> (Application Programming Interface) — rozhraní mezi aplikacemi a knihovnami; volání knihovních funkcí.</li>
+<li><strong>CLI</strong> (Command Line Interface) — textové uživatelské rozhraní (příkazová řádka).</li>
+<li><strong>GUI</strong> (Graphical User Interface) — grafické uživatelské rozhraní.</li>
+<li><strong>Systémové volání</strong> (syscall) — mechanismus, jímž uživatelský proces žádá jádro OS o privilegovanou operaci; na x86-64 instrukce <code>syscall</code>, číslo služby v <code>rax</code>.</li>
+<li><strong>libc</strong> (glibc) — standardní knihovna jazyka C; obsahuje obálky systémových volání (<code>write</code>, <code>read</code>, …) i vyšší funkce (<code>printf</code>, <code>malloc</code>, …).</li>
+<li><strong>POSIX</strong> — standard definující přenositelné rozhraní unixových OS (čísla file descriptorů, názvy syscalls, …).</li>
+<li><strong>Multitasking</strong> — schopnost OS spouštět více procesů zdánlivě současně prostřednictvím sdílení času CPU.</li>
+<li><strong>Multithreading</strong> — schopnost procesu obsahovat více souběžně plánovaných vláken.</li>
+<li><strong>SMP</strong> (Symmetric Multi-Processing) — podpora více CPU jader, na nichž OS plánuje vlákna paralelně.</li>
+<li><strong>ISR</strong> (Interrupt Service Routine) — obslužná rutina přerušení/výjimky vykonávaná jádrem OS v kernel módu.</li>
+<li><strong>Výpadek stránky</strong> (page fault) — výjimka vzniklá přístupem na virtuální adresu, k níž není namapována fyzická stránka; řeší ji správa paměti v jádře.</li>
+<li><strong>strace</strong> — linuxový nástroj pro sledování systémových volání volaných z procesu (<code>strace date</code>).</li>
+<li><strong>truss</strong> — solarisový ekvivalent <code>strace</code>.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Přehled kapitol">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Přehled kapitol
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../02-procesy-vlakna/" class="md-footer__link md-footer__link--next" aria-label="Další: Procesy a vlákna">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Procesy a vlákna
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

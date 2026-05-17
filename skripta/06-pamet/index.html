@@ -1,0 +1,3867 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/skripta/06-pamet/">
+      
+      
+        <link rel="prev" href="../05-planovani/">
+      
+      
+        <link rel="next" href="../07-souborove-systemy/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Správa paměti - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fyzicka-organizace-pameti" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Správa paměti
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../otazky/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fyzicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fyzická organizace paměti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fyzická organizace paměti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchická organizace paměti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skryta-pamet-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skrytá paměť (cache)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zakladni-pojmy-preklad-sestaveni-a-linkovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Základní pojmy: překlad, sestavení a linkování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Základní pojmy: překlad, sestavení a linkování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#predzpracovani-a-kompilace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Předzpracování a kompilace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sestavovani-assembling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sestavování — Assembling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linkovani-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linkování — Linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logická organizace paměti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logická organizace paměti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtualni-adresni-prostor-vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální adresní prostor (VAS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmenty-virtualniho-adresniho-prostoru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmenty virtuálního adresního prostoru
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zavedeni-programu-do-pameti-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zavedení programu do paměti — Loading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zavedení programu do paměti — Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-absolutni-zavedeni-absolute-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Absolutní zavedení (absolute loading)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-premistitelne-zavedeni-s-relokacni-tabulkou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Přemístitelné zavedení s relokační tabulkou
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-premistitelne-zavedeni-s-bazovym-registrem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Přemístitelné zavedení s bázovým registrem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dynamicke-zavedeni-za-behu-se-strankovanim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Dynamické zavedení za běhu se stránkováním
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dynamicke-zavedeni-se-strankovanim-a-dynamickymi-knihovnami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Dynamické zavedení se stránkováním a dynamickými knihovnami
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zavedeni-programu-v-praxi-elf-a-execve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zavedení programu v praxi: ELF a execve()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zavedení programu v praxi: ELF a execve()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struktura-elf-souboru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struktura ELF souboru
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prubeh-systemoveho-volani-execve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Průběh systémového volání execve()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-memory-areas-vma-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Memory Areas (VMA) v Linuxu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-volne-fyzicke-pameti-dynamicke-oblasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa volné fyzické paměti: dynamické oblasti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Správa volné fyzické paměti: dynamické oblasti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprava-volne-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa volné paměti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemy-dynamickych-oblasti-a-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problémy dynamických oblastí a řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualni-pamet-a-strankovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální paměť a stránkování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtuální paměť a stránkování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#princip-strankovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Princip stránkování
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#struktura-virtualni-a-fyzicke-adresy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struktura virtuální a fyzické adresy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management-unit-mmu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Management Unit (MMU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preklad-virtualnich-adres-na-fyzicke-strankovaci-tabulky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Překlad virtuálních adres na fyzické — stránkovací tabulky
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Překlad virtuálních adres na fyzické — stránkovací tabulky">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jednourovnova-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jednoúrovňová stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viceurovnova-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Víceúrovňová stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invertovana-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invertovaná stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translation-lookaside-buffer-tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translation Lookaside Buffer (TLB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-haldy-heap-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa haldy (heap) v Linuxu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Správa haldy (heap) v Linuxu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#areny-v-glibc-pro-vicevlaknove-programy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arény v glibc (pro vícevláknové programy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmy-pro-nahradu-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmy pro náhradu stránek
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algoritmy pro náhradu stránek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#princip-lokality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Princip lokality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nru-algoritmus-not-recently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NRU algoritmus (Not Recently Used)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo-algoritmus-first-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIFO algoritmus (First-In First-Out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clock-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lru-algoritmus-least-recently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LRU algoritmus (Least Recently Used)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aging-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aging algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxovy-algoritmus-nahrady-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linuxový algoritmus náhrady stránek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aktualizace-strankovacich-tabulek-reverzni-mapovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktualizace stránkovacích tabulek — reverzní mapování
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-fyzicke-pameti-souvisle-oblasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa fyzické paměti — souvislé oblasti
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navrh-systemu-se-strankovanim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Návrh systémů se stránkováním
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Návrh systémů se stránkováním">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-sdilet-pamet-mezi-procesy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak sdílet paměť mezi procesy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-implementovat-adresni-prostor-jadra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak implementovat adresní prostor jádra?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdy-nahrat-stranku-do-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kdy nahrát stránku do paměti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kolik-ramcu-pridelit-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kolik rámců přidělit procesu?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kolik-procesu-soucasne-v-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kolik procesů současně v paměti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co-delat-kdyz-dochazi-pamet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co dělat, když dochází paměť?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podpora-vice-velikosti-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podpora více velikostí stránek
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#fyzicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fyzická organizace paměti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Fyzická organizace paměti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hierarchicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hierarchická organizace paměti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#skryta-pamet-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Skrytá paměť (cache)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zakladni-pojmy-preklad-sestaveni-a-linkovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Základní pojmy: překlad, sestavení a linkování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Základní pojmy: překlad, sestavení a linkování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#predzpracovani-a-kompilace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Předzpracování a kompilace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sestavovani-assembling" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sestavování — Assembling
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linkovani-linking" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linkování — Linking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#logicka-organizace-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Logická organizace paměti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Logická organizace paměti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtualni-adresni-prostor-vas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální adresní prostor (VAS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#segmenty-virtualniho-adresniho-prostoru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Segmenty virtuálního adresního prostoru
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zavedeni-programu-do-pameti-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zavedení programu do paměti — Loading
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zavedení programu do paměti — Loading">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-absolutni-zavedeni-absolute-loading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Absolutní zavedení (absolute loading)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-premistitelne-zavedeni-s-relokacni-tabulkou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Přemístitelné zavedení s relokační tabulkou
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-premistitelne-zavedeni-s-bazovym-registrem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Přemístitelné zavedení s bázovým registrem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-dynamicke-zavedeni-za-behu-se-strankovanim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Dynamické zavedení za běhu se stránkováním
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-dynamicke-zavedeni-se-strankovanim-a-dynamickymi-knihovnami" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Dynamické zavedení se stránkováním a dynamickými knihovnami
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#zavedeni-programu-v-praxi-elf-a-execve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zavedení programu v praxi: ELF a execve()
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Zavedení programu v praxi: ELF a execve()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#struktura-elf-souboru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struktura ELF souboru
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prubeh-systemoveho-volani-execve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Průběh systémového volání execve()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtual-memory-areas-vma-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtual Memory Areas (VMA) v Linuxu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-volne-fyzicke-pameti-dynamicke-oblasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa volné fyzické paměti: dynamické oblasti
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Správa volné fyzické paměti: dynamické oblasti">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sprava-volne-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa volné paměti
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problemy-dynamickych-oblasti-a-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problémy dynamických oblastí a řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtualni-pamet-a-strankovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální paměť a stránkování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Virtuální paměť a stránkování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#princip-strankovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Princip stránkování
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#struktura-virtualni-a-fyzicke-adresy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Struktura virtuální a fyzické adresy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-management-unit-mmu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Memory Management Unit (MMU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preklad-virtualnich-adres-na-fyzicke-strankovaci-tabulky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Překlad virtuálních adres na fyzické — stránkovací tabulky
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Překlad virtuálních adres na fyzické — stránkovací tabulky">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jednourovnova-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jednoúrovňová stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viceurovnova-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Víceúrovňová stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#invertovana-strankovaci-tabulka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Invertovaná stránkovací tabulka
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#translation-lookaside-buffer-tlb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Translation Lookaside Buffer (TLB)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-haldy-heap-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa haldy (heap) v Linuxu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Správa haldy (heap) v Linuxu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#areny-v-glibc-pro-vicevlaknove-programy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arény v glibc (pro vícevláknové programy)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#algoritmy-pro-nahradu-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Algoritmy pro náhradu stránek
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Algoritmy pro náhradu stránek">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#princip-lokality" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Princip lokality
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nru-algoritmus-not-recently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NRU algoritmus (Not Recently Used)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fifo-algoritmus-first-in-first-out" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FIFO algoritmus (First-In First-Out)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#clock-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Clock algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lru-algoritmus-least-recently-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LRU algoritmus (Least Recently Used)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aging-algoritmus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aging algoritmus
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#linuxovy-algoritmus-nahrady-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Linuxový algoritmus náhrady stránek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aktualizace-strankovacich-tabulek-reverzni-mapovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktualizace stránkovacích tabulek — reverzní mapování
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-fyzicke-pameti-souvisle-oblasti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa fyzické paměti — souvislé oblasti
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#navrh-systemu-se-strankovanim" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Návrh systémů se stránkováním
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Návrh systémů se stránkováním">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#jak-sdilet-pamet-mezi-procesy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak sdílet paměť mezi procesy?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#jak-implementovat-adresni-prostor-jadra" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Jak implementovat adresní prostor jádra?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdy-nahrat-stranku-do-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kdy nahrát stránku do paměti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kolik-ramcu-pridelit-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kolik rámců přidělit procesu?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kolik-procesu-soucasne-v-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kolik procesů současně v paměti?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#co-delat-kdyz-dochazi-pamet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co dělat, když dochází paměť?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podpora-vice-velikosti-stranek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podpora více velikostí stránek
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sprava-pameti">Správa paměti<a class="headerlink" href="#sprava-pameti" title="Permanent link">&para;</a></h1>
+<p>Tato kapitola spojuje tři přednášky věnované správě paměti v operačních systémech. Začínáme od fyzické organizace paměti a hierarchie cache, pokračujeme přes proces přeložení a sestavení programu až po logickou organizaci virtuálního adresního prostoru. Poté se věnujeme virtuální paměti se stránkováním, překladu adres pomocí MMU a TLB, a kapitolu uzavírají algoritmy pro náhradu stránek, které jsou klíčovým tématem u zkoušky.</p>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#fyzicka-organizace-pameti">Fyzická organizace paměti</a><ul>
+<li><a href="#hierarchicka-organizace-pameti">Hierarchická organizace paměti</a></li>
+<li><a href="#skryta-pamet-cache">Skrytá paměť (cache)</a></li>
+</ul>
+</li>
+<li><a href="#zakladni-pojmy-preklad-sestaveni-a-linkovani">Základní pojmy: překlad, sestavení a linkování</a><ul>
+<li><a href="#predzpracovani-a-kompilace">Předzpracování a kompilace</a></li>
+<li><a href="#sestavovani-assembling">Sestavování — Assembling</a></li>
+<li><a href="#linkovani-linking">Linkování — Linking</a></li>
+</ul>
+</li>
+<li><a href="#logicka-organizace-pameti">Logická organizace paměti</a><ul>
+<li><a href="#virtualni-adresni-prostor-vas">Virtuální adresní prostor (VAS)</a></li>
+<li><a href="#segmenty-virtualniho-adresniho-prostoru">Segmenty virtuálního adresního prostoru</a></li>
+</ul>
+</li>
+<li><a href="#zavedeni-programu-do-pameti-loading">Zavedení programu do paměti — Loading</a><ul>
+<li><a href="#1-absolutni-zavedeni-absolute-loading">1. Absolutní zavedení (absolute loading)</a></li>
+<li><a href="#2-premistitelne-zavedeni-s-relokacni-tabulkou">2. Přemístitelné zavedení s relokační tabulkou</a></li>
+<li><a href="#3-premistitelne-zavedeni-s-bazovym-registrem">3. Přemístitelné zavedení s bázovým registrem</a></li>
+<li><a href="#4-dynamicke-zavedeni-za-behu-se-strankovanim">4. Dynamické zavedení za běhu se stránkováním</a></li>
+<li><a href="#5-dynamicke-zavedeni-se-strankovanim-a-dynamickymi-knihovnami">5. Dynamické zavedení se stránkováním a dynamickými knihovnami</a></li>
+</ul>
+</li>
+<li><a href="#zavedeni-programu-v-praxi-elf-a-execve">Zavedení programu v praxi: ELF a execve()</a><ul>
+<li><a href="#struktura-elf-souboru">Struktura ELF souboru</a></li>
+<li><a href="#prubeh-systemoveho-volani-execve">Průběh systémového volání execve()</a></li>
+<li><a href="#virtual-memory-areas-vma-v-linuxu">Virtual Memory Areas (VMA) v Linuxu</a></li>
+</ul>
+</li>
+<li><a href="#sprava-volne-fyzicke-pameti-dynamicke-oblasti">Správa volné fyzické paměti: dynamické oblasti</a><ul>
+<li><a href="#sprava-volne-pameti">Správa volné paměti</a></li>
+<li><a href="#problemy-dynamickych-oblasti-a-reseni">Problémy dynamických oblastí a řešení</a></li>
+</ul>
+</li>
+<li><a href="#virtualni-pamet-a-strankovani">Virtuální paměť a stránkování</a><ul>
+<li><a href="#princip-strankovani">Princip stránkování</a></li>
+<li><a href="#struktura-virtualni-a-fyzicke-adresy">Struktura virtuální a fyzické adresy</a></li>
+<li><a href="#memory-management-unit-mmu">Memory Management Unit (MMU)</a></li>
+</ul>
+</li>
+<li><a href="#preklad-virtualnich-adres-na-fyzicke-strankovaci-tabulky">Překlad virtuálních adres na fyzické — stránkovací tabulky</a><ul>
+<li><a href="#jednourovnova-strankovaci-tabulka">Jednoúrovňová stránkovací tabulka</a></li>
+<li><a href="#viceurovnova-strankovaci-tabulka">Víceúrovňová stránkovací tabulka</a></li>
+<li><a href="#invertovana-strankovaci-tabulka">Invertovaná stránkovací tabulka</a></li>
+<li><a href="#translation-lookaside-buffer-tlb">Translation Lookaside Buffer (TLB)</a></li>
+</ul>
+</li>
+<li><a href="#sprava-haldy-heap-v-linuxu">Správa haldy (heap) v Linuxu</a><ul>
+<li><a href="#areny-v-glibc-pro-vicevlaknove-programy">Arény v glibc (pro vícevláknové programy)</a></li>
+</ul>
+</li>
+<li><a href="#algoritmy-pro-nahradu-stranek">Algoritmy pro náhradu stránek</a><ul>
+<li><a href="#princip-lokality">Princip lokality</a></li>
+<li><a href="#optimalni-algoritmus">Optimální algoritmus</a></li>
+<li><a href="#nru-algoritmus-not-recently-used">NRU algoritmus (Not Recently Used)</a></li>
+<li><a href="#fifo-algoritmus-first-in-first-out">FIFO algoritmus (First-In First-Out)</a></li>
+<li><a href="#clock-algoritmus">Clock algoritmus</a></li>
+<li><a href="#lru-algoritmus-least-recently-used">LRU algoritmus (Least Recently Used)</a></li>
+<li><a href="#aging-algoritmus">Aging algoritmus</a></li>
+<li><a href="#linuxovy-algoritmus-nahrady-stranek">Linuxový algoritmus náhrady stránek</a></li>
+<li><a href="#aktualizace-strankovacich-tabulek-reverzni-mapovani">Aktualizace stránkovacích tabulek — reverzní mapování</a></li>
+</ul>
+</li>
+<li><a href="#sprava-fyzicke-pameti-souvisle-oblasti">Správa fyzické paměti — souvislé oblasti</a></li>
+<li><a href="#navrh-systemu-se-strankovanim">Návrh systémů se stránkováním</a><ul>
+<li><a href="#jak-sdilet-pamet-mezi-procesy">Jak sdílet paměť mezi procesy?</a></li>
+<li><a href="#jak-implementovat-adresni-prostor-jadra">Jak implementovat adresní prostor jádra?</a></li>
+<li><a href="#kdy-nahrat-stranku-do-pameti">Kdy nahrát stránku do paměti?</a></li>
+<li><a href="#kolik-ramcu-pridelit-procesu">Kolik rámců přidělit procesu?</a></li>
+<li><a href="#kolik-procesu-soucasne-v-pameti">Kolik procesů současně v paměti?</a></li>
+<li><a href="#co-delat-kdyz-dochazi-pamet">Co dělat, když dochází paměť?</a></li>
+<li><a href="#podpora-vice-velikosti-stranek">Podpora více velikostí stránek</a></li>
+</ul>
+</li>
+<li><a href="#shrnuti">Shrnutí</a></li>
+<li><a href="#klicove-pojmy">Klíčové pojmy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="fyzicka-organizace-pameti">Fyzická organizace paměti<a class="headerlink" href="#fyzicka-organizace-pameti" title="Permanent link">&para;</a></h2>
+<p><strong>Hlavní paměť</strong> (main memory) je fyzická paměť instalovaná v počítači. Realizuje se technologií <strong>DRAM</strong> (Dynamic Random-Access Memory), která ke skladování bitů využívá kondenzátory. Paměťové moduly (DDR4, DDR5) se osazují přímo na základní desku. Nejmenší adresovatelnou jednotkou je byte — každý byte má svou vlastní fyzickou adresu. Procesor k paměti přistupuje instrukcemi load/store (na x86-64 je to instrukce <code>mov</code>, na RISC-V <code>lw</code> a <code>sw</code>).</p>
+<p>Hlavní paměť je primárním úložištěm pro běžící procesy, operační systém a aktivně zpracovávaná data.</p>
+<h3 id="hierarchicka-organizace-pameti">Hierarchická organizace paměti<a class="headerlink" href="#hierarchicka-organizace-pameti" title="Permanent link">&para;</a></h3>
+<p>Výkon moderních procesorů narostl natolik, že přímý přístup do hlavní paměti (latence ~50 ns) by CPU zbytečně zdržoval. Proto má fyzická paměť <strong>hierarchickou organizaci</strong> — mezi CPU a hlavní pamětí leží několik úrovní <strong>skrytých pamětí</strong> (cache), které minimalizují průměrný čas přístupu.</p>
+<table>
+<thead>
+<tr>
+<th>Typ paměti</th>
+<th>Velikost</th>
+<th>Čas přístupu</th>
+<th>Kdo spravuje</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Registry CPU</td>
+<td>1–2 KB</td>
+<td>&lt; 1 ns</td>
+<td>Překladač/programátor</td>
+</tr>
+<tr>
+<td>L1 cache</td>
+<td>32–128 KB</td>
+<td>~1 ns</td>
+<td>HW</td>
+</tr>
+<tr>
+<td>L2 cache</td>
+<td>256 KB – 2 MB</td>
+<td>~5 ns</td>
+<td>HW</td>
+</tr>
+<tr>
+<td>L3 cache</td>
+<td>4–64 MB</td>
+<td>~10 ns</td>
+<td>HW</td>
+</tr>
+<tr>
+<td>Hlavní paměť</td>
+<td>4 GB – 16 TB</td>
+<td>~50 ns</td>
+<td>OS</td>
+</tr>
+<tr>
+<td>SSD</td>
+<td>250 GB – 4 TB</td>
+<td>~0,1 ms</td>
+<td>OS/procesy</td>
+</tr>
+<tr>
+<td>HDD</td>
+<td>1 TB – 16 TB</td>
+<td>~10 ms</td>
+<td>OS/procesy</td>
+</tr>
+<tr>
+<td>Flash paměť</td>
+<td>4 GB – 4 TB</td>
+<td>~100 ms</td>
+<td>OS/procesy</td>
+</tr>
+<tr>
+<td>Páska</td>
+<td>500 GB – 16 TB</td>
+<td>&gt; 1 s</td>
+<td>OS/procesy</td>
+</tr>
+</tbody>
+</table>
+<h3 id="skryta-pamet-cache">Skrytá paměť (cache)<a class="headerlink" href="#skryta-pamet-cache" title="Permanent link">&para;</a></h3>
+<p>Skrytá paměť leží na cestě mezi CPU a hlavní pamětí a ukládá nedávno používaná data a instrukce. Instrukce load/store přitom neví, zda čtou z cache nebo přímo z hlavní paměti — toto rozhodnutí dělá hardware transparentně.</p>
+<p>Cache funguje na základě dvou principů:</p>
+<ul>
+<li><strong>Časová lokalita</strong> (temporal locality): data, ke kterým bylo přistupováno nedávno, budou s vysokou pravděpodobností potřeba i v blízké budoucnosti.</li>
+<li><strong>Prostorová lokalita</strong> (spatial locality): data v blízkosti aktuálně používaných dat budou brzy potřeba — cache proto při miss načítá nejen požadovaný byte, ale celou cache line (blok okolních dat).</li>
+</ul>
+<h4 id="vykonnostni-parametry-cache">Výkonnostní parametry cache<a class="headerlink" href="#vykonnostni-parametry-cache" title="Permanent link">&para;</a></h4>
+<p>Pro popis výkonu cache se používají tyto veličiny:</p>
+<ul>
+<li><strong>cache hit</strong> (<code>n_h</code>): počet přístupů, kdy data v cache byla</li>
+<li><strong>cache miss</strong> (<code>n_m</code>): počet přístupů, kdy data v cache chyběla</li>
+<li><strong>hit ratio</strong>: <code>r_h = n_h / (n_h + n_m)</code></li>
+<li><strong>průměrný čas přístupu</strong>: <code>t_avg = r_h * t_h + (1 - r_h) * t_m</code></li>
+</ul>
+<p><img alt="Výkonnostní parametry cache a diagram přístupu" src="../img/p07-s06-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Příklad výpočtu průměrné doby přístupu</p>
+<p>Uvažujme L1 cache s <code>t_h = 1 ns</code> a hlavní paměť s <code>t_m = 50 ns</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Hit ratio <code>r_h</code></th>
+<th>Průměrný čas <code>t_avg</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1,00</td>
+<td>1 ns</td>
+</tr>
+<tr>
+<td>0,91</td>
+<td>5,41 ns</td>
+</tr>
+<tr>
+<td>0,81</td>
+<td>10,31 ns</td>
+</tr>
+<tr>
+<td>0,00</td>
+<td>50 ns</td>
+</tr>
+</tbody>
+</table>
+<p>Vidíme, že i malý pokles hit ratio dramaticky prodlužuje průměrný čas přístupu. Hit ratio 0,91 (91 %) znamená <code>t_avg</code> více než 5× delší než při plném hitu.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Monitorování cache na CPU</p>
+<p>Moderní procesory nabízejí hardwarové čítače pro sledování počtu cache referencí a cache missů (např. na Solarisu příkaz <code>cpustat -c EC_ref,EC_misses</code>). Tyto informace lze využít k optimalizaci přístupu k datům v aplikaci.</p>
+</div>
+<hr />
+<h2 id="zakladni-pojmy-preklad-sestaveni-a-linkovani">Základní pojmy: překlad, sestavení a linkování<a class="headerlink" href="#zakladni-pojmy-preklad-sestaveni-a-linkovani" title="Permanent link">&para;</a></h2>
+<p>Než se program ocitne v paměti, prochází řetězcem zpracování. Znalost těchto kroků je nezbytná pro pochopení toho, jak vznikají virtuální adresy a jak se program zavede do paměti.</p>
+<h3 id="predzpracovani-a-kompilace">Předzpracování a kompilace<a class="headerlink" href="#predzpracovani-a-kompilace" title="Permanent link">&para;</a></h3>
+<p><strong>Preprocesor</strong> zpracuje direktivy jako <code>#include</code> a makra (<code>#define</code>, <code>#ifdef</code>). Výsledkem je předzpracovaný zdrojový soubor. <strong>Kompilátor</strong> jej přeloží do assembly kódu (textový soubor s instrukcemi), ve kterém mohou zůstat nevyřešené symboly odkazující na funkce nebo data definovaná v jiném souboru.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>gcc -E main.c -o main.i    # jen preprocesor
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>gcc -O2 -S main.i -o main.s  # přeložení do assembly
+</span></code></pre></div>
+<h3 id="sestavovani-assembling">Sestavování — Assembling<a class="headerlink" href="#sestavovani-assembling" title="Permanent link">&para;</a></h3>
+<p><strong>Assembler</strong> převede assembly kód do <strong>objektového souboru</strong> (<code>.o</code>), který je již v binárním formátu. Objektový soubor ale stále obsahuje <strong>nevyřešené symboly</strong> (external symbols) — adresy funkcí a dat, která jsou definována jinde. Každá sekce objektového souboru začíná od adresy 0. Obsah lze prohlédnout příkazem <code>objdump -d main.o</code>, tabulku symbolů pak <code>objdump -t main.o</code>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>as main.s -o main.o         # nebo: nasm -f elf64 main.asm -o main.o
+</span></code></pre></div>
+<h3 id="linkovani-linking">Linkování — Linking<a class="headerlink" href="#linkovani-linking" title="Permanent link">&para;</a></h3>
+<p><strong>Linker</strong> sloučí jeden nebo více objektových modulů do jednoho <strong>spustitelného modulu</strong> (load module). Symbolické adresy musí být nahrazeny adresami v rámci spustitelného modulu a vyřeší se (zatím možné) nevyřešené symboly.</p>
+<p>Rozlišujeme:</p>
+<p><strong>1. Statické linkování</strong> (static linking): linker vytvoří jeden samostatný spustitelný soubor, který obsahuje vše potřebné. Program se spouští bez závislostí na externích knihovnách — ty jsou přímo součástí spustitelného souboru.</p>
+<p><strong>2. Dynamické linkování</strong> (dynamic linking): spustitelný soubor obsahuje pouze odkazy na dynamické knihovny (<code>.so</code> v Linuxu, <code>.dll</code> ve Windows). Procesy sdílejí jednu instanci každé knihovny v paměti, což šetří místo. Rozlišují se dvě varianty:
+  - <strong>Load-time dynamic linking</strong>: symboly z dynamických knihoven se vyřeší při zavádění programu do paměti.
+  - <strong>Run-time dynamic linking</strong>: symboly se vyřeší až při prvním volání (lazy binding — výchozí v Linuxu). Programátor může explicitně volat <code>dlopen()</code> (Unix) nebo <code>LoadLibraryA()</code> (Windows).</p>
+<div class="admonition info">
+<p class="admonition-title">Formáty souborů</p>
+<p>Formát objektových i spustitelných modulů závisí na OS. V Linuxu se používá formát <strong>ELF</strong> (Executable and Linkable Format), ve Windows <strong>PE/PE32+</strong> (Portable Executable).</p>
+</div>
+<hr />
+<h2 id="logicka-organizace-pameti">Logická organizace paměti<a class="headerlink" href="#logicka-organizace-pameti" title="Permanent link">&para;</a></h2>
+<h3 id="virtualni-adresni-prostor-vas">Virtuální adresní prostor (VAS)<a class="headerlink" href="#virtualni-adresni-prostor-vas" title="Permanent link">&para;</a></h3>
+<p><strong>Virtuální adresní prostor</strong> (VAS — Virtual Address Space) je klíčovou abstrakcí správy paměti. Každý proces dostane svůj vlastní VAS, a tak pracuje s virtuálními adresami, jako by měl celou paměť jen pro sebe. Instrukce load/store generují virtuální adresy, které jsou HW a OS automaticky překládány na fyzické.</p>
+<p>Výhody VAS:
+- <strong>Ochrana paměti</strong>: proces nemůže číst ani modifikovat data jiného procesu; pád jednoho procesu neovlivní ostatní.
+- <strong>Jednodušší zavádění</strong>: program lze zavést do libovolné volné oblasti fyzické paměti bez přepočítávání adres.</p>
+<p>Nevýhody VAS:
+- Překlad adres vyžaduje hardwarovou i softwarovou podporu — zvyšuje složitost.
+- Překlad adres přináší drobné časové zpoždění.</p>
+<h3 id="segmenty-virtualniho-adresniho-prostoru">Segmenty virtuálního adresního prostoru<a class="headerlink" href="#segmenty-virtualniho-adresniho-prostoru" title="Permanent link">&para;</a></h3>
+<p>VAS procesu typicky obsahuje tyto segmenty:</p>
+<ul>
+<li><strong><code>.text</code></strong> — programový kód (instrukce)</li>
+<li><strong><code>.data</code></strong> — inicializované globální proměnné</li>
+<li><strong><code>.bss</code></strong> — neinicializované globální proměnné (vyplněno nulami)</li>
+<li><strong>Heap</strong> (halda) — dynamicky alokovaná paměť (roste od nižších adres nahoru)</li>
+<li><strong>Libraries</strong> — namapované dynamické knihovny</li>
+<li><strong>Stack</strong> (zásobník) — lokální proměnné a rámce volání funkcí (roste od vyšších adres dolů)</li>
+</ul>
+<p>Heap i Stack mění svou velikost za běhu programu — OS musí ponechat prostor pro jejich růst.</p>
+<hr />
+<h2 id="zavedeni-programu-do-pameti-loading">Zavedení programu do paměti — Loading<a class="headerlink" href="#zavedeni-programu-do-pameti-loading" title="Permanent link">&para;</a></h2>
+<p>Existuje pět historicky se vyvíjejících způsobů zavedení programu:</p>
+<h3 id="1-absolutni-zavedeni-absolute-loading">1. Absolutní zavedení (absolute loading)<a class="headerlink" href="#1-absolutni-zavedeni-absolute-loading" title="Permanent link">&para;</a></h3>
+<p>Každá adresa v binárním programu je <strong>absolutní fyzická adresa</strong> — program musí být vždy zaveden od té samé adresy. Linker vypočítá fyzické adresy již při sestavení. Tento model používaly první počítače; dnes se uplatňuje v zabudovaných systémech bez OS (firmware v ROM/flash).</p>
+<h3 id="2-premistitelne-zavedeni-s-relokacni-tabulkou">2. Přemístitelné zavedení s relokační tabulkou<a class="headerlink" href="#2-premistitelne-zavedeni-s-relokacni-tabulkou" title="Permanent link">&para;</a></h3>
+<p>Program obsahuje <strong>relativní adresy</strong> (vztažené k začátku programu). Loader přepočítá adresy na fyzické podle toho, kam program umístí v paměti. Informace o paměťových odkazech je uložena v <strong>relokačním slovníku</strong> (relocation dictionary). Tento model byl běžný v 50.–60. letech.</p>
+<h3 id="3-premistitelne-zavedeni-s-bazovym-registrem">3. Přemístitelné zavedení s bázovým registrem<a class="headerlink" href="#3-premistitelne-zavedeni-s-bazovym-registrem" title="Permanent link">&para;</a></h3>
+<p>Program opět obsahuje relativní adresy, ale loader je nepřepočítává — program se zavede s relativními adresami a HW je překládá za běhu. K tomu slouží dvojice registrů:
+- <strong>Base register</strong>: fyzická adresa začátku oblasti procesu v paměti
+- <strong>Limit register</strong>: velikost oblasti (zároveň zajišťuje ochranu — přístup za limit vede k výjimce)</p>
+<p>Tento model byl běžný v 60.–70. letech.</p>
+<h3 id="4-dynamicke-zavedeni-za-behu-se-strankovanim">4. Dynamické zavedení za běhu se stránkováním<a class="headerlink" href="#4-dynamicke-zavedeni-za-behu-se-strankovanim" title="Permanent link">&para;</a></h3>
+<p>Program pracuje s <strong>virtuálními adresami</strong>. Program je rozdělen na stejně velké <strong>stránky</strong> (pages), které se zavádí do paměti až v okamžiku potřeby. Překlad virtuálních adres na fyzické provádí HW (MMU) ve spolupráci s OS prostřednictvím stránkovacích tabulek. Tento model se používá od 70. let a je základem moderních OS.</p>
+<h3 id="5-dynamicke-zavedeni-se-strankovanim-a-dynamickymi-knihovnami">5. Dynamické zavedení se stránkováním a dynamickými knihovnami<a class="headerlink" href="#5-dynamicke-zavedeni-se-strankovanim-a-dynamickymi-knihovnami" title="Permanent link">&para;</a></h3>
+<p>Platí vše jako v předchozím případě, navíc se přidává podpora dynamických sdílených knihoven. Spustitelný soubor obsahuje záznamy o potřebných externích knihovnách. Dynamický linker (loader) tyto knihovny při startu procesu namapuje do VAS. Tento model používají moderní OS od konce 80. let.</p>
+<hr />
+<h2 id="zavedeni-programu-v-praxi-elf-a-execve">Zavedení programu v praxi: ELF a execve()<a class="headerlink" href="#zavedeni-programu-v-praxi-elf-a-execve" title="Permanent link">&para;</a></h2>
+<h3 id="struktura-elf-souboru">Struktura ELF souboru<a class="headerlink" href="#struktura-elf-souboru" title="Permanent link">&para;</a></h3>
+<p>Spustitelný soubor ve formátu ELF obsahuje:
+- <strong>Programový kód</strong> (instrukce)
+- <strong>Inicializovaná data</strong> (např. <code>int a = 5;</code>, řetězcové literály)
+- <strong>Metadata</strong> nutná pro sestavení VAS a zavedení do paměti (jaký dynamický linker použít, jaké knihovny vyžadovat)</p>
+<p>Segmenty v ELF souboru (zobrazitelné příkazem <code>readelf -a -W prog.elf</code>):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Type  Offset    VirtAddr      FileSiz  Flg
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>LOAD  0x000000  0x0400000     0x0000e8  R     # ELF hlavička
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>LOAD  0x001000  0x0401000     0x00002f  R E   # .text (kód)
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>LOAD  0x002000  0x0402000     0x000004  RW    # .data
+</span></code></pre></div>
+<h3 id="prubeh-systemoveho-volani-execve">Průběh systémového volání execve()<a class="headerlink" href="#prubeh-systemoveho-volani-execve" title="Permanent link">&para;</a></h3>
+<p>Nový proces vzniká jako kopie původního pomocí <code>fork()</code>. Poté se zavolá <code>execve()</code>, která:</p>
+<ol>
+<li>Otevře ELF soubor a přečte metadata.</li>
+<li>Odstraní starý VAS procesu.</li>
+<li>Vytvoří nový VAS:</li>
+<li>Zavede segmenty LOAD podle ELF hlavičky (<code>.text</code>, <code>.data</code>).</li>
+<li>Namapuje zásobník (stack) na vysoké virtuální adresy (obvykle 8 MB).</li>
+<li>Pokud je zapnuto <strong>ASLR</strong> (Address Space Layout Randomization), adresy se náhodně posunou pro zvýšení bezpečnosti.</li>
+<li>Nastaví registry CPU (zejména čítač instrukcí PC na Entry Point z ELF).</li>
+<li>Vrátí se instrukcí <code>iretq</code> ze systémového volání a spustí proces.</li>
+</ol>
+<h3 id="virtual-memory-areas-vma-v-linuxu">Virtual Memory Areas (VMA) v Linuxu<a class="headerlink" href="#virtual-memory-areas-vma-v-linuxu" title="Permanent link">&para;</a></h3>
+<p>Linux spravuje VAS pomocí struktur <strong>Virtual Memory Areas</strong> (<code>struct vm_area_struct</code>). Každá VMA je souvislý blok virtuální paměti s daným účelem (<code>.text</code>, heap, zásobník, mapovaná knihovna). Každá platná virtuální adresa patří do nějaké VMA.</p>
+<ul>
+<li><strong>File-backed VMA</strong>: svázána se souborem (<code>.text</code> z ELF, dynamická knihovna).</li>
+<li><strong>Anonymní VMA</strong>: není svázána se souborem — halda, zásobník, <code>.bss</code>. Inicializuje se nulami (<strong>demand-zero page</strong>).</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">vm_area_struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">mm_struct</span><span class="w">  </span><span class="o">*</span><span class="n">vm_mm</span><span class="p">;</span><span class="w">      </span><span class="c1">// patří do tohoto adresního prostoru</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w">      </span><span class="n">vm_start</span><span class="p">;</span><span class="w">   </span><span class="c1">// začátek VMA</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w">      </span><span class="n">vm_end</span><span class="p">;</span><span class="w">     </span><span class="c1">// konec VMA (první byte za ní)</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w">      </span><span class="n">vm_flags</span><span class="p">;</span><span class="w">   </span><span class="c1">// R, W, X, Shared, Grow down/up...</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">file</span><span class="w">       </span><span class="o">*</span><span class="n">vm_file</span><span class="p">;</span><span class="w">    </span><span class="c1">// soubor (NULL = anonymní VMA)</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="kt">unsigned</span><span class="w"> </span><span class="kt">long</span><span class="w">      </span><span class="n">vm_pgoff</span><span class="p">;</span><span class="w">   </span><span class="c1">// offset v souboru</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">vm_area_struct</span><span class="w"> </span><span class="o">*</span><span class="n">vm_next</span><span class="p">;</span><span class="w"> </span><span class="c1">// spojový seznam VMA procesu</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">...</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">};</span>
+</span></code></pre></div>
+<p>Struktura <code>mm_struct</code> (memory descriptor) patří k deskriptoru procesu <code>task_struct</code> a udržuje ukazatel <code>pgd</code> na stránkovací tabulku procesu.</p>
+<hr />
+<h2 id="sprava-volne-fyzicke-pameti-dynamicke-oblasti">Správa volné fyzické paměti: dynamické oblasti<a class="headerlink" href="#sprava-volne-fyzicke-pameti-dynamicke-oblasti" title="Permanent link">&para;</a></h2>
+<p>Jeden ze starších způsobů mapování VAS do fyzické paměti je alokace jedné <strong>souvislé oblasti</strong> (partition) pro celý VAS procesu. Tento přístup se nazývá <strong>dynamické oddíly</strong> (dynamic partitioning) a používal se v mainframech 60.–70. let.</p>
+<p>K překladu adres slouží dvojice <strong>base</strong> a <strong>limit</strong> registrů. Nevýhodou je požadavek na souvislost — po čase se fyzická paměť <strong>fragmentuje</strong> (mnoho malých volných oblastí, do nichž se nový proces nevejde).</p>
+<h3 id="sprava-volne-pameti">Správa volné paměti<a class="headerlink" href="#sprava-volne-pameti" title="Permanent link">&para;</a></h3>
+<p>OS musí udržovat přehled o volných oblastech hlavní paměti. K dispozici jsou dvě základní datové struktury:</p>
+<h4 id="bitova-mapa">Bitová mapa<a class="headerlink" href="#bitova-mapa" title="Permanent link">&para;</a></h4>
+<p>Hlavní paměť je rozdělena na alokační jednotky stejné velikosti. Každá jednotka je reprezentována jedním bitem (0 = volná, 1 = obsazená). Alokace vyžaduje nalezení dostatečně dlouhé sekvence nul — <strong>pomalé</strong>. Uvolňování je naopak rychlé.</p>
+<p><img alt="Bitová mapa správy volné paměti" src="../img/p07-s38-1.png" /></p>
+<h4 id="zretezene-seznamy">Zřetězené seznamy<a class="headerlink" href="#zretezene-seznamy" title="Permanent link">&para;</a></h4>
+<p>Volné oblasti jsou uchovávány v N zřetězených seznamech <code>L_i</code>, kde každý seznam <code>L_i</code> spravuje oblasti o určitém rozsahu velikostí <code>(S_{i-1}, S_i]</code>. Alokace: vezme se první oblast z příslušného seznamu (a zbytek se vrátí zpět do vhodného seznamu) — <strong>rychlé</strong>. Uvolňování vyžaduje kontrolu a případné slučování sousedních volných oblastí — <strong>pomalé</strong>.</p>
+<p><img alt="Zřetězené seznamy pro správu volné paměti" src="../img/p07-s39-1.png" /></p>
+<p><img alt="Alokace pomocí zřetězených seznamů" src="../img/p07-s40-1.png" /></p>
+<h4 id="buddy-alokator">Buddy alokátor<a class="headerlink" href="#buddy-alokator" title="Permanent link">&para;</a></h4>
+<p>Speciální varianta zřetězených seznamů, ve které všechny volné oblasti mají velikost mocniny dvou. To umožňuje <strong>rychlé slučování</strong> uvolněných oblastí.</p>
+<p><strong>Alokace</strong>: Pokud na počátku je celá paměť volná s velikostí <code>2^U</code> a proces požaduje <code>s</code> bajtů:
+- Pokud <code>2^(U-1) &lt; s ≤ 2^U</code>, přidělí se celá oblast <code>2^U</code>.
+- Jinak se oblast rekurzivně dělí na poloviny, dokud se nenajde nejmenší <code>2^i</code> splňující <code>2^(i-1) &lt; s ≤ 2^i</code>.</p>
+<p><strong>Uvolňování</strong>: Opačný postup — rekurzivně slučujeme „buddies" (odpovídající poloviny) dokud to jde.</p>
+<p><img alt="Buddy alokátor — schéma" src="../img/p07-s41-1.png" /></p>
+<p><img alt="Buddy alokátor — příklad s procesy P1, P2, P3" src="../img/p07-s43-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Příklad buddy alokátoru</p>
+<p>Paměť 1 MB, procesy P1 (min 100 KB), P2 (min 150 KB), P3 (min 37 KB):</p>
+<ul>
+<li>P1 dostane 128 KB (nejmenší mocnina ≥ 100 KB)</li>
+<li>P2 dostane 256 KB (nejmenší mocnina ≥ 150 KB)</li>
+<li>P3 dostane 64 KB (nejmenší mocnina ≥ 37 KB)</li>
+<li>Po ukončení P1 a P3 se jejich oblasti sloučí zpět (pokud jsou sousední buddies).</li>
+</ul>
+</div>
+<h3 id="problemy-dynamickych-oblasti-a-reseni">Problémy dynamických oblastí a řešení<a class="headerlink" href="#problemy-dynamickych-oblasti-a-reseni" title="Permanent link">&para;</a></h3>
+<p><strong>Fragmentace</strong>: po delším provozu je fyzická paměť rozdrobena na malé volné ostrůvky, do nichž se nový proces nevejde.</p>
+<p><strong>Řešení 1 — Swapping (odkládání procesů)</strong>: při nedostatku paměti se celý proces přesune na disk. Celý VAS musí být uložen najednou — <strong>pomalé</strong>.</p>
+<p><strong>Řešení 2 — Stránkování</strong>: elegantně řeší fragmentaci, umožňuje odkládat pouze části procesu a bezproblémové zvětšování VAS. Tématu stránkování se věnuje celá následující část.</p>
+<p><img alt="Dynamické oblasti — správa volné paměti" src="../img/p07-s37-1.png" /></p>
+<hr />
+<h2 id="virtualni-pamet-a-strankovani">Virtuální paměť a stránkování<a class="headerlink" href="#virtualni-pamet-a-strankovani" title="Permanent link">&para;</a></h2>
+<p>Stránkování je dnes standardní mechanismus správy paměti ve všech moderních OS. Řeší zároveň problém fragmentace fyzické paměti i problém nedostatku paměti (odkládáním nepoužívaných stránek na disk).</p>
+<h3 id="princip-strankovani">Princip stránkování<a class="headerlink" href="#princip-strankovani" title="Permanent link">&para;</a></h3>
+<p><strong>VAS procesu</strong> je rozdělen na stejně velké oblasti zvané <strong>stránky</strong> (pages). Fyzická paměť je analogicky rozdělena na stejně velké oblasti zvané <strong>rámce</strong> (frames). Velikost stránky/rámce závisí na architektuře CPU — typicky <strong>4 KB</strong> (Intel x86/x86-64), 8 KB (SPARC).</p>
+<p>V hlavní paměti musí být přítomny pouze stránky aktuálně používané. Zbytek VAS může být na disku.</p>
+<p><img alt="Princip stránkování — stránky a rámce" src="../img/p08-s07-1.png" /></p>
+<h3 id="struktura-virtualni-a-fyzicke-adresy">Struktura virtuální a fyzické adresy<a class="headerlink" href="#struktura-virtualni-a-fyzicke-adresy" title="Permanent link">&para;</a></h3>
+<p>Virtuální adresa se skládá ze dvou částí:
+- <strong>Číslo stránky</strong> (page number) — identifikuje stránku ve VAS
+- <strong>Offset</strong> — pozice uvnitř stránky/rámce</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Virtuální adresa: [ číslo stránky | offset ]
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Fyzická adresa:   [ číslo rámce   | offset ]
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>offset = log2(velikost_stránky)
+</span></code></pre></div>
+<p>Pro stránky o velikosti 4 KB = <code>2^12</code> B potřebuje offset 12 bitů. Na 32-bitovém systému zbývá 20 bitů pro číslo stránky, tedy <code>2^20</code> = 1 048 576 stránek v VAS.</p>
+<p><img alt="Struktura virtuální a fyzické adresy" src="../img/p08-s08-1.png" /></p>
+<h3 id="memory-management-unit-mmu">Memory Management Unit (MMU)<a class="headerlink" href="#memory-management-unit-mmu" title="Permanent link">&para;</a></h3>
+<p>Proces má iluzi, že celý jeho VAS je přítomen v hlavní paměti. Tuto iluzi a překlad adres zajišťuje hardware <strong>Memory Management Unit (MMU)</strong> ve spolupráci s OS.</p>
+<p><strong>Výpadek stránky</strong> (page fault): pokud MMU zjistí, že požadovaná stránka není v hlavní paměti (bit P = 0 v stránkovací tabulce), vyvolá přerušení. OS přebere řízení, najde volný rámec (nebo vybere oběť a odloží ji na disk), načte požadovanou stránku a aktualizuje stránkovací tabulku. Poté vrátí řízení procesu, který instrukci zopakuje.</p>
+<p><img alt="Překlad adres pomocí MMU" src="../img/p08-s09-1.png" /></p>
+<hr />
+<h2 id="preklad-virtualnich-adres-na-fyzicke-strankovaci-tabulky">Překlad virtuálních adres na fyzické — stránkovací tabulky<a class="headerlink" href="#preklad-virtualnich-adres-na-fyzicke-strankovaci-tabulky" title="Permanent link">&para;</a></h2>
+<p>OS udržuje <strong>stránkovací tabulky</strong> (ST, anglicky Page Tables, PT), které mapují čísla stránek na čísla rámců. Existují tři základní typy.</p>
+<h3 id="jednourovnova-strankovaci-tabulka">Jednoúrovňová stránkovací tabulka<a class="headerlink" href="#jednourovnova-strankovaci-tabulka" title="Permanent link">&para;</a></h3>
+<p>Tabulka obsahuje pro každou stránku VAS jednu řádku (<strong>Page Table Entry, PTE</strong>) s těmito informacemi:</p>
+<ul>
+<li><strong>číslo rámce</strong> — kam je stránka namapována v hlavní paměti</li>
+<li><strong>Present bit (P)</strong> — zda je stránka aktuálně v hlavní paměti</li>
+<li><strong>Accessed bit (A) / Reference bit (R)</strong> — zda se ke stránce přistupovalo</li>
+<li><strong>Dirty bit (D)</strong> — zda byl obsah stránky modifikován (zápis)</li>
+<li><strong>Cache disable/enable (C)</strong> — zda lze pro tuto stránku použít cache (u periferií mapovaných do paměti musí být cache zakázána)</li>
+<li><strong>Read/Write (W)</strong> — zda lze stránku modifikovat</li>
+<li><strong>Executable (X)</strong> — zda stránka obsahuje spustitelný kód</li>
+<li><strong>User/Supervisor (U)</strong> — zda je stránka přístupná v uživatelském módu</li>
+</ul>
+<p><strong>Číslo stránky</strong> (page number) slouží jako index do tabulky. OS udržuje jednu ST pro každý proces. Adresa aktuálně aktivní ST je uložena v registru <strong>PTBR</strong> (Page Table Base Register), v Linuxu je to registr CR3 na x86-64.</p>
+<h4 id="preklad-adresy-s-jednourovnovou-st">Překlad adresy s jednoúrovňovou ST<a class="headerlink" href="#preklad-adresy-s-jednourovnovou-st" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1. Vezmi virtuální adresu.
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2. Rozlož ji na: číslo stránky (page#) | offset.
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>3. Pomocí page# indexuj do ST procesu → získáš číslo rámce (frame#).
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>4. Zkontroluj bit P (present) — pokud 0, nastane page fault.
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>5. Fyzická adresa = frame# | offset (offset se zachovává).
+</span></code></pre></div>
+<p><img alt="Jednoúrovňová ST — schéma překladu" src="../img/p08-s12-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Příklad jednoúrovňové ST (16-bit CPU, 512 B stránky)</p>
+<p>Hypotetický 16-bitový CPU, 512 B stránky/rámce, 1 MB fyzická paměť (20-bit fyzická adresa). Virtuální adresa: 7 bitů číslo stránky + 9 bitů offset = 128 stránek ve VAS. ST má 128 řádků à 4 B = 512 B (vejde se do 1 rámce).</p>
+<p>Proces A (.text na stránkách 1–2, .data na stránce 3, glibc na stránce 32, stack na stránce 63):
+- ST je uložena v rámci 40 (PTBR = 40)
+- Stack je v rámci 41
+- .text1 je v rámci 42 atd.</p>
+<p>Při prvním pokusu o vykonání instrukce nastane page fault — OS načte stránku do volného rámce a aktualizuje ST.</p>
+</div>
+<h4 id="problem-jednourovnove-st">Problém jednoúrovňové ST<a class="headerlink" href="#problem-jednourovnove-st" title="Permanent link">&para;</a></h4>
+<p>Na 32-bitovém systému se 4 KB stránkami:
+- ST má <code>2^20</code> = 1 048 576 řádek
+- Každá řádka zabírá 4 B
+- Jedna ST = <strong>4 MB</strong>
+- Pro 128 procesů = <strong>512 MB</strong> pouze pro stránkovací tabulky!</p>
+<p>Přestože proces reálně používá jen zlomek VAS, ST musí mít řádku pro každou stránku — plýtvání pamětí.</p>
+<h3 id="viceurovnova-strankovaci-tabulka">Víceúrovňová stránkovací tabulka<a class="headerlink" href="#viceurovnova-strankovaci-tabulka" title="Permanent link">&para;</a></h3>
+<p><strong>Víceúrovňová ST</strong> řeší problém plýtvání pamětí tím, že tabulku hierarchicky rozdělí. Pro n-úrovňovou ST platí:</p>
+<ul>
+<li>Virtuální adresa se skládá z n indexů (pro jednotlivé úrovně) a offsetu.</li>
+<li>V paměti musí být vždy jen tabulka <strong>nejvyšší úrovně</strong> (top level).</li>
+<li>Tabulky nižších úrovní existují v paměti jen pro oblasti VAS, které proces skutečně používá — <strong>šetří paměť</strong>.</li>
+<li>Cena: překlad je pomalejší (nutno projít více tabulek). Proto se používá TLB.</li>
+</ul>
+<p><img alt="Víceúrovňová ST — příklad s úsporou paměti" src="../img/p08-s36-1.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Velmi časté příklady počítání velikosti stránkovacích tabulek. Pro dvouúrovňovou ST na 32-bit CPU (4 KB stránky, indexy po 10 bitech):
+- Top-level tabulka: vždy 1 × <code>2^10</code> × 4 B = 4 KB
+- Tabulky 2. úrovně: pouze pro oblasti VAS, které proces používá (každá 4 KB)
+- Pro proces s .text+.data (4 MB), heap (4 MB), stack (4 MB): 3 tabulky 2. úrovně
+- Celkem pro 128 procesů: 128 × (1+3) × 4 KB = <strong>2 MB</strong> (vs. 512 MB u jednoúrovňové)</p>
+</div>
+<h4 id="priklady-realnych-viceurovnovych-st">Příklady reálných víceúrovňových ST<a class="headerlink" href="#priklady-realnych-viceurovnovych-st" title="Permanent link">&para;</a></h4>
+<ul>
+<li><strong>x86 (32-bit)</strong>: 2-úrovňová ST (Page Directory + Page Table)</li>
+<li><strong>x86-64</strong>: 4-úrovňová ST (PML4 → PDPT → PD → PT), každý index 9 bitů + 12 bitů offset = 48-bit virtuální adresa</li>
+</ul>
+<h3 id="invertovana-strankovaci-tabulka">Invertovaná stránkovací tabulka<a class="headerlink" href="#invertovana-strankovaci-tabulka" title="Permanent link">&para;</a></h3>
+<p><strong>Invertovaná ST</strong> přistupuje k problému opačně: místo jednoho záznamu na stránku VAS má jeden záznam na <strong>fyzický rámec</strong>. Tabulka obsahuje pro každý rámec:</p>
+<ul>
+<li>číslo stránky, která je v rámci uložena</li>
+<li>číslo procesu, jemuž stránka patří</li>
+<li>řídicí bity (P, R, D, přístupová práva...)</li>
+<li>index zřetězení (chain) pro řešení kolizí</li>
+</ul>
+<p>OS udržuje <strong>jednu tabulku pro celý systém</strong> — výrazná úspora paměti při mnoha procesech. Nevýhodou je pomalejší překlad: číslo stránky se pomocí hašovací funkce přepočte na index do tabulky, ale mohou nastat kolize (více stránek se mapuje na stejný řádek) — řeší se zřetězením.</p>
+<p><img alt="Invertovaná ST — schéma" src="../img/p08-s39-1.png" /></p>
+<p><img alt="Invertovaná ST — příklad" src="../img/p08-s40-1.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Kde se invertovaná ST používala</p>
+<p>Invertovanou ST používaly procesory PowerPC a UltraSPARC (kde se označovala TSB — Translation Storage Buffer). Kvůli pomalému hledání se i zde intenzivně využívá TLB.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Porovnání velikostí stránkovacích tabulek</p>
+<p>32-bit CPU, 4 KB stránky/rámce, 1 GB fyzická paměť, 128 procesů:</p>
+<table>
+<thead>
+<tr>
+<th>Typ ST</th>
+<th>Velikost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jednoúrovňová</td>
+<td>128 × 4 MB = <strong>512 MB</strong></td>
+</tr>
+<tr>
+<td>Dvouúrovňová</td>
+<td>128 × 16 KB ≈ <strong>2 MB</strong></td>
+</tr>
+<tr>
+<td>Invertovaná</td>
+<td>1 × 8 MB = <strong>8 MB</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="translation-lookaside-buffer-tlb">Translation Lookaside Buffer (TLB)<a class="headerlink" href="#translation-lookaside-buffer-tlb" title="Permanent link">&para;</a></h3>
+<p>Každý překlad adresy by vyžadoval jeden nebo více přístupů do ST v hlavní paměti. To by překlad výrazně zpomalovalo. Proto se v CPU používá <strong>TLB</strong> — malá, extrémně rychlá cache přeložených adres.</p>
+<p>TLB je implementován jako <strong>n-cestná asociativní cache</strong> a obsahuje záznamy o naposledy překládaných stránkách:</p>
+<ul>
+<li><strong>valid bit</strong> — zda je záznam platný</li>
+<li><strong>číslo stránky</strong> — klíč</li>
+<li><strong>číslo rámce</strong> — výsledek překladu</li>
+<li><strong>ASID</strong> (Address Space ID) — identifikátor adresního prostoru (umožňuje mít záznamy více procesů současně)</li>
+<li><strong>control bits</strong> — kopie řídicích bitů z ST (P, R, D, W, X, U, G...)</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>TLB hit:  virtuální adresa → TLB (1 cykl) → fyzická adresa
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>TLB miss: virtuální adresa → ST v paměti (n cyklů) → aktualizace TLB → fyzická adresa
+</span></code></pre></div>
+<p><strong>Při přepnutí kontextu</strong> (context switch) musí OS zneplatnit záznamy TLB patřící předchozímu procesu (nebo je označit pomocí ASID tak, aby je MMU nekřížila s novým procesem).</p>
+<p><img alt="Translation Lookaside Buffer — schéma" src="../img/p08-s42-1.png" /></p>
+<h4 id="prubeh-prekladu-s-tlb-a-dvouurovnovou-st">Průběh překladu s TLB a dvouúrovňovou ST<a class="headerlink" href="#prubeh-prekladu-s-tlb-a-dvouurovnovou-st" title="Permanent link">&para;</a></h4>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>CPU generuje virtuální adresu (page# + offset)
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    ↓
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>MMU prohledá TLB:
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    → TLB hit: vezme číslo rámce, sestaví fyzickou adresu, zkontroluje přístupová práva
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    → TLB miss: prohledá top-level ST v paměti
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        → záznamu nalezen: prohledá ST 2. úrovně
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>            → nalezeno: aktualizuje TLB, sestaví fyzickou adresu
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>            → nenalezeno (P=0): PAGE FAULT → OS obslouží
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        → nenalezeno (P=0): PAGE FAULT → OS obslouží
+</span></code></pre></div>
+<h4 id="obsluha-vypadku-stranky-page-fault-handler">Obsluha výpadku stránky (Page Fault Handler)<a class="headerlink" href="#obsluha-vypadku-stranky-page-fault-handler" title="Permanent link">&para;</a></h4>
+<p>Když nastane page fault, OS:
+1. Ověří, zda je virtuální adresa platná (patří do VAS) a přístup je oprávněný — pokud ne, <strong>Segmentation Fault</strong>.
+2. Získá volný rámec:
+   - Je-li volný rámec k dispozici → rovnou ho použije.
+   - Není-li → spustí <strong>algoritmus náhrady stránek</strong> (viz sekce níže), vybere oběť, případně zapíše obsah oběti na disk (pokud byl dirty bit nastaven).
+3. Načte požadovanou stránku:
+   - Ze zdrojového souboru (ELF, soubor namapovaný přes <code>mmap</code>)
+   - Ze swap souboru (byla dříve odložena)
+   - Inicializuje nulami (heap, stack, .bss — demand-zero page)
+4. Aktualizuje ST a TLB.
+5. Vrátí řízení procesu, který instrukci zopakuje.</p>
+<p><img alt="Get Free Frame — diagram obsluhy" src="../img/p08-s47-1.png" /></p>
+<h4 id="volani-systemoveho-volani-a-adresni-prostor-jadra">Volání systémového volání a adresní prostor jádra<a class="headerlink" href="#volani-systemoveho-volani-a-adresni-prostor-jadra" title="Permanent link">&para;</a></h4>
+<p>Adresní prostor jádra OS je v starších 32-bitových systémech mapován přímo do VAS každého procesu, chráněn bitem U (User/Supervisor = 0). Při systémovém volání se tedy VAS <strong>nepřepíná</strong> — OS běží ve VAS procesu. Přístup k jaderné části je možný pouze v privilegovaném módu.</p>
+<div class="admonition warning">
+<p class="admonition-title">Meltdown a ochrana jádra</p>
+<p>Útok <strong>Meltdown</strong> (2018) zneužíval spekulativní čtení z jaderné části VAS z uživatelského prostoru — ještě před ověřením oprávnění. Obrana pomocí <strong>KPTI</strong> (Kernel Page Table Isolation) odděluje ST jádra od ST uživatelských procesů a do uživatelské ST namapuje jen minimální nutnou část jádra. Moderní CPU tuto zranitelnost řeší hardwarově.</p>
+</div>
+<hr />
+<h2 id="sprava-haldy-heap-v-linuxu">Správa haldy (heap) v Linuxu<a class="headerlink" href="#sprava-haldy-heap-v-linuxu" title="Permanent link">&para;</a></h2>
+<p>Dynamicky alokovaná paměť (malloc/new) pro menší alokace (pod ~128 KB) je spravována na haldě, pro větší přidělována přímo pomocí <code>mmap()</code> mimo haldu.</p>
+<p>Konec haldy označuje proměnná <strong>Brk</strong> (program break). Zvětšení haldy se provede systémovým voláním <code>brk</code>. Každý alokovaný blok na haldě (<strong>chunk</strong>) obsahuje metadata (velikost bloku, příznak obsazenosti) a samotná data. Volné bloky jsou organizovány v zřetězených seznamech.</p>
+<p>Knihovna <strong>glibc</strong> na 64-bit systému organizuje volné bloky:
+- <strong>Small bins</strong> (32 B–1008 B): lineárně rostoucí, fixní velikosti po 16 B
+- <strong>Large bins</strong> (1024 B a více): exponenciálně rostoucí intervaly
+- <strong>Unsorted bin</strong>: přechodný seznam (bin 1)
+- <strong>Fast bins</strong>: optimalizace pro rychlé alokace malých bloků</p>
+<p><img alt="Správa volných oblastí haldy v glibc" src="../img/p09-s06-1.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Pozor na přístup po free()</p>
+<p>Po volání <code>free()</code> knihovna glibc zapíše do uvolněné oblasti metadata (ukazatele seznamů). Přístup k uvolněné oblasti (use-after-free) vede na čtení metadat, nikoli původních dat — viz příklad s modifikovaným polem.</p>
+</div>
+<h3 id="areny-v-glibc-pro-vicevlaknove-programy">Arény v glibc (pro vícevláknové programy)<a class="headerlink" href="#areny-v-glibc-pro-vicevlaknove-programy" title="Permanent link">&para;</a></h3>
+<p>Aby se zabránilo souběhu více vláken při alokaci, glibc zavádí <strong>arény</strong>. Aréna obsahuje mutex, seznam binů a spravovanou paměťovou oblast.</p>
+<ul>
+<li><strong>Hlavní aréna</strong>: pro hlavní vlákno, používá haldu, dynamicky roste přes <code>sbrk()</code>.</li>
+<li><strong>Sekundární arény</strong>: pro ostatní vlákna, získávají paměť přes <code>mmap()</code>.</li>
+</ul>
+<p>Aréna zůstává platná i po ukončení vlákna, které ji použilo — dokud ji drží alokovaná data. To je zásadní rozdíl od zásobníku, který je zrušen se svým vláknem.</p>
+<hr />
+<h2 id="algoritmy-pro-nahradu-stranek">Algoritmy pro náhradu stránek<a class="headerlink" href="#algoritmy-pro-nahradu-stranek" title="Permanent link">&para;</a></h2>
+<p>Když jsou všechny rámce obsazeny a nastane page fault, OS musí vybrat <strong>oběť</strong> — rámec, jehož stránka bude odstraněna z fyzické paměti. Cílem je minimalizovat počet budoucích výpadků stránek.</p>
+<p>Postup při náhradě:
+1. Vybrat oběť (algoritmem pro náhradu stránek).
+2. Zkontrolovat <strong>dirty bit</strong> — pokud byl obsah rámce modifikován, zapsat ho na disk (do backing file nebo swap).
+3. Aktualizovat ST všech procesů sdílejících tento rámec (vynulovat bit P, zapsat odkaz na disk).
+4. Nahrát požadovanou stránku do uvolněného rámce.</p>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Algoritmy pro náhradu stránek jsou jedno z nejdůležitějších témat u zkoušky. Musíte umět všechny algoritmy aplikovat na konkrétní sekvenci přístupů ke stránkám a spočítat počet výpadků.</p>
+</div>
+<h3 id="princip-lokality">Princip lokality<a class="headerlink" href="#princip-lokality" title="Permanent link">&para;</a></h3>
+<p>Algoritmy jsou efektivní díky tomu, že přístupy k paměti nejsou náhodné — platí <strong>princip prostorové a časové lokality</strong>:</p>
+<ul>
+<li>Instrukce se vykonávají převážně sekvenčně.</li>
+<li>Data (pole, zásobník, halda) jsou uložena blízko sebe a přistupuje se k nim opakovaně.</li>
+</ul>
+<h3 id="optimalni-algoritmus">Optimální algoritmus<a class="headerlink" href="#optimalni-algoritmus" title="Permanent link">&para;</a></h3>
+<p><strong>Princip</strong>: Nahradí se stránka, ke které bude přistoupeno nejpozději v budoucnosti.</p>
+<p><strong>Vlastnosti</strong>:
+- Generuje minimální počet výpadků stránek (lze to dokázat).
+- <strong>Nelze implementovat v praxi</strong> — nezná budoucnost.
+- Slouží jako <strong>referenční mez</strong> pro hodnocení reálných algoritmů.</p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — Optimální algoritmus</p>
+<p>Sekvence přístupů: <code>2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2</code><br />
+Fyzická paměť: 3 prázdné rámce a, b, c.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Stránka:  2  3  2  1  5  2  4  5  3  2  5  2
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Rámec a:  2     2     2     4        2
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Rámec b:     3                    3
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>Rámec c:        1  5        5
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Výpadek:  *  *     *  *     *        *
+</span></code></pre></div>
+<strong>Počet výpadků: 6</strong> (minimum možné pro tuto sekvenci).</p>
+</div>
+<h3 id="nru-algoritmus-not-recently-used">NRU algoritmus (Not Recently Used)<a class="headerlink" href="#nru-algoritmus-not-recently-used" title="Permanent link">&para;</a></h3>
+<p><strong>Princip</strong>: Používá <strong>R bit</strong> (reference) a <strong>D bit</strong> (dirty) pro každou stránku. HW je nastavuje automaticky při každém přístupu:
+- R bit = 1 při čtení nebo zápisu
+- D bit = 1 při zápisu</p>
+<p>OS <strong>periodicky resetuje R bit</strong> na 0, aby mohl sledovat "nedávnost" přístupu.</p>
+<p>Stránky se dělí do 4 tříd:</p>
+<table>
+<thead>
+<tr>
+<th>Třída</th>
+<th>R bit</th>
+<th>D bit</th>
+<th>Interpretace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>nedávno nepoužitá, nečistá — nejlepší oběť</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>nedávno nepoužitá, modifikovaná</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>nedávno použitá, nečistá</td>
+</tr>
+<tr>
+<td>3</td>
+<td>1</td>
+<td>1</td>
+<td>nedávno použitá, modifikovaná — nejhorší oběť</td>
+</tr>
+</tbody>
+</table>
+<p>Algoritmus nahradí stránku z <strong>neprázdné třídy s nejnižším číslem</strong>.</p>
+<p><strong>Vlastnosti</strong>: jednoduchý na pochopení, rozumná implementace, relativně malý počet výpadků.</p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — NRU algoritmus</p>
+<p>Sekvence: <code>2(r), 3(r), 2(w), 1(r), 5(r), 2(r), 4(r), 5(r), 3(r), 2(w), 5(w), 2(r)</code><br />
+OS resetuje R bit v časech 10, 20, 30, ...</p>
+<p>Výsledný počet výpadků: <strong>7</strong>.</p>
+</div>
+<h3 id="fifo-algoritmus-first-in-first-out">FIFO algoritmus (First-In First-Out)<a class="headerlink" href="#fifo-algoritmus-first-in-first-out" title="Permanent link">&para;</a></h3>
+<p><strong>Princip</strong>: OS udržuje seznam stránek v pořadí, v jakém byly načteny do paměti. Jako oběť se vybere stránka, která je v paměti <strong>nejdéle</strong>.</p>
+<p><strong>Vlastnosti</strong>:
+- Nejjednodušší implementace (fronta).
+- Nezohledňuje, kdy se ke stránce naposledy přistupovalo — může odstraňovat aktivně používané stránky.
+- Relativně velký počet výpadků.</p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — FIFO algoritmus</p>
+<p>Sekvence: <code>2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2</code> | 3 rámce.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Stránka:    2  3  2  1  5  2  4  5  3  2  5  2
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Rámec a:    2     2  5     5  3
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Rámec b:       3        2           2
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>Rámec c:          1        4           5     2
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Začátek:    a  a  a  a  b  c  a  a  b  b  c  a
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Výpadek:    *  *     *  *  *  *     *     *  *
+</span></code></pre></div>
+<strong>Počet výpadků: 9</strong>.</p>
+</div>
+<h3 id="clock-algoritmus">Clock algoritmus<a class="headerlink" href="#clock-algoritmus" title="Permanent link">&para;</a></h3>
+<p><strong>Princip</strong>: Modifikovaný FIFO — stránky jsou uspořádány do <strong>kruhové fronty</strong> s ručičkou (ukazatelem). Pro každou stránku se sleduje R bit.</p>
+<p>Při hledání oběti:
+1. Podívej se na stránku, na kterou ukazuje ručička.
+2. Pokud R = 1: resetuj R na 0, posuň ručičku dál.
+3. Pokud R = 0: tato stránka je oběť — nahraď ji a posuň ručičku.</p>
+<p>Stránky, ke kterým bylo nedávno přistoupeno (R = 1), dostanou „druhou šanci" — místo okamžitého vyřazení jim stačí resetovat R bit.</p>
+<p><strong>Vlastnosti</strong>: rozumná implementace, nižší počet výpadků než FIFO.</p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — Clock algoritmus</p>
+<p>Sekvence: <code>2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2</code> | 3 rámce.</p>
+<p><strong>Počet výpadků: 8</strong> (lepší než FIFO, horší než NRU/LRU).</p>
+</div>
+<p><strong>Two-handed Clock</strong>: varianta s dvěma ručičkami (fronthand a backhand), používaná v Unixu SVR4 a jeho nástupcích. Fronthand resetuje R bit, backhand vybírá oběť (stránku s R = 0). Vzdálenost ručiček (handspread) definuje časové okno sledování přístupů.</p>
+<h3 id="lru-algoritmus-least-recently-used">LRU algoritmus (Least Recently Used)<a class="headerlink" href="#lru-algoritmus-least-recently-used" title="Permanent link">&para;</a></h3>
+<p><strong>Princip</strong>: Nahradí se stránka, ke které se <strong>nejdéle nepřistupovalo</strong>.</p>
+<p><strong>Vlastnosti</strong>:
+- Dobrá aproximace optimálního algoritmu.
+- <strong>Problematická implementace</strong>: při každém přístupu je nutné zaznamenat čas přístupu a při výběru oběti porovnat časy všech stránek — nákladné.</p>
+<p><strong>Implementace pomocí HW čítače</strong>:
+- Každý PTE obsahuje položku <code>time-of-use</code>.
+- HW čítač se inkrementuje při každém přístupu do paměti.
+- Při přístupu ke stránce se uloží aktuální hodnota čítače do PTE.
+- Oběť = stránka s nejmenší hodnotou <code>time-of-use</code>.</p>
+<p><img alt="LRU algoritmus — implementace pomocí hardwarového čítače" src="../img/p09-s24-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — LRU algoritmus</p>
+<p>Sekvence: <code>2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2</code> | 3 rámce.</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Stránka:   2  3  2  1  5  2  4  5  3  2  5  2
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Rámec a:   2     2          2          3
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Rámec b:      3          5          5          5
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Rámec c:             1          4          2
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Výpadek:   *  *       *  *       *       *  *
+</span></code></pre></div>
+<strong>Počet výpadků: 7</strong> (shodný s NRU, ale obecně LRU bývá lepší).</p>
+</div>
+<h3 id="aging-algoritmus">Aging algoritmus<a class="headerlink" href="#aging-algoritmus" title="Permanent link">&para;</a></h3>
+<p><strong>Softwarová simulace LRU</strong>. Pro každou stránku se udržuje:
+- <strong>R bit</strong> — nastavuje HW při přístupu (čtení/zápis)
+- <strong>n-bitový čítač C</strong> — inicializovaný na <code>11...1</code> při načtení stránky</p>
+<p>OS <strong>periodicky</strong> pro každou stránku:
+1. Posune obsah čítače C <strong>doprava o jeden bit</strong> (logický posun).
+2. Nastaví <strong>nejvýznamnější bit</strong> čítače C na hodnotu R bitu.
+3. Resetuje R bit na 0.</p>
+<p>Oběť = stránka s <strong>nejmenší hodnotou čítače C</strong> — stránka, ke které se nejdéle nepřistupovalo, bude mít čítač s nejvíce nulami nalevo.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Perioda 1: stránka přistoupena → R=1
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>  → shift vpravo, MSB = 1 → C = 10000000
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>Perioda 2: stránka nepřistoupena → R=0
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>  → shift vpravo, MSB = 0 → C = 01000000
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Perioda 3: stránka nepřistoupena → R=0
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>  → shift vpravo, MSB = 0 → C = 00100000
+</span></code></pre></div>
+<p><strong>Vlastnosti</strong>:
+- Menší režie než přesné LRU.
+- Nepřesné: pamatuje si jen omezenou historii (n period) a nerozlišuje pořadí přístupů v rámci jedné periody.</p>
+<p><img alt="Aging algoritmus — příklad s 8-bitovým čítačem" src="../img/p09-s28-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Příklad — Aging algoritmus</p>
+<p>Sekvence: <code>2(r), 3(r), 2(w), 1(r), 5(r), 2(r), 4(r), 5(r), 3(r), 2(w), 5(w), 2(r)</code><br />
+OS resetuje R bit v časech 10, 20, 30. Čítač C má 3 bity.</p>
+<p>Výsledný počet výpadků: <strong>9</strong>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky — srovnání algoritmů</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmus</th>
+<th>Výpadků (v příkladu)</th>
+<th>Implementace</th>
+<th>Poznámka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimální</td>
+<td>6</td>
+<td>nelze</td>
+<td>dolní mez výpadků</td>
+</tr>
+<tr>
+<td>NRU</td>
+<td>7</td>
+<td>jednoduchá</td>
+<td>třídy podle R a D bitů</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>7</td>
+<td>složitá/HW</td>
+<td>nejlepší aproximace optimálního</td>
+</tr>
+<tr>
+<td>Aging</td>
+<td>9</td>
+<td>střední</td>
+<td>SW simulace LRU</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>8</td>
+<td>střední</td>
+<td>modifikovaný FIFO + R bit</td>
+</tr>
+<tr>
+<td>FIFO</td>
+<td>9</td>
+<td>nejjednodušší</td>
+<td>nezohledňuje nedávnost přístupu</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="linuxovy-algoritmus-nahrady-stranek">Linuxový algoritmus náhrady stránek<a class="headerlink" href="#linuxovy-algoritmus-nahrady-stranek" title="Permanent link">&para;</a></h3>
+<p>Linux používá variantu LRU algoritmu, která:
+- Odděluje <strong>anonymní stránky</strong> (zásobník, halda) od <strong>souborově mapovaných stránek</strong> (odlišné vzory přístupu).
+- Pro každou skupinu spravuje <strong>dva LRU seznamy</strong>:
+  - <strong>active list</strong>: nedávno přistupované stránky
+  - <strong>inactive list</strong>: kandidáti na náhradu</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>cat<span class="w"> </span>/proc/meminfo
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="c1"># Active:          5095180 kB</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1"># Inactive:        8548800 kB</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1"># Active(anon):    4512776 kB</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1"># Inactive(anon):  8184200 kB</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1"># Active(file):     582404 kB</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1"># Inactive(file):   364600 kB</span>
+</span></code></pre></div>
+<h3 id="aktualizace-strankovacich-tabulek-reverzni-mapovani">Aktualizace stránkovacích tabulek — reverzní mapování<a class="headerlink" href="#aktualizace-strankovacich-tabulek-reverzni-mapovani" title="Permanent link">&para;</a></h3>
+<p>Po výběru oběti musí OS aktualizovat ST <strong>všech procesů</strong>, které mají daný rámec namapován. Aby OS efektivně zjistil, které procesy sdílejí daný rámec, používá <strong>reverzní mapování</strong>:</p>
+<p>Pro každý fyzický rámec existuje struktura <code>struct page</code> s ukazatelem <code>*mapping</code>, který ukazuje na:
+- <code>anon_vma</code> pro anonymní stránky (zásobník, halda)
+- <code>address_space</code> pro souborově mapované stránky</p>
+<p>Přes tyto struktury OS dohledá všechny <code>vm_area_struct</code> sdílející daný rámec, a přes <code>vm_mm → pgd</code> pak aktualizuje odpovídající PTE ve všech stránkovacích tabulkách. Navíc musí zneplatnit záznamy TLB na všech CPU jádrech (TLB shootdown).</p>
+<hr />
+<h2 id="sprava-fyzicke-pameti-souvisle-oblasti">Správa fyzické paměti — souvislé oblasti<a class="headerlink" href="#sprava-fyzicke-pameti-souvisle-oblasti" title="Permanent link">&para;</a></h2>
+<p>Stránkování dovoluje přiřadit libovolné stránce libovolný rámec. Nicméně existují situace, kdy je nutné pracovat se <strong>souvislými fyzickými oblastmi</strong> přesahujícími velikost rámce:</p>
+<ul>
+<li><strong>DMA</strong> (Direct Memory Access): I/O zařízení přenáší data přes fyzické adresy bez účasti CPU.</li>
+<li>Integrované grafické karty využívají část hlavní RAM jako video RAM.</li>
+<li>Podpora <strong>huge pages</strong> (2 MB, 1 GB).</li>
+</ul>
+<p>Linux proto implementuje:
+- <strong>Buddy alokátor</strong>: pro alokaci fyzické paměti v mocninách dvou násobků velikosti rámce (typicky do 4 MB).
+- <strong>CMA</strong> (Contiguous Memory Allocator): pro velké souvislé bloky (nad 4 MB), rezervuje paměť při startu systému.
+- <strong>Slab alokátor</strong>: pro malé objekty jádra OS — od Buddy alokátoru bere celé oblasti a interně je spravuje pro objekty pevné velikosti. Slab alokace se neevidují v LRU seznamech.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>cat<span class="w"> </span>/proc/buddyinfo<span class="w">       </span><span class="c1"># stav buddy alokátoru</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>sudo<span class="w"> </span>cat<span class="w"> </span>/proc/slabinfo<span class="w">   </span><span class="c1"># stav slab alokátoru</span>
+</span></code></pre></div>
+<hr />
+<h2 id="navrh-systemu-se-strankovanim">Návrh systémů se stránkováním<a class="headerlink" href="#navrh-systemu-se-strankovanim" title="Permanent link">&para;</a></h2>
+<p>Správa paměti je komplexní téma přesahující samotné stránkování. Při návrhu OS je nutné vyřešit řadu dalších otázek:</p>
+<h3 id="jak-sdilet-pamet-mezi-procesy">Jak sdílet paměť mezi procesy?<a class="headerlink" href="#jak-sdilet-pamet-mezi-procesy" title="Permanent link">&para;</a></h3>
+<p>Se stránkováním je sdílení relativně jednoduché — více procesů může mít ve svých ST záznamy ukazující na <strong>stejný fyzický rámec</strong>. Typicky se sdílí:
+- Spustitelné binární programy
+- Dynamické knihovny (<code>.text</code> segment jako MAP_SHARED, <code>.data</code> jako MAP_PRIVATE s COW)
+- Soubory mapované do paměti (<code>mmap</code>)
+- Explicitně sdílená paměť (shared memory)</p>
+<h3 id="jak-implementovat-adresni-prostor-jadra">Jak implementovat adresní prostor jádra?<a class="headerlink" href="#jak-implementovat-adresni-prostor-jadra" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Starší 32-bit procesory</strong> (x86, SPARC V7): prostor jádra je namapován do VAS každého procesu (chráněn bitem U). Přechod do kernelu nevyžaduje přepnutí ST.</li>
+<li><strong>Moderní 64-bit procesory</strong> (x86-64, SPARC V9): prostor jádra je zpravidla <strong>oddělený</strong> od VAS procesů.</li>
+</ul>
+<h3 id="kdy-nahrat-stranku-do-pameti">Kdy nahrát stránku do paměti?<a class="headerlink" href="#kdy-nahrat-stranku-do-pameti" title="Permanent link">&para;</a></h3>
+<p>Dvě základní strategie:</p>
+<ul>
+<li><strong>Stránkování na žádost</strong> (demand paging): stránka se načte až při prvním přístupu (page fault).</li>
+<li><strong>Před-stránkování</strong> (prepaging): při page fault se načte požadovaná stránka i několik sousedních (princip prostorové lokality) — méně přenosů z disku, ale mohou se načíst stránky, které nebudou potřeba. Většina moderních OS tuto strategii používá.</li>
+</ul>
+<h3 id="kolik-ramcu-pridelit-procesu">Kolik rámců přidělit procesu?<a class="headerlink" href="#kolik-ramcu-pridelit-procesu" title="Permanent link">&para;</a></h3>
+<p><img alt="Závislost počtu výpadků stránek na počtu přidělených rámců" src="../img/p09-s39-1.png" /></p>
+<p>Graf ukazuje závislost počtu výpadků stránek na počtu přidělených rámců. Při příliš malém počtu rámců proces generuje mnoho výpadků. Od určité hodnoty (<strong>Working Set</strong>, WSi) se počet výpadků příliš nemění. Moderní OS používají <strong>variable-allocation strategy</strong> — přidělují rámce podle aktuálních potřeb procesu.</p>
+<h3 id="kolik-procesu-soucasne-v-pameti">Kolik procesů současně v paměti?<a class="headerlink" href="#kolik-procesu-soucasne-v-pameti" title="Permanent link">&para;</a></h3>
+<p><img alt="Kolik procesů má být současně aktivních" src="../img/p09-s40-1.png" /></p>
+<p>Součet Working Set všech aktivních procesů by měl být menší než velikost hlavní paměti. Pokud podmínka není splněna, procesy si vzájemně „kradou" rámce a efektivita klesá — OS je v situaci <strong>thrashing</strong> (paměťový kolaps).</p>
+<h3 id="co-delat-kdyz-dochazi-pamet">Co dělat, když dochází paměť?<a class="headerlink" href="#co-delat-kdyz-dochazi-pamet" title="Permanent link">&para;</a></h3>
+<p>OS si udržuje pool volných rámců. Pokud počet volných rámců klesne pod kritickou mez:</p>
+<ol>
+<li>
+<p><strong>Paging-out</strong>: OS pomocí algoritmu náhrady stránek vybere oběti, odloží modifikované stránky na disk, uvolněné rámce přidá do poolu.</p>
+</li>
+<li>
+<p><strong>Swapping</strong>: pokud paging-out nestačí, OS odloží celé procesy na disk (preferují se procesy, kde žádné vlákno není ve stavu Ready/Running). Pouze anonymní stránky (halda, zásobník) se ukládají do swap prostoru — souborově mapované stránky jsou dostupné přímo ze zdrojových souborů.</p>
+</li>
+</ol>
+<p><img alt="Paging-out a swapping strategie" src="../img/p09-s42-1.png" /></p>
+<h3 id="podpora-vice-velikosti-stranek">Podpora více velikostí stránek<a class="headerlink" href="#podpora-vice-velikosti-stranek" title="Permanent link">&para;</a></h3>
+<p>Moderní CPU (od ~2000) podporují více velikostí stránek současně (např. 4 KB, 2 MB, 1 GB na x86-64). Větší stránky (<strong>huge pages</strong>) snižují frekvenci TLB miss pro procesy pracující s velkými daty (databáze, vědecké výpočty). Linux umožňuje jejich konfiguraci.</p>
+<hr />
+<h2 id="shrnuti">Shrnutí<a class="headerlink" href="#shrnuti" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fyzická paměť má hierarchickou organizaci s cache na více úrovních (L1–L3), přičemž průměrný čas přístupu závisí na hit ratio.</li>
+<li>Každý program prochází před spuštěním řetězcem: preprocesor → kompilátor → assembler → linker → loader.</li>
+<li>Virtuální adresní prostor (VAS) izoluje procesy od fyzické paměti a od sebe navzájem; každý proces má svůj vlastní VAS.</li>
+<li>Stránkování rozděluje VAS na stránky a fyzickou paměť na rámce stejné velikosti; v paměti musí být jen aktuálně potřebné stránky.</li>
+<li>Překlad virtuálních adres na fyzické provádí MMU pomocí stránkovacích tabulek; TLB tuto operaci výrazně zrychluje cachováním nedávných překladů.</li>
+<li>Jednoúrovňová ST je paměťově náročná; víceúrovňová ST šetří paměť tím, že tabulky nižších úrovní existují jen pro skutečně používané oblasti VAS; invertovaná ST má jeden záznam na fyzický rámec.</li>
+<li>Při výpadku stránky OS nalezne/uvolní rámec, načte chybějící stránku z disku nebo ze souboru, aktualizuje ST a TLB.</li>
+<li>Algoritmus NRU třídí stránky do 4 tříd podle R a D bitů; FIFO nahrazuje nejdéle načtenou stránku; Clock dává stránkám druhou šanci; LRU nahrazuje nejdéle nepoužívanou stránku (nejlepší aproximace optimálního); Aging je SW simulace LRU s periodickým bitovým posunem čítače.</li>
+<li>Linux spravuje haldu přes glibc s binářními seznamy (small bins, large bins) a pro vícevláknové aplikace zavádí arény.</li>
+<li>Buddy alokátor spravuje souvislé fyzické oblasti v mocninách dvou; Slab alokátor obstarává malé objekty jádra.</li>
+<li>Moderní OS přidělují rámce dynamicky podle Working Set procesu a při kritickém nedostatku paměti nejprve stránkují (paging-out), pak odkládají celé procesy (swapping).</li>
+</ul>
+<hr />
+<h2 id="klicove-pojmy">Klíčové pojmy<a class="headerlink" href="#klicove-pojmy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Hlavní paměť</strong> (main memory) — fyzická DRAM paměť instalovaná v počítači; nejmenší adresovatelná jednotka je byte.</li>
+<li><strong>Hierarchie paměti</strong> — víceúrovňová organizace paměti (registry, L1–L3 cache, hlavní paměť, disk) minimalizující průměrný čas přístupu.</li>
+<li><strong>Cache</strong> (skrytá paměť) — rychlá mezipaměť mezi CPU a hlavní pamětí, využívající principy časové a prostorové lokality.</li>
+<li><strong>Hit ratio</strong> (<code>r_h</code>) — podíl přístupů, při nichž jsou data nalezena v cache; klíčový parametr výkonu.</li>
+<li><strong>Průměrný čas přístupu</strong> (<code>t_avg</code>) — vážený průměr: <code>t_avg = r_h * t_h + (1 - r_h) * t_m</code>.</li>
+<li><strong>Časová lokalita</strong> — data nedávno použitá budou brzy potřeba znovu.</li>
+<li><strong>Prostorová lokalita</strong> — data blízká aktuálně používaným datům budou brzy potřeba.</li>
+<li><strong>Preprocesor</strong> — zpracovává direktivy <code>#include</code>, <code>#define</code>, <code>#ifdef</code> před kompilací.</li>
+<li><strong>Kompilátor</strong> — překládá zdrojový kód do assembly; výstupem jsou nevyřešené symbolické adresy.</li>
+<li><strong>Assembler</strong> — převádí assembly na binární objektový soubor (<code>.o</code>) s nevyřešenými externími symboly.</li>
+<li><strong>Objektový modul</strong> (object module) — binární soubor s přemístitelným kódem, není přímo spustitelný.</li>
+<li><strong>Load module</strong> (spustitelný soubor) — výstup linkeru; spustitelný binární program.</li>
+<li><strong>Statické linkování</strong> (static linking) — linker zahrne vše potřebné přímo do spustitelného souboru.</li>
+<li><strong>Dynamické linkování</strong> (dynamic linking) — spustitelný soubor odkazuje na sdílené knihovny; váže se za běhu.</li>
+<li><strong>Load-time dynamic linking</strong> — dynamické symboly se vyřeší při zavedení programu.</li>
+<li><strong>Run-time dynamic linking</strong> — dynamické symboly se vyřeší při prvním volání (lazy binding).</li>
+<li><strong>ELF</strong> (Executable and Linkable Format) — formát objektových a spustitelných souborů v Linuxu.</li>
+<li><strong>Loader</strong> — část OS zavádějící program do paměti; vytváří VAS na základě metadat z ELF.</li>
+<li><strong>execve()</strong> — systémové volání nahrazující obraz procesu novým programem; vytváří nový VAS.</li>
+<li><strong>ASLR</strong> (Address Space Layout Randomization) — náhodné posunutí adres segmentů VAS pro zvýšení bezpečnosti.</li>
+<li><strong>VAS</strong> (Virtual Address Space) — virtuální adresní prostor; izolovaný logický prostor adres každého procesu.</li>
+<li><strong>Virtuální adresa</strong> — adresa generovaná procesem; překládá se na fyzickou adresu MMU.</li>
+<li><strong>Fyzická adresa</strong> — skutečná adresa v hlavní paměti.</li>
+<li><strong>VMA</strong> (Virtual Memory Area) — <code>struct vm_area_struct</code>; souvislý blok virtuální paměti s daným účelem a přístupovými právy.</li>
+<li><strong>File-backed VMA</strong> — VMA svázaná se souborem (<code>.text</code>, knihovny).</li>
+<li><strong>Anonymní VMA</strong> — VMA bez souboru (halda, zásobník); inicializuje se nulami.</li>
+<li><strong>Demand-zero page</strong> — stránka inicializovaná nulami při prvním přístupu (anonymní VMA).</li>
+<li><strong>Dynamické oddíly</strong> (dynamic partitioning) — správa paměti alokací souvislé oblasti pro každý proces; historická metoda, trpí fragmentací.</li>
+<li><strong>Base register</strong> — registr obsahující fyzickou adresu začátku oblasti procesu; slouží pro relokaci adres.</li>
+<li><strong>Limit register</strong> — registr obsahující velikost oblasti procesu; slouží pro ochranu paměti.</li>
+<li><strong>Buddy alokátor</strong> — alokátor fyzické paměti s oblastmi o velikostech mocnin dvou; umožňuje rychlé slučování.</li>
+<li><strong>Swapping</strong> (odkládání procesů) — dočasné přesunutí celého procesu na disk při nedostatku paměti.</li>
+<li><strong>Stránkování</strong> (paging) — mechanismus správy paměti rozdělující VAS na stránky a fyzickou paměť na rámce.</li>
+<li><strong>Stránka</strong> (page) — pevně velká oblast VAS (typicky 4 KB).</li>
+<li><strong>Rámec</strong> (frame) — pevně velká oblast fyzické paměti stejné velikosti jako stránka.</li>
+<li><strong>Page fault</strong> (výpadek stránky) — přerušení nastávající při přístupu ke stránce nepřítomné v hlavní paměti.</li>
+<li><strong>Segmentation fault</strong> — chyba nastávající při přístupu mimo platné VMA; OS ukončí proces.</li>
+<li><strong>MMU</strong> (Memory Management Unit) — hardwarová jednotka překládající virtuální adresy na fyzické.</li>
+<li><strong>Stránkovací tabulka</strong> (Page Table, PT) — datová struktura OS mapující čísla stránek na čísla rámců.</li>
+<li><strong>PTE</strong> (Page Table Entry) — jeden záznam stránkovací tabulky; obsahuje číslo rámce a řídicí bity.</li>
+<li><strong>Present bit (P)</strong> — bit v PTE; 1 = stránka je v hlavní paměti, 0 = výpadek stránky.</li>
+<li><strong>Dirty bit (D)</strong> — bit v PTE; 1 = stránka byla modifikována a musí být zapsána na disk před odstraněním.</li>
+<li><strong>Reference bit (R) / Accessed bit (A)</strong> — bit v PTE; nastavuje HW při přístupu; slouží algoritmům náhrady.</li>
+<li><strong>PTBR</strong> (Page Table Base Register) — registr CPU (CR3 na x86-64) ukazující na top-level stránkovací tabulku aktivního procesu.</li>
+<li><strong>Jednoúrovňová ST</strong> — stránkovací tabulka s jedním záznamem na každou stránku VAS; paměťově náročná.</li>
+<li><strong>Víceúrovňová ST</strong> — hierarchická stránkovací tabulka; tabulky nižších úrovní existují jen pro používané oblasti VAS.</li>
+<li><strong>Invertovaná ST</strong> — jeden záznam na fyzický rámec; jedna tabulka pro celý systém; pomalejší překlad.</li>
+<li><strong>TLB</strong> (Translation Lookaside Buffer) — hardwarová cache nedávných překladů adres; dramaticky zrychluje překlad.</li>
+<li><strong>TLB miss</strong> — překlad nebyl nalezen v TLB; nutno prohledat ST v paměti.</li>
+<li><strong>TLB shootdown</strong> — invalidace položek TLB na všech CPU jádrech po změně mapování rámce.</li>
+<li><strong>ASID</strong> (Address Space ID) — identifikátor VAS v TLB; umožňuje koexistenci záznamů více procesů v TLB.</li>
+<li><strong>KPTI</strong> (Kernel Page Table Isolation) — obrana proti Meltdown; odděluje ST jádra od ST uživatelských procesů.</li>
+<li><strong>Halda</strong> (heap) — oblast VAS pro dynamicky alokovanou paměť; spravována knihovnou (glibc v Linuxu).</li>
+<li><strong>Brk</strong> (program break) — konec haldy; posouvá se systémovým voláním <code>brk</code>/<code>sbrk</code>.</li>
+<li><strong>Chunk</strong> — alokační jednotka haldy v glibc; obsahuje metadata a uživatelská data.</li>
+<li><strong>Small bins / Large bins</strong> — seznamy volných chunků v glibc; small bins pro &lt;1 KB, large bins pro větší.</li>
+<li><strong>Aréna</strong> (arena) — v glibc oblast paměti + mutex pro správu haldy v jednom vláknu; hlavní aréna pro hlavní vlákno, sekundární pro ostatní.</li>
+<li><strong>Algoritmus náhrady stránek</strong> (Page Replacement Algorithm, PRA) — algoritmus OS pro výběr oběti při nedostatku rámců.</li>
+<li><strong>Optimální algoritmus</strong> — nahradí stránku s nejpozději nastávajícím dalším přístupem; nelze implementovat, slouží jako referenční mez.</li>
+<li><strong>NRU</strong> (Not Recently Used) — nahradí stránku z nejnižší neprázdné třídy (0–3) podle R a D bitů.</li>
+<li><strong>FIFO</strong> (First-In First-Out) — nahradí stránku v paměti nejdéle; ignoruje nedávnost přístupu.</li>
+<li><strong>Clock algoritmus</strong> — modifikovaný FIFO s kruhovým bufferem a „druhou šancí" pro stránky s R = 1.</li>
+<li><strong>LRU</strong> (Least Recently Used) — nahradí stránku, ke které se nejdéle nepřistupovalo; nejlepší aproximace optimálního.</li>
+<li><strong>Aging</strong> — softwarová simulace LRU pomocí periodicky posouvaného n-bitového čítače; menší overhead než přesné LRU.</li>
+<li><strong>Working Set (WS)</strong> — množina stránek aktivně používaných procesem v daném časovém okně; rozumný počet rámců pro daný proces.</li>
+<li><strong>Thrashing</strong> (paměťový kolaps) — situace, kdy procesy generují tolik výpadků stránek, že CPU tráví většinu času obsluhou page faultů.</li>
+<li><strong>Demand paging</strong> (stránkování na žádost) — stránka se načte až při prvním přístupu k ní.</li>
+<li><strong>Prepaging</strong> (před-stránkování) — při page fault se načtou i sousední stránky na základě prostorové lokality.</li>
+<li><strong>Paging-out</strong> — OS odloží vybrané stránky na disk pro uvolnění rámců.</li>
+<li><strong>Swap</strong> — diskový prostor (oddíl nebo soubor) pro ukládání anonymních stránek odložených z paměti.</li>
+<li><strong>Reverzní mapování</strong> — mechanismus OS (přes <code>anon_vma</code>/<code>address_space</code>) pro dohledání všech procesů mapujících daný fyzický rámec.</li>
+<li><strong>Slab alokátor</strong> — alokátor jádra OS pro malé objekty fixní velikosti; pracuje nad oblastmi od Buddy alokátoru.</li>
+<li><strong>CMA</strong> (Contiguous Memory Allocator) — alokátor pro velké souvislé bloky fyzické paměti (nad 4 MB).</li>
+<li><strong>Huge pages</strong> — větší stránky/rámce (2 MB, 1 GB) snižující frekvenci TLB miss pro paměťově náročné aplikace.</li>
+<li><strong>Copy-on-Write (COW)</strong> — optimalizace při <code>fork()</code>: obě kopie sdílejí rámce do prvního zápisu; při zápisu OS vytvoří kopii rámce.</li>
+<li><strong>mmap()</strong> — systémové volání pro mapování souboru nebo anonymní paměti do VAS procesu.</li>
+<li><strong>DMA</strong> (Direct Memory Access) — přenos dat mezi I/O zařízením a fyzickou pamětí bez účasti CPU; vyžaduje souvislé fyzické oblasti.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../05-planovani/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Plánování procesů a vláken">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Plánování procesů a vláken
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../07-souborove-systemy/" class="md-footer__link md-footer__link--next" aria-label="Další: Datová úložiště a souborové systémy">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Datová úložiště a souborové systémy
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

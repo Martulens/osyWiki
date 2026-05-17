@@ -1,0 +1,2712 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/otazky/prakticke/05-pamet/">
+      
+      
+        <link rel="prev" href="../04-planovani/">
+      
+      
+        <link rel="next" href="../06-disky-raid/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Správa paměti - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#co-tento-typ-ulohy-proveruje" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Správa paměti
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../skripta/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../skripta/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vzorce-pro-strankovaci-tabulky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce pro stránkovací tabulky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obsah-radky-pte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obsah řádky (PTE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#klicova-pravidla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčová pravidla
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencni-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referenční materiál
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-strankovaci-tabulky-preklad-adres-a-velikost-tabulek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Stránkovací tabulky — překlad adres a velikost tabulek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-algoritmy-nahrady-stranek-aplikace-na-referencni-sekvenci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Algoritmy náhrady stránek — aplikace na referenční sekvenci
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-strankovani-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) Stránkování — krok za krokem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-nahrada-stranek-optimalni-algoritmus-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) Náhrada stránek — Optimální algoritmus, krok za krokem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-1-strankovaci-tabulky-jine-parametry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 1 — stránkovací tabulky (jiné parametry)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-2-nahrada-stranek-fifo-vs-lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 2 — náhrada stránek (FIFO vs. LRU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vzorce-pro-strankovaci-tabulky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce pro stránkovací tabulky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obsah-radky-pte" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obsah řádky (PTE)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#klicova-pravidla" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčová pravidla
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#referencni-material" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referenční materiál
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-strankovaci-tabulky-preklad-adres-a-velikost-tabulek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Stránkovací tabulky — překlad adres a velikost tabulek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-algoritmy-nahrady-stranek-aplikace-na-referencni-sekvenci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Algoritmy náhrady stránek — aplikace na referenční sekvenci
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-strankovani-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) Stránkování — krok za krokem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-nahrada-stranek-optimalni-algoritmus-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) Náhrada stránek — Optimální algoritmus, krok za krokem
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-1-strankovaci-tabulky-jine-parametry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 1 — stránkovací tabulky (jiné parametry)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-2-nahrada-stranek-fifo-vs-lru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 2 — náhrada stránek (FIFO vs. LRU)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sprava-pameti">Správa paměti<a class="headerlink" href="#sprava-pameti" title="Permanent link">&para;</a></h1>
+<p>Dva typy úloh, které se v každém termínu pravidelně opakují: <strong>stránkování</strong> (struktura adres, velikost a počet řádek tabulek, překlad virtuální adresy na fyzickou) a <strong>algoritmy náhrady stránek</strong> (FIFO, LRU, Clock, NRU, Optimální, Aging aplikované na referenční sekvenci).</p>
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje</a></li>
+<li><a href="#co-potrebujes-znat">Co potřebuješ znát</a><ul>
+<li><a href="#vzorce-pro-strankovaci-tabulky">Vzorce pro stránkovací tabulky</a></li>
+<li><a href="#obsah-radky-pte">Obsah řádky (PTE)</a></li>
+<li><a href="#klicova-pravidla">Klíčová pravidla</a></li>
+<li><a href="#referencni-material">Referenční materiál</a></li>
+</ul>
+</li>
+<li><a href="#postup-reseni-krok-za-krokem">Postup řešení krok za krokem</a><ul>
+<li><a href="#a-strankovaci-tabulky-preklad-adres-a-velikost-tabulek">A. Stránkovací tabulky — překlad adres a velikost tabulek</a></li>
+<li><a href="#b-algoritmy-nahrady-stranek-aplikace-na-referencni-sekvenci">B. Algoritmy náhrady stránek — aplikace na referenční sekvenci</a></li>
+</ul>
+</li>
+<li><a href="#vzorove-zadani">Vzorové zadání</a></li>
+<li><a href="#reseni-vzoroveho-zadani">Řešení vzorového zadání</a><ul>
+<li><a href="#a-strankovani-krok-za-krokem">A) Stránkování — krok za krokem</a></li>
+<li><a href="#b-nahrada-stranek-optimalni-algoritmus-krok-za-krokem">B) Náhrada stránek — Optimální algoritmus, krok za krokem</a></li>
+</ul>
+</li>
+<li><a href="#dalsi-procviceni">Další procvičení</a><ul>
+<li><a href="#varianta-1-strankovaci-tabulky-jine-parametry">Varianta 1 — stránkovací tabulky (jiné parametry)</a></li>
+<li><a href="#varianta-2-nahrada-stranek-fifo-vs-lru">Varianta 2 — náhrada stránek (FIFO vs. LRU)</a></li>
+</ul>
+</li>
+<li><a href="#varianty-a-chytaky">Varianty a chytáky</a></li>
+<li><a href="#caste-chyby">Časté chyby</a></li>
+<li><a href="#souvisejici">Související</a></li>
+</ul>
+</div>
+</details>
+<hr />
+<h2 id="co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje<a class="headerlink" href="#co-tento-typ-ulohy-proveruje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Schopnost rozložit virtuální a fyzickou adresu na číslo stránky/rámce a offset.</li>
+<li>Znalost rozdílů mezi jednoúrovňovou, invertovanou tabulkou stránek a TLB — kolik tabulek jádro udržuje a kolik řádek každá má.</li>
+<li>Schopnost krok za krokem aplikovat algoritmus náhrady stránek na zadanou referenční sekvenci a spočítat počet výpadků stránky (page faultů).</li>
+</ul>
+<hr />
+<h2 id="co-potrebujes-znat">Co potřebuješ znát<a class="headerlink" href="#co-potrebujes-znat" title="Permanent link">&para;</a></h2>
+<h3 id="vzorce-pro-strankovaci-tabulky">Vzorce pro stránkovací tabulky<a class="headerlink" href="#vzorce-pro-strankovaci-tabulky" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Veličina</th>
+<th>Vzorec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Počet bitů offsetu</td>
+<td><code>offset_bitů = log2(velikost_stránky_v_B)</code></td>
+</tr>
+<tr>
+<td>Počet bitů čísla stránky</td>
+<td><code>page_bits = délka_virtuální_adresy − offset_bitů</code></td>
+</tr>
+<tr>
+<td>Počet bitů čísla rámce</td>
+<td><code>frame_bits = délka_fyzické_adresy − offset_bitů</code></td>
+</tr>
+<tr>
+<td>Počet řádek — jednoúrovňová ST</td>
+<td><code>2^page_bits</code> (jedna řádka na každou stránku ve VAS)</td>
+</tr>
+<tr>
+<td>Počet řádek — invertovaná ST</td>
+<td><code>2^frame_bits</code> (jedna řádka na každý fyzický rámec)</td>
+</tr>
+<tr>
+<td>Počet tabulek — jednoúrovňová ST</td>
+<td>jedna na každý proces (celkem ≥ N tabulek pro N procesů)</td>
+</tr>
+<tr>
+<td>Počet tabulek — invertovaná ST</td>
+<td><strong>jedna</strong> pro celý systém</td>
+</tr>
+<tr>
+<td>Počet řádek TLB</td>
+<td>pevně daný hardware, typicky 64–1024; zadáno přímo</td>
+</tr>
+</tbody>
+</table>
+<h3 id="obsah-radky-pte">Obsah řádky (PTE)<a class="headerlink" href="#obsah-radky-pte" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Jednoúrovňová ST:</strong> číslo rámce + present bit (P) + reference bit (R) + dirty bit (D) + přístupová práva.</li>
+<li><strong>Invertovaná ST:</strong> číslo stránky + číslo procesu (PID) + řídicí bity (P, R, D) + index zřetězení pro kolize.</li>
+<li><strong>TLB:</strong> číslo stránky + číslo rámce + ASID + řídicí bity (R, D, W, X...).</li>
+</ul>
+<h3 id="klicova-pravidla">Klíčová pravidla<a class="headerlink" href="#klicova-pravidla" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Virtuální adresa obsahuje číslo <strong>stránky</strong> (ne rámce).</li>
+<li>Fyzická adresa obsahuje číslo <strong>rámce</strong> (ne stránky).</li>
+<li>Offset je v obou adresách <strong>identický</strong> a nezměněný.</li>
+<li>Počet řádek se počítá z <strong>délky adresy</strong>, nikoli z toho, kolik paměti proces aktuálně využívá.</li>
+</ul>
+<h3 id="referencni-material">Referenční materiál<a class="headerlink" href="#referencni-material" title="Permanent link">&para;</a></h3>
+<p><a href="../../../skripta/06-pamet/">Skripta: Správa paměti</a></p>
+<hr />
+<h2 id="postup-reseni-krok-za-krokem">Postup řešení krok za krokem<a class="headerlink" href="#postup-reseni-krok-za-krokem" title="Permanent link">&para;</a></h2>
+<h3 id="a-strankovaci-tabulky-preklad-adres-a-velikost-tabulek">A. Stránkovací tabulky — překlad adres a velikost tabulek<a class="headerlink" href="#a-strankovaci-tabulky-preklad-adres-a-velikost-tabulek" title="Permanent link">&para;</a></h3>
+<p>Tento postup platí pro jakékoli zadání s otázkami na strukturu adres nebo velikost/počet tabulek.</p>
+<ol>
+<li>
+<p><strong>Přečti zadání opatrně</strong> — zjisti: velikost stránky/rámce (v B nebo KiB/MiB), délku virtuální adresy (v bitech), délku fyzické adresy (v bitech), typ tabulky (jednoúrovňová / invertovaná), počet procesů a (případně) počet položek TLB.</p>
+</li>
+<li>
+<p><strong>Spočítej bity offsetu.</strong>
+   Offset je index bytu uvnitř stránky. Protože velikost stránky je vždy mocnina 2, platí:
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>offset_bitů = log2(velikost_stránky_v_B)
+</span></code></pre></div>
+   Příklad: stránka 16 384 B = 2^14 B → offset = <strong>14 bitů</strong>.</p>
+</li>
+<li>
+<p><strong>Spočítej bity čísla stránky.</strong>
+   Zbytek bitů virtuální adresy po odečtení offsetu:
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>page_bits = délka_VA − offset_bitů
+</span></code></pre></div>
+   Příklad: VA = 36 bitů, offset = 14 → page_bits = <strong>22 bitů</strong>.</p>
+</li>
+<li>
+<p><strong>Spočítej bity čísla rámce.</strong>
+   Analogicky pro fyzickou adresu:
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>frame_bits = délka_FA − offset_bitů
+</span></code></pre></div>
+   Příklad: FA = 36 bitů, offset = 14 → frame_bits = <strong>22 bitů</strong>.</p>
+</li>
+<li>
+<p><strong>Rozlož strukturu adres</strong> — nakresli si schéma:
+   <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Virtuální adresa (36 bitů):  [ číslo stránky: 22 b | offset: 14 b ]
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Fyzická adresa   (36 bitů):  [ číslo rámce:   22 b | offset: 14 b ]
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Urči typ tabulky a spočítej počet řádek.</strong></p>
+</li>
+<li><strong>Jednoúrovňová (klasická) tabulka stránek:</strong>
+     Jedna řádka na každou stránku ve VAS → počet řádek = <code>2^page_bits</code>.
+     Příklad: <code>2^22 = 4 194 304</code> řádek.</li>
+<li><strong>Invertovaná tabulka stránek:</strong>
+     Jedna řádka na každý fyzický rámec → počet řádek = <code>2^frame_bits</code>.
+     Příklad: <code>2^22 = 4 194 304</code> řádek (v tomto konkrétním zadání stejně, ale obecně se liší!).</li>
+<li>
+<p><strong>TLB:</strong>
+     Počet položek TLB je pevný hardware parametr — přečti ze zadání (např. 512 položek).</p>
+</li>
+<li>
+<p><strong>Urči počet tabulek, které jádro musí udržovat.</strong></p>
+</li>
+<li>Jednoúrovňová ST: jádro udržuje <strong>jednu tabulku na každý proces</strong>. Pro N procesů jde o N tabulek (nebo více, pokud procesy mají více vláken s oddělenými ST).</li>
+<li>Invertovaná ST: jádro udržuje <strong>jednu tabulku pro celý systém</strong>, bez ohledu na počet procesů.</li>
+<li>
+<p>TLB: jedno TLB sdílí všechny procesy (záznamy jsou rozlišeny přes ASID nebo se při přepnutí kontextu invalidují).</p>
+</li>
+<li>
+<p><strong>Ověř pravdivost tvrzení v multichoice</strong> — časté pasti:</p>
+</li>
+<li>„Logická adresa obsahuje číslo rámce" → <strong>NEPRAVDA</strong> (obsahuje číslo stránky).</li>
+<li>„Fyzická adresa obsahuje číslo stránky" → <strong>NEPRAVDA</strong> (obsahuje číslo rámce).</li>
+<li>„Invertovaná ST má jednu řádku na stránku VAS" → <strong>NEPRAVDA</strong> (má jednu na rámec).</li>
+<li>„Větší stránky zvyšují TLB hit ratio" → <strong>PRAVDA</strong> (větší stránka pokryje více adres jedinou TLB položkou).</li>
+<li>„TLB lze za běhu zvětšovat" → <strong>NEPRAVDA</strong> (je pevná součást HW).</li>
+</ol>
+<hr />
+<h3 id="b-algoritmy-nahrady-stranek-aplikace-na-referencni-sekvenci">B. Algoritmy náhrady stránek — aplikace na referenční sekvenci<a class="headerlink" href="#b-algoritmy-nahrady-stranek-aplikace-na-referencni-sekvenci" title="Permanent link">&para;</a></h3>
+<p>Tento postup platí pro všechny algoritmy. Vždy si kresli tabulku: sloupce = přístupy ze sekvence, řádky = rámce.</p>
+<ol>
+<li>
+<p><strong>Přečti zadání</strong> — zjisti: počet rámců (jsou prázdné, nebo předem naplněné?), referenční sekvenci, jaký algoritmus použít.</p>
+</li>
+<li>
+<p><strong>Inicializuj tabulku</strong> — na začátku jsou všechny rámce prázdné (nebo vyplněné dle zadání). Očísluj nebo pojmenuj rámce (a, b, c, ...).</p>
+</li>
+<li>
+<p><strong>Procházej sekvenci po jednom přístupu.</strong>
+   Pro každý přístup (stránku X) urči:</p>
+</li>
+<li>Je stránka X <strong>již v některém rámci?</strong> → <strong>HIT</strong>, nic se nemění (u některých algoritmů jen aktualizuj metadata — R bit, čas přístupu, čítač).</li>
+<li>
+<p>Stránka X <strong>není v žádném rámci</strong> → <strong>PAGE FAULT</strong> (výpadek stránky).</p>
+</li>
+<li>
+<p><strong>Při PAGE FAULT — volný rámec existuje:</strong> umísti stránku do nejmenšího volného rámce (abecedně první: a před b před c...). Zaznamenej jako výpadek.</p>
+</li>
+<li>
+<p><strong>Při PAGE FAULT — žádný volný rámec:</strong> vyber <strong>oběť</strong> podle příslušného algoritmu (viz níže), nahraď ji novou stránkou. Zaznamenej jako výpadek.</p>
+</li>
+<li>
+<p><strong>Výběr oběti podle algoritmu:</strong></p>
+</li>
+<li>
+<p><strong>FIFO (First-In First-Out):</strong>
+     Nahradí se stránka, která je v paměti <strong>nejdéle</strong> (nejstarší příchod).
+     Implementace: udržuj frontu stránek v pořadí příchodu. Oběť = stránka na začátku fronty. Po náhradě přidej novou stránku na konec.</p>
+</li>
+<li>
+<p><strong>LRU (Least Recently Used):</strong>
+     Nahradí se stránka, ke které se <strong>nejdéle nepřistupovalo</strong> (nejstarší poslední přístup).
+     Implementace: při každém přístupu (hit i fault) si zaznamenej čas přístupu. Oběť = stránka s nejstarším časem posledního přístupu.</p>
+</li>
+<li>
+<p><strong>Optimální (OPT):</strong>
+     Nahradí se stránka, ke které bude přistoupeno <strong>nejpozději v budoucnu</strong> (nebo vůbec).
+     Implementace: podívej se dopředu na zbytek sekvence. Pro každou stránku v rámcích najdi, kdy se k ní příště přistoupí. Oběť = stránka s nejpozdějším dalším přístupem. Pokud se k stránce v budoucnu nepřistoupí vůbec, je to nejlepší oběť.</p>
+</li>
+<li>
+<p><strong>Clock (Second Chance):</strong>
+     Stránky jsou v kruhové frontě s ručičkou. Každá má R bit.
+     Postup při hledání oběti:
+     <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1. Podívej se na stránku pod ručičkou.
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>2. Pokud R = 1: nastav R = 0, posuň ručičku o 1 vpřed, jdi na krok 1.
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>3. Pokud R = 0: tato stránka je oběť. Nahraď ji, posuň ručičku vpřed.
+</span></code></pre></div>
+     Při přístupu (hit) nastav R = 1 pro danou stránku.
+     Při vložení nové stránky nastav R = 1 a umísti ji na místo ručičky.</p>
+</li>
+<li>
+<p><strong>NRU (Not Recently Used):</strong>
+     Každá stránka má R bit (reference) a D bit (dirty/modified). OS je periodicky resetuje.
+     Třídy: 0 = (R=0, D=0), 1 = (R=0, D=1), 2 = (R=1, D=0), 3 = (R=1, D=1).
+     Oběť = stránka z <strong>neprázdné třídy s nejnižším číslem</strong>. V rámci třídy libovolná.</p>
+</li>
+<li>
+<p><strong>Aging:</strong>
+     Každá stránka má n-bitový čítač C (inicializován na 0 nebo 11...1 dle varianty zadání).
+     OS <strong>periodicky</strong> (každou periodu T):
+     <div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1. Posun čítač C každé stránky o 1 bit doprava.
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2. Nastav MSB (nejvýznamnější bit) čítače na hodnotu R bitu dané stránky.
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>3. Resetuj R bit na 0.
+</span></code></pre></div>
+     Oběť = stránka s <strong>nejmenší hodnotou čítače C</strong> (nejméně „aktivní" v historii).</p>
+</li>
+<li>
+<p><strong>Po každém přístupu aktualizuj záznamy</strong> (R bit, čítač, pořadí ve frontě) podle algoritmu.</p>
+</li>
+<li>
+<p><strong>Spočítej celkový počet výpadků</strong> — je to součet všech zaznačených PAGE FAULTů.</p>
+</li>
+<li>
+<p><strong>Zkontroluj výsledek</strong> — první N přístupů k unikátním stránkám (kde N = počet rámců) jsou vždy výpadky (rámce se plní poprvé). Celkový počet výpadků nemůže být menší než u optimálního algoritmu.</p>
+</li>
+</ol>
+<hr />
+<h2 id="vzorove-zadani">Vzorové zadání<a class="headerlink" href="#vzorove-zadani" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p><strong>A) Stránkování.</strong>
+Systém s virtuální pamětí: velikost stránky/rámce <strong>16 384 B</strong>, velikost virtuální adresy <strong>36 bitů</strong>, fyzické adresy <strong>36 bitů</strong>. TLB má <strong>512 položek</strong>. Běží <strong>983 uživatelských procesů</strong>. Systém používá <strong>invertovanou</strong> tabulku stránek.</p>
+<ol>
+<li>Kolik bitů má offset?</li>
+<li>Kolik bitů má číslo stránky (v logické adrese)?</li>
+<li>Kolik bitů má číslo rámce (ve fyzické adrese)?</li>
+<li>Kolik tabulek stránek si musí jádro pamatovat?</li>
+<li>Kolik řádek bude mít tabulka stránek?</li>
+</ol>
+<p>Vyberte pravdivá tvrzení (klasická tabulka vs. invertovaná):
+- Logická adresa obsahuje 22bitové číslo stránky.
+- Fyzická adresa obsahuje 14bitový offset.
+- Na řádce invertované tabulky je číslo rámce a present bit.
+- Na řádce TLB je číslo stránky, číslo rámce a modify/reference bit.
+- Větší stránky mohou zvýšit TLB hit ratio.</p>
+<p><strong>B) Náhrada stránek.</strong>
+K dispozici <strong>5 rámců</strong> (a–e), na začátku prázdné. Ke stránkám se přistupuje v pořadí:
+<code>7, 0, 2, 0, 2, 6, 5, 5, 5, 1, 6, 7, 3, 6, 2, 7, 9</code></p>
+<p>Kolik nastane výpadků stránky při <strong>optimálním</strong> algoritmu a jaký bude obsah rámců po posledním přístupu?</p>
+<p><em>Stránkování: každý termín 2014–2025. Náhrada stránek: 2012, 2018, 2019, 2022.</em></p>
+</div>
+<hr />
+<h2 id="reseni-vzoroveho-zadani">Řešení vzorového zadání<a class="headerlink" href="#reseni-vzoroveho-zadani" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<h3 id="a-strankovani-krok-za-krokem">A) Stránkování — krok za krokem<a class="headerlink" href="#a-strankovani-krok-za-krokem" title="Permanent link">&para;</a></h3>
+<p><strong>Krok 1: Offset.</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>offset_bitů = log2(16 384) = log2(2^14) = 14 bitů
+</span></code></pre></div></p>
+<p><strong>Krok 2: Číslo stránky.</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>page_bits = 36 − 14 = 22 bitů
+</span></code></pre></div></p>
+<p><strong>Krok 3: Číslo rámce.</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>frame_bits = 36 − 14 = 22 bitů
+</span></code></pre></div>
+(Virtuální a fyzická adresa jsou zde stejně dlouhé, takže vychází stejně — ale obecně se page_bits a frame_bits mohou lišit!)</p>
+<p><strong>Krok 4: Struktura adres.</strong>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Virtuální adresa (36 b):  [ číslo stránky: 22 b | offset: 14 b ]
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Fyzická adresa   (36 b):  [ číslo rámce:   22 b | offset: 14 b ]
+</span></code></pre></div></p>
+<p><strong>Krok 5: Počet tabulek.</strong>
+Systém používá <strong>invertovanou</strong> tabulku → jádro udržuje <strong>jednu tabulku pro celý systém</strong>, bez ohledu na počet procesů (983 procesů na tom nic nemění).</p>
+<p><strong>Krok 6: Počet řádek.</strong>
+Invertovaná tabulka má jednu řádku na každý fyzický rámec:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>počet řádek = 2^frame_bits = 2^22 = 4 194 304 řádek
+</span></code></pre></div></p>
+<p><strong>Krok 7: Multichoice.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tvrzení</th>
+<th>Pravdivost</th>
+<th>Odůvodnění</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Logická adresa obsahuje 22bitové číslo stránky</td>
+<td><strong>PRAVDA</strong></td>
+<td>page_bits = 36 − 14 = 22</td>
+</tr>
+<tr>
+<td>Fyzická adresa obsahuje 14bitový offset</td>
+<td><strong>PRAVDA</strong></td>
+<td>offset = log2(16384) = 14</td>
+</tr>
+<tr>
+<td>Na řádce invertované tabulky je číslo rámce a present bit</td>
+<td><strong>NEPRAVDA</strong></td>
+<td>Invertovaná tabulka je indexována číslem rámce; řádka obsahuje číslo <strong>stránky</strong> + číslo procesu + P bit</td>
+</tr>
+<tr>
+<td>Na řádce TLB je číslo stránky, číslo rámce a modify/reference bit</td>
+<td><strong>PRAVDA</strong></td>
+<td>TLB cachuje překlad stránka → rámec + řídicí bity</td>
+</tr>
+<tr>
+<td>Větší stránky mohou zvýšit TLB hit ratio</td>
+<td><strong>PRAVDA</strong></td>
+<td>Větší stránka pokryje větší oblast adres jedinou TLB položkou</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Srovnání s klasickou tabulkou</p>
+<p>Kdyby šlo o <strong>jednoúrovňovou (klasickou)</strong> tabulku stránek:
+- Počet řádek = <code>2^page_bits = 2^22 = 4 194 304</code> (zde stejně jako invertovaná, protože VA = FA).
+- Jádro by si muselo pamatovat <strong>alespoň 983 tabulek</strong> — jednu na každý proces.
+- Na řádce klasické tabulky je <strong>číslo rámce</strong> (ne stránky) + P, R, D bity.</p>
+</div>
+<hr />
+<h3 id="b-nahrada-stranek-optimalni-algoritmus-krok-za-krokem">B) Náhrada stránek — Optimální algoritmus, krok za krokem<a class="headerlink" href="#b-nahrada-stranek-optimalni-algoritmus-krok-za-krokem" title="Permanent link">&para;</a></h3>
+<p>Sekvence: <code>7, 0, 2, 0, 2, 6, 5, 5, 5, 1, 6, 7, 3, 6, 2, 7, 9</code>
+5 rámců, na začátku prázdné.</p>
+<p>Strategie Optimálního algoritmu: při výpadku vyber k vyřazení stránku, ke které bude přistoupeno nejpozději v budoucnu (nebo nikdy).</p>
+<p><strong>Přístupy 1–5: plnění prázdných rámců (vždy výpadek)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Přístup</th>
+<th>Stránka</th>
+<th>Rámec a</th>
+<th>Rámec b</th>
+<th>Rámec c</th>
+<th>Rámec d</th>
+<th>Rámec e</th>
+<th>Výpadek</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>7</td>
+<td><strong>7</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>F (1)</td>
+</tr>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>7</td>
+<td><strong>0</strong></td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>F (2)</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>7</td>
+<td>0</td>
+<td><strong>2</strong></td>
+<td>—</td>
+<td>—</td>
+<td>F (3)</td>
+</tr>
+<tr>
+<td>4</td>
+<td>0</td>
+<td>7</td>
+<td>0</td>
+<td>2</td>
+<td>—</td>
+<td>—</td>
+<td>hit</td>
+</tr>
+<tr>
+<td>5</td>
+<td>2</td>
+<td>7</td>
+<td>0</td>
+<td>2</td>
+<td>—</td>
+<td>—</td>
+<td>hit</td>
+</tr>
+<tr>
+<td>6</td>
+<td>6</td>
+<td>7</td>
+<td>0</td>
+<td>2</td>
+<td><strong>6</strong></td>
+<td>—</td>
+<td>F (4)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>5</td>
+<td>7</td>
+<td>0</td>
+<td>2</td>
+<td>6</td>
+<td><strong>5</strong></td>
+<td>F (5)</td>
+</tr>
+</tbody>
+</table>
+<p>Rámce jsou nyní plné: <code>a=7, b=0, c=2, d=6, e=5</code>.</p>
+<p><strong>Přístup 8 (stránka 5):</strong> 5 je v rámci e → <strong>HIT</strong>.</p>
+<p><strong>Přístup 9 (stránka 5):</strong> 5 je v rámci e → <strong>HIT</strong>.</p>
+<p><strong>Přístup 10 (stránka 1):</strong> 1 není v žádném rámci → PAGE FAULT (6).
+Podíváme se dopředu na zbytek sekvence: <code>6, 7, 3, 6, 2, 7, 9</code>
+Kdy se příště přistoupí k jednotlivým stránkám v rámcích?
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>stránka 7 → přístup č. 12  (pozice &quot;7&quot; v: 6,7,3,6,2,7,9)
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>stránka 0 → NIKDY (0 se v zbytku nevyskytuje) ← nejlepší oběť
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>stránka 2 → přístup č. 15
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>stránka 6 → přístup č. 11
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>stránka 5 → NIKDY (5 se v zbytku nevyskytuje) ← také dobrá oběť
+</span></code></pre></div>
+Nejlepší oběť: stránka <strong>0</strong> (nebo 5 — obě se v budoucnu nevyskytují; vybereme b=0 jako první volný v abecedním pořadí nahrazovaných kandidátů, ale v praxi vybíráme „nikdy" před „nejpozději"). Nahradíme rámec b=0 → b=1.</p>
+<p>Rámce: <code>a=7, b=1, c=2, d=6, e=5</code>.</p>
+<p><strong>Přístup 11 (stránka 6):</strong> 6 je v rámci d → <strong>HIT</strong>.</p>
+<p><strong>Přístup 12 (stránka 7):</strong> 7 je v rámci a → <strong>HIT</strong>.</p>
+<p><strong>Přístup 13 (stránka 3):</strong> 3 není v žádném rámci → PAGE FAULT (7).
+Zbytek sekvence: <code>6, 2, 7, 9</code>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>stránka 7 → přístup č. 16
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>stránka 1 → NIKDY ← nejlepší oběť
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>stránka 2 → přístup č. 15
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>stránka 6 → přístup č. 14
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>stránka 5 → NIKDY ← stejně dobrá
+</span></code></pre></div>
+Oběť: stránka <strong>5</strong> v rámci e (nebo 1 v rámci b — obě „nikdy"; vezmeme e=5).
+Nahradíme e=5 → e=3.</p>
+<p>Rámce: <code>a=7, b=1, c=2, d=6, e=3</code>.</p>
+<p><strong>Přístup 14 (stránka 6):</strong> 6 je v rámci d → <strong>HIT</strong>.</p>
+<p><strong>Přístup 15 (stránka 2):</strong> 2 je v rámci c → <strong>HIT</strong>.</p>
+<p><strong>Přístup 16 (stránka 7):</strong> 7 je v rámci a → <strong>HIT</strong>.</p>
+<p><strong>Přístup 17 (stránka 9):</strong> 9 není v žádném rámci → PAGE FAULT (8).
+Zbytek sekvence: prázdný (poslední přístup).
+Všechny stránky v rámcích jsou „nikdy" (konec sekvence). Vybereme libovolnou; konvencí nahradíme stránku <strong>1</strong> v rámci b.
+Rámce: <code>a=7, b=9, c=2, d=6, e=3</code>.</p>
+<p><strong>Výsledek:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>přístup  stránka   a   b   c   d   e   výpadek?
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>1        7         7   —   —   —   —   F (1)
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>2        0         7   0   —   —   —   F (2)
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>3        2         7   0   2   —   —   F (3)
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>4        0         7   0   2   —   —   hit
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>5        2         7   0   2   —   —   hit
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>6        6         7   0   2   6   —   F (4)
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>7        5         7   0   2   6   5   F (5)
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>8        5         7   0   2   6   5   hit
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>9        5         7   0   2   6   5   hit
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>10       1         7   1   2   6   5   F (6)  ← oběť: 0 (nikdy se nevrátí)
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>11       6         7   1   2   6   5   hit
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>12       7         7   1   2   6   5   hit
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>13       3         7   1   2   6   3   F (7)  ← oběť: 5 (nikdy se nevrátí)
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>14       6         7   1   2   6   3   hit
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>15       2         7   1   2   6   3   hit
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>16       7         7   1   2   6   3   hit
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>17       9         7   9   2   6   3   F (8)  ← oběť: 1 (konec sekvence)
+</span></code></pre></div>
+<p><strong>Celkový počet výpadků: 8.</strong></p>
+<p>Obsah rámců po posledním přístupu: <strong>a=7, b=9, c=2, d=6, e=3</strong>.</p>
+</details>
+<hr />
+<h2 id="dalsi-procviceni">Další procvičení<a class="headerlink" href="#dalsi-procviceni" title="Permanent link">&para;</a></h2>
+<h3 id="varianta-1-strankovaci-tabulky-jine-parametry">Varianta 1 — stránkovací tabulky (jiné parametry)<a class="headerlink" href="#varianta-1-strankovaci-tabulky-jine-parametry" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p>Systém: velikost stránky <strong>8 192 B</strong> (8 KiB), virtuální adresa <strong>32 bitů</strong>, fyzická adresa <strong>30 bitů</strong>. Běží <strong>256 procesů</strong>. Systém používá <strong>jednoúrovňovou</strong> tabulku stránek.</p>
+<ol>
+<li>Kolik bitů má offset?</li>
+<li>Kolik bitů má číslo stránky?</li>
+<li>Kolik bitů má číslo rámce?</li>
+<li>Kolik tabulek si pamatuje jádro?</li>
+<li>Kolik řádek má jedna tabulka?</li>
+</ol>
+</div>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<p><strong>Krok 1:</strong> <code>offset = log2(8192) = log2(2^13) = 13 bitů</code></p>
+<p><strong>Krok 2:</strong> <code>page_bits = 32 − 13 = 19 bitů</code></p>
+<p><strong>Krok 3:</strong> <code>frame_bits = 30 − 13 = 17 bitů</code></p>
+<p><strong>Krok 4:</strong> Jednoúrovňová tabulka → jádro udržuje <strong>jednu tabulku na každý proces</strong> → celkem <strong>256 tabulek</strong> (minimálně).</p>
+<p><strong>Krok 5:</strong> Počet řádek jedné tabulky = <code>2^page_bits = 2^19 = 524 288 řádek</code>.</p>
+<p>Struktura adres:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Virtuální adresa (32 b):  [ číslo stránky: 19 b | offset: 13 b ]
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Fyzická adresa   (30 b):  [ číslo rámce:   17 b | offset: 13 b ]
+</span></code></pre></div></p>
+<p>Pozoruj: page_bits (19) ≠ frame_bits (17) — fyzická paměť je menší než virtuální adresní prostor. To je běžné.</p>
+</details>
+<hr />
+<h3 id="varianta-2-nahrada-stranek-fifo-vs-lru">Varianta 2 — náhrada stránek (FIFO vs. LRU)<a class="headerlink" href="#varianta-2-nahrada-stranek-fifo-vs-lru" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p>K dispozici <strong>3 rámce</strong> (a, b, c), na začátku prázdné. Referenční sekvence:
+<code>2, 3, 2, 1, 5, 2, 4, 5, 3, 2, 5, 2</code></p>
+<p>Spočítejte počet výpadků pro algoritmy <strong>FIFO</strong> a <strong>LRU</strong>.</p>
+</div>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<p><strong>FIFO (3 rámce):</strong>
+Udržujeme frontu pořadí příchodu: nejstarší = první v řadě pro vyřazení.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>přístup  stránka   a   b   c   fronta (nejstarší→nejnovější)   výpadek?
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>1        2         2   —   —   [2]                               F (1)
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>2        3         2   3   —   [2, 3]                            F (2)
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>3        2         2   3   —   [2, 3]                            hit
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>4        1         2   3   1   [2, 3, 1]                         F (3)
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>5        5         5   3   1   [3, 1, 5]  ← oběť: 2             F (4)
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>6        2         5   2   1   [1, 5, 2]  ← oběť: 3             F (5)
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>7        4         5   2   4   [5, 2, 4]  ← oběť: 1             F (6)
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>8        5         5   2   4   [5, 2, 4]                         hit
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>9        3         3   2   4   [2, 4, 3]  ← oběť: 5             F (7)
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>10       2         3   2   4   [2, 4, 3]                         hit
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>11       5         3   5   4   [4, 3, 5]  ← oběť: 2             F (8)
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>12       2         3   5   2   [3, 5, 2]  ← oběť: 4             F (9)
+</span></code></pre></div>
+<p><strong>FIFO: 9 výpadků.</strong></p>
+<p><strong>LRU (3 rámce):</strong>
+Při každém přístupu (hit i fault) si zaznamenáme čas. Oběť = stránka s nejstarším posledním přístupem.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>přístup  stránka   a(čas) b(čas) c(čas)   oběť    výpadek?
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>1        2         2(1)   —      —                   F (1)
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>2        3         2(1)   3(2)   —                   F (2)
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>3        2         2(3)   3(2)   —                   hit (aktualizuj čas 2)
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>4        1         2(3)   3(2)   1(4)                F (3)
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>5        5         2(3)   5(5)   1(4)     ← oběť: 3 (čas 2)   F (4)
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>6        2         2(6)   5(5)   1(4)                hit
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>7        4         2(6)   5(5)   4(7)     ← oběť: 1 (čas 4)   F (5)
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>8        5         2(6)   5(8)   4(7)                hit
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>9        3         2(6)   3(9)   4(7)     ← oběť: 5 (čas 5... wait: 5 naposledy přístup 8) ← oběť: 2 (čas 6)   F (6)
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Pozor na pořadí časů u LRU</p>
+<p>Po přístupu č. 9 (stránka 3):
+Rámce: a=2 (naposledy přístup č. 6), b=5 (č. 8), c=4 (č. 7).
+Oběť = nejstarší poslední přístup = stránka <strong>2</strong> (čas 6). Nahradíme a=3.</p>
+</div>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>9        3         3(9)   5(8)   4(7)     ← oběť: 2 (čas 6)   F (6)
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>10       2         3(9)   5(8)   2(10)    ← oběť: 4 (čas 7)   F (7)
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>11       5         3(9)   5(11)  2(10)                hit
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>12       2         3(9)   5(11)  2(12)                hit
+</span></code></pre></div>
+<p><strong>LRU: 7 výpadků</strong> (méně než FIFO díky využití informace o nedávnosti přístupu).</p>
+<p>Srovnání:</p>
+<table>
+<thead>
+<tr>
+<th>Algoritmus</th>
+<th>Výpadky</th>
+<th>Poznámka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Optimální</td>
+<td>6</td>
+<td>dolní mez, nelze implementovat</td>
+</tr>
+<tr>
+<td>LRU</td>
+<td>7</td>
+<td>nejlepší reálná aproximace optimálního</td>
+</tr>
+<tr>
+<td>Clock</td>
+<td>8</td>
+<td>střední, modifikovaný FIFO</td>
+</tr>
+<tr>
+<td>FIFO</td>
+<td>9</td>
+<td>nejjednodušší, ale nejhorší výsledky</td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr />
+<h2 id="varianty-a-chytaky">Varianty a chytáky<a class="headerlink" href="#varianty-a-chytaky" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Velikost stránky musí být mocnina 2</strong> — jen tehdy dává <code>log2</code> celé číslo pro offset. Pokud dostaneš hodnotu, která mocninou 2 není, přepočítej (je to chyba zadání nebo past).</li>
+<li><strong>page_bits ≠ frame_bits</strong> — fyzická adresa může být kratší než virtuální (fyzická paměť &lt; VAS); pak je frame_bits &lt; page_bits a invertovaná tabulka bude mít méně řádek než jednoúrovňová klasická.</li>
+<li><strong>Rušivé údaje v zadání</strong> — počet procesů je pro invertovanou tabulku rušivý (stále jen jedna tabulka); alokovaná paměť procesu je rušivá pro počet řádek (závisí na délce adresy, ne na využití).</li>
+<li><strong>Výpočet řádek vždy z délky adresy, ne z RAM</strong> — i když systém má 1 GB RAM, jednoúrovňová ST na 36bitové adrese má <code>2^22</code> řádek (z délky adresy).</li>
+<li><strong>TLB hit ratio</strong> — větší stránky → méně TLB missů (jedna položka pokrývá více adres). Více procesů → více TLB shootdownů, ale velikost TLB se nemění.</li>
+<li><strong>Při shodě oběti</strong> u FIFO/LRU/Clock vyber rámec s nejnižším označením (a před b před c...); zadání to občas explicitně uvádí.</li>
+<li><strong>Přístupy 5,5 a 5,5,5</strong> v sekvenci jsou hitten — je důležité aktualizovat metadata (LRU čas, R bit u Clock/NRU) i při hitu.</li>
+<li><strong>NRU třídí stránky periodicky</strong> — R bit se resetuje v čase i×T ze zadání. Při výpočtu sleduj, kdy přesně se resetuje, jinak špatně přiřadíš třídu.</li>
+<li><strong>Aging</strong> — pokud zadání neupřesní počáteční hodnotu čítače, předpokládej 0. MSB se nastaví na R, pak shift doprava (nebo opačně — čti zadání).</li>
+</ul>
+<hr />
+<h2 id="caste-chyby">Časté chyby<a class="headerlink" href="#caste-chyby" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>Záměna čísla stránky a čísla rámce v adresách.</strong> Virtuální adresa = stránka + offset. Fyzická adresa = rámec + offset. Nikdy naopak.</p>
+</li>
+<li>
+<p><strong>Počet řádek invertované tabulky = počet procesů.</strong> Špatně. Invertovaná tabulka má <code>2^frame_bits</code> řádek — jednu na fyzický rámec. Počet procesů je irelevantní.</p>
+</li>
+<li>
+<p><strong>Počet tabulek u jednoúrovňové = 1.</strong> Špatně. Jednoúrovňová = jedna tabulka na každý proces. Invertovaná = jedna tabulka pro celý systém.</p>
+</li>
+<li>
+<p><strong>Záměna log2 a log10.</strong> Offset = <code>log2(velikost_stránky)</code>, ne <code>log10</code>. Stránka 4 096 B = 2^12 → offset = 12 bitů.</p>
+</li>
+<li>
+<p><strong>Přeskočení aktualizace metadat při hitu.</strong> U LRU musíš aktualizovat čas přístupu i při hitu (jinak špatně určíš oběť příště). U Clock musíš nastavit R = 1 při hitu.</p>
+</li>
+<li>
+<p><strong>Špatná volba oběti u optimálního algoritmu.</strong> Vždy se díváš na zbytek sekvence <em>od aktuálního přístupu dál</em>. Stránka, která se v budoucnu vůbec neobjeví, je nejlepší oběť (vyber ji jako první).</p>
+</li>
+<li>
+<p><strong>Záměna FIFO a LRU</strong> — FIFO sleduje čas <strong>příchodu</strong> do rámce; LRU sleduje čas <strong>posledního přístupu</strong>. Stránka může být v rámci dlouho (FIFO by ji vyhodila), ale přistupovalo se k ní nedávno (LRU by ji nechala).</p>
+</li>
+<li>
+<p><strong>Počítat výpadky i při hitu</strong> — hit = stránka je v rámci = žádný výpadek, jen aktualizace metadat.</p>
+</li>
+</ol>
+<hr />
+<h2 id="souvisejici">Související<a class="headerlink" href="#souvisejici" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../../skripta/06-pamet/">Skripta: Správa paměti</a> — kompletní teorie stránkování, algoritmů a správy haldy</li>
+<li><a href="../../teorie-truefalse/">Teoretické otázky (true/false)</a> — procvič vlastnosti tabulek a algoritmů v testovém formátu</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../04-planovani/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Plánování procesů">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Plánování procesů
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../06-disky-raid/" class="md-footer__link md-footer__link--next" aria-label="Další: Disky a RAID">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Disky a RAID
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,3064 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/otazky/prakticke/04-planovani/">
+      
+      
+        <link rel="prev" href="../03-deadlock/">
+      
+      
+        <link rel="next" href="../05-pamet/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Plánování procesů - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#co-tento-typ-ulohy-proveruje" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plánování procesů
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../skripta/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../skripta/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#klicove-principy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové principy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odkaz-na-teorii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Odkaz na teorii
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-urci-pocet-hw-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Urči počet HW vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vypocitej-dobu-jednoho-vlakna-pro-kazdy-proces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vypočítej dobu jednoho vlákna pro každý proces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-serad-procesy-podle-priority-sestupne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Seřaď procesy podle priority sestupně
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-pridel-hw-vlakna-v-prvni-fazi-cas-t0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Přidel HW vlákna v první fázi (čas T0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pomerne-deleni-pri-shodne-priorite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Poměrné dělení při shodné prioritě
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-urci-realnou-dobu-behu-kazdeho-procesu-v-teto-fazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Urči reálnou dobu běhu každého procesu v této fázi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-najdi-proces-ktery-dobehne-jako-prvni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Najdi proces, který doběhne jako první
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-zaznamenej-cas-ukonceni-a-odvedenou-praci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Zaznamenej čas ukončení a "odvedenou práci"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-uvolni-vlakna-dokonceneho-procesu-a-aktualizuj-dostupna-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Uvolni vlákna dokončeného procesu a aktualizuj dostupná vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-prerozdel-vlakna-pro-novou-fazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Přerozděl vlákna pro novou fázi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-zohledni-background-load-pokud-je-zadan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Zohledni background load (pokud je zadán)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-opakuj-dokud-nedobehnou-vsechny-procesy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Opakuj, dokud nedoběhnou všechny procesy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-pocet-hw-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Počet HW vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-tabulka-serazena-podle-priority-sestupne-a-doby-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Tabulka seřazená podle priority (sestupně) a doby vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-faze-1-prideleni-vlaken-v-t0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: Fáze 1 — přidělení vláken v T0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-faze-2-po-ukonceni-p3-t0-45-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Fáze 2 — po ukončení P3 (T0 + 45 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-faze-3-po-ukonceni-p2-t0-90-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Fáze 3 — po ukončení P2 (T0 + 90 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-faze-4-po-ukonceni-p5-t0-111-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Fáze 4 — po ukončení P5 (T0 + 111 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-faze-5-po-ukonceni-p1-t0-129-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Fáze 5 — po ukončení P1 (T0 + 129 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-8-faze-6-po-ukonceni-p4-t0-15075-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 8: Fáze 6 — po ukončení P4 (T0 + 150.75 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrnuti-vysledku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí výsledků
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-a-mene-procesu-jina-konfigurace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta A — méně procesů, jiná konfigurace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-b-s-background-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta B — s background load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#klicove-principy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové principy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odkaz-na-teorii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Odkaz na teorii
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-urci-pocet-hw-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Urči počet HW vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-vypocitej-dobu-jednoho-vlakna-pro-kazdy-proces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Vypočítej dobu jednoho vlákna pro každý proces
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-serad-procesy-podle-priority-sestupne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Seřaď procesy podle priority sestupně
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-pridel-hw-vlakna-v-prvni-fazi-cas-t0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Přidel HW vlákna v první fázi (čas T0)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-pomerne-deleni-pri-shodne-priorite" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Poměrné dělení při shodné prioritě
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-urci-realnou-dobu-behu-kazdeho-procesu-v-teto-fazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Urči reálnou dobu běhu každého procesu v této fázi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-najdi-proces-ktery-dobehne-jako-prvni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Najdi proces, který doběhne jako první
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-zaznamenej-cas-ukonceni-a-odvedenou-praci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Zaznamenej čas ukončení a "odvedenou práci"
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-uvolni-vlakna-dokonceneho-procesu-a-aktualizuj-dostupna-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Uvolni vlákna dokončeného procesu a aktualizuj dostupná vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-prerozdel-vlakna-pro-novou-fazi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Přerozděl vlákna pro novou fázi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-zohledni-background-load-pokud-je-zadan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Zohledni background load (pokud je zadán)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-opakuj-dokud-nedobehnou-vsechny-procesy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Opakuj, dokud nedoběhnou všechny procesy
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-pocet-hw-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Počet HW vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-tabulka-serazena-podle-priority-sestupne-a-doby-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Tabulka seřazená podle priority (sestupně) a doby vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-faze-1-prideleni-vlaken-v-t0" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: Fáze 1 — přidělení vláken v T0
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-faze-2-po-ukonceni-p3-t0-45-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Fáze 2 — po ukončení P3 (T0 + 45 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-faze-3-po-ukonceni-p2-t0-90-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Fáze 3 — po ukončení P2 (T0 + 90 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-faze-4-po-ukonceni-p5-t0-111-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Fáze 4 — po ukončení P5 (T0 + 111 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-faze-5-po-ukonceni-p1-t0-129-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Fáze 5 — po ukončení P1 (T0 + 129 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-8-faze-6-po-ukonceni-p4-t0-15075-s" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 8: Fáze 6 — po ukončení P4 (T0 + 150.75 s)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shrnuti-vysledku" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí výsledků
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-a-mene-procesu-jina-konfigurace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta A — méně procesů, jiná konfigurace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-b-s-background-load" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta B — s background load
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="planovani-procesu">Plánování procesů<a class="headerlink" href="#planovani-procesu" title="Permanent link">&para;</a></h1>
+<p>Úloha na plánování procesů se statickou prioritou: dostaneš tabulku procesů s prioritou, počtem vláken a celkovou dobou výpočtu a musíš zjistit, kdy jednotlivé procesy skončí, kdy fakticky začnou běžet a kdy doběhne úplně poslední proces.</p>
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje</a></li>
+<li><a href="#co-potrebujes-znat">Co potřebuješ znát</a><ul>
+<li><a href="#vzorce">Vzorce</a></li>
+<li><a href="#klicove-principy">Klíčové principy</a></li>
+<li><a href="#odkaz-na-teorii">Odkaz na teorii</a></li>
+</ul>
+</li>
+<li><a href="#postup-reseni-krok-za-krokem">Postup řešení krok za krokem</a><ul>
+<li><a href="#1-urci-pocet-hw-vlaken">1. Urči počet HW vláken</a></li>
+<li><a href="#2-vypocitej-dobu-jednoho-vlakna-pro-kazdy-proces">2. Vypočítej dobu jednoho vlákna pro každý proces</a></li>
+<li><a href="#3-serad-procesy-podle-priority-sestupne">3. Seřaď procesy podle priority sestupně</a></li>
+<li><a href="#4-pridel-hw-vlakna-v-prvni-fazi-cas-t0">4. Přidel HW vlákna v první fázi (čas T0)</a></li>
+<li><a href="#5-pomerne-deleni-pri-shodne-priorite">5. Poměrné dělení při shodné prioritě</a></li>
+<li><a href="#6-urci-realnou-dobu-behu-kazdeho-procesu-v-teto-fazi">6. Urči reálnou dobu běhu každého procesu v této fázi</a></li>
+<li><a href="#7-najdi-proces-ktery-dobehne-jako-prvni">7. Najdi proces, který doběhne jako první</a></li>
+<li><a href="#8-zaznamenej-cas-ukonceni-a-odvedenou-praci">8. Zaznamenej čas ukončení a "odvedenou práci"</a></li>
+<li><a href="#9-uvolni-vlakna-dokonceneho-procesu-a-aktualizuj-dostupna-vlakna">9. Uvolni vlákna dokončeného procesu a aktualizuj dostupná vlákna</a></li>
+<li><a href="#10-prerozdel-vlakna-pro-novou-fazi">10. Přerozděl vlákna pro novou fázi</a></li>
+<li><a href="#11-zohledni-background-load-pokud-je-zadan">11. Zohledni background load (pokud je zadán)</a></li>
+<li><a href="#12-opakuj-dokud-nedobehnou-vsechny-procesy">12. Opakuj, dokud nedoběhnou všechny procesy</a></li>
+</ul>
+</li>
+<li><a href="#vzorove-zadani">Vzorové zadání</a></li>
+<li><a href="#reseni-vzoroveho-zadani">Řešení vzorového zadání</a><ul>
+<li><a href="#krok-1-pocet-hw-vlaken">Krok 1: Počet HW vláken</a></li>
+<li><a href="#krok-2-tabulka-serazena-podle-priority-sestupne-a-doby-vlakna">Krok 2: Tabulka seřazená podle priority (sestupně) a doby vlákna</a></li>
+<li><a href="#krok-3-faze-1-prideleni-vlaken-v-t0">Krok 3: Fáze 1 — přidělení vláken v T0</a></li>
+<li><a href="#krok-4-faze-2-po-ukonceni-p3-t0-45-s">Krok 4: Fáze 2 — po ukončení P3 (T0 + 45 s)</a></li>
+<li><a href="#krok-5-faze-3-po-ukonceni-p2-t0-90-s">Krok 5: Fáze 3 — po ukončení P2 (T0 + 90 s)</a></li>
+<li><a href="#krok-6-faze-4-po-ukonceni-p5-t0-111-s">Krok 6: Fáze 4 — po ukončení P5 (T0 + 111 s)</a></li>
+<li><a href="#krok-7-faze-5-po-ukonceni-p1-t0-129-s">Krok 7: Fáze 5 — po ukončení P1 (T0 + 129 s)</a></li>
+<li><a href="#krok-8-faze-6-po-ukonceni-p4-t0-15075-s">Krok 8: Fáze 6 — po ukončení P4 (T0 + 150.75 s)</a></li>
+<li><a href="#shrnuti-vysledku">Shrnutí výsledků</a></li>
+</ul>
+</li>
+<li><a href="#dalsi-procviceni">Další procvičení</a><ul>
+<li><a href="#varianta-a-mene-procesu-jina-konfigurace">Varianta A — méně procesů, jiná konfigurace</a></li>
+<li><a href="#varianta-b-s-background-load">Varianta B — s background load</a></li>
+</ul>
+</li>
+<li><a href="#varianty-a-chytaky">Varianty a chytáky</a></li>
+<li><a href="#caste-chyby">Časté chyby</a></li>
+<li><a href="#souvisejici">Související</a></li>
+</ul>
+</div>
+</details>
+<hr />
+<h2 id="co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje<a class="headerlink" href="#co-tento-typ-ulohy-proveruje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Porozumění tomu, jak plánovač přiděluje hardwarová vlákna procesům podle priority.</li>
+<li>Schopnost poměrně rozdělit kapacitu vláken při shodné prioritě.</li>
+<li>Výpočet reálné doby běhu procesu při přidělení méně (nebo více) vláken, než proces vytvořil.</li>
+<li>Opakované přepočítávání stavu systému poté, co každý proces doběhne (tzv. fázový přístup).</li>
+<li>Zohlednění background load (zatížení procesoru jádrem / ostatními procesy).</li>
+</ul>
+<p>Tento typ se ve zkoušce objevuje prakticky každý rok: 2011, 2014, 2018, 2019, 2023.</p>
+<hr />
+<h2 id="co-potrebujes-znat">Co potřebuješ znát<a class="headerlink" href="#co-potrebujes-znat" title="Permanent link">&para;</a></h2>
+<h3 id="vzorce">Vzorce<a class="headerlink" href="#vzorce" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>HW vláken celkem  = počet_procesorů × jader_na_procesor × vláken_na_jádro
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>doba_vlákna       = celková_doba_výpočtu / počet_vláken_procesu
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>                    (= doba, za kterou výpočet zvládne JEDNO vlákno)
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>real_time         = doba_vlákna × počet_vláken_procesu / přidělených_HW_vláken
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>                    (= jak dlouho proces reálně poběží při k přidělených vláknech)
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Zkrácený zápis:   real_time = celková_doba / přidělených_HW_vláken
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>S background load X %:
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>  všechny vypočítané časy × (100 / (100 - X))
+</span></code></pre></div>
+<p><strong>Příklad:</strong> Proces má 3 vlákna, celková doba 270 s.
+- doba jednoho vlákna = 270 / 3 = <strong>90 s</strong>
+- dostane-li 3 HW vlákna: real_time = 270 / 3 = <strong>90 s</strong>
+- dostane-li 1 HW vlákno:  real_time = 270 / 1 = <strong>270 s</strong> (1 vlákno dělá práci 3)</p>
+<h3 id="klicove-principy">Klíčové principy<a class="headerlink" href="#klicove-principy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Vyšší číslo priority = vyšší priorita</strong> (pokud zadání neurčí jinak).</li>
+<li>Plánovač přiděluje HW vlákna vždy nejprve procesu s nejvyšší prioritou (dostane tolik, kolik má vláken, max. tolik, kolik je dostupných).</li>
+<li>Při shodné prioritě a nedostatku HW vláken se dostupná vlákna rozdělí <strong>poměrně</strong> podle počtu vláken jednotlivých procesů.</li>
+<li>Plánovač přerozděluje vlákna vždy, když nějaký proces doběhne (uvolní vlákna).</li>
+<li>Výpočet probíhá ve <strong>fázích</strong> — každá fáze trvá do okamžiku, kdy první z běžících procesů dokončí práci.</li>
+</ul>
+<h3 id="odkaz-na-teorii">Odkaz na teorii<a class="headerlink" href="#odkaz-na-teorii" title="Permanent link">&para;</a></h3>
+<p><a href="../../../skripta/05-planovani/">Skripta: Plánování</a></p>
+<hr />
+<h2 id="postup-reseni-krok-za-krokem">Postup řešení krok za krokem<a class="headerlink" href="#postup-reseni-krok-za-krokem" title="Permanent link">&para;</a></h2>
+<p>Níže je obecný postup, který funguje na všechny varianty této úlohy. Je rozepsán velmi podrobně — u zkoušky zvládneš po procvičení zkrátit, ale první kroky si vždy kresli.</p>
+<h3 id="1-urci-pocet-hw-vlaken">1. Urči počet HW vláken<a class="headerlink" href="#1-urci-pocet-hw-vlaken" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>HW = procesory × jádra_na_procesor × vlákna_na_jádro
+</span></code></pre></div>
+<p>Toto je <strong>celková kapacita</strong> plánovače — kolik procesů/vláken může zároveň vykonávat výpočet.</p>
+<h3 id="2-vypocitej-dobu-jednoho-vlakna-pro-kazdy-proces">2. Vypočítej dobu jednoho vlákna pro každý proces<a class="headerlink" href="#2-vypocitej-dobu-jednoho-vlakna-pro-kazdy-proces" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>doba_vlákna[P] = celková_doba[P] / počet_vláken[P]
+</span></code></pre></div>
+<p>Toto číslo ti říká, kolik práce (v sekundách) musí zvládnout jedno vlákno, aby celý výpočet procesu P byl dokončen. Zároveň platí: pokud procesu přidělíš přesně tolik HW vláken, kolik jich má, poběží právě <code>doba_vlákna</code> sekund.</p>
+<h3 id="3-serad-procesy-podle-priority-sestupne">3. Seřaď procesy podle priority sestupně<a class="headerlink" href="#3-serad-procesy-podle-priority-sestupne" title="Permanent link">&para;</a></h3>
+<p>Vytvoř si tabulku seřazenou od nejvyšší po nejnižší prioritu. Při shodné prioritě je pořadí ve sloupci libovolné (obě skupiny se zpracovávají současně).</p>
+<table>
+<thead>
+<tr>
+<th>Proces</th>
+<th>Priorita</th>
+<th>Vláken</th>
+<th>Celková doba</th>
+<th>Doba vlákna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+</tbody>
+</table>
+<h3 id="4-pridel-hw-vlakna-v-prvni-fazi-cas-t0">4. Přidel HW vlákna v první fázi (čas T0)<a class="headerlink" href="#4-pridel-hw-vlakna-v-prvni-fazi-cas-t0" title="Permanent link">&para;</a></h3>
+<p>Prochází tabulku shora dolů (od nejvyšší priority):</p>
+<ul>
+<li>Procesu s nejvyšší prioritou přiřaď tolik HW vláken, kolik požaduje (tj. kolik má vláken), <strong>nejvýše</strong> tolik, kolik zbývá volných.</li>
+<li>Odečti přidělená vlákna od dostupného počtu.</li>
+<li>Pokračuj s dalším procesem v pořadí (nižší priorita).</li>
+<li>Pokud při přidělování dojdeš k <strong>více procesům se stejnou prioritou</strong> a zbývá méně vláken než by potřebovaly dohromady, rozděl dostupná vlákna <strong>poměrně</strong> (viz krok 5).</li>
+<li>Procesy, na které vlákna nevyjdou (nejnižší priority), <strong>čekají</strong> — nedostávají nic.</li>
+</ul>
+<h3 id="5-pomerne-deleni-pri-shodne-priorite">5. Poměrné dělení při shodné prioritě<a class="headerlink" href="#5-pomerne-deleni-pri-shodne-priorite" title="Permanent link">&para;</a></h3>
+<p>Mají-li dva (nebo více) procesů stejnou prioritu a sdílejí <code>V</code> dostupných HW vláken:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>vlákna[Pi] = V × (počet_vláken[Pi] / součet_vláken_skupiny)
+</span></code></pre></div>
+<p>Toto je zlomkové číslo — <strong>nemusí</strong> vyjít celé. To je v pořádku; HW vlákno pak pracuje na více procesech střídavě (nebo jen zčásti) a výpočet doby odpovídá tomu zlomku výkonu.</p>
+<p><strong>Příklad:</strong> Procesy A (2 vlákna) a B (3 vlákna) sdílejí 1 HW vlákno.
+- A dostane: 1 × (2/5) = 0.4 vlákna
+- B dostane: 1 × (3/5) = 0.6 vlákna</p>
+<h3 id="6-urci-realnou-dobu-behu-kazdeho-procesu-v-teto-fazi">6. Urči reálnou dobu běhu každého procesu v této fázi<a class="headerlink" href="#6-urci-realnou-dobu-behu-kazdeho-procesu-v-teto-fazi" title="Permanent link">&para;</a></h3>
+<p>Pro každý běžící proces spočítej, za jak dlouho by dokončil práci, kdyby měl přidělení po celou dobu fáze:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>real_time[P] = celková_zbývající_práce[P] / přidělených_vláken[P]
+</span></code></pre></div>
+<p>kde <code>celková_zbývající_práce[P]</code> je (zatím) celková doba výpočtu (v první fázi = původní <code>celková_doba</code>).</p>
+<h3 id="7-najdi-proces-ktery-dobehne-jako-prvni">7. Najdi proces, který doběhne jako první<a class="headerlink" href="#7-najdi-proces-ktery-dobehne-jako-prvni" title="Permanent link">&para;</a></h3>
+<p>Ze všech aktuálně běžících procesů vyber ten s nejmenším <code>real_time</code>. Délka fáze = <code>real_time</code> tohoto procesu. Označme ji <code>delta</code>.</p>
+<h3 id="8-zaznamenej-cas-ukonceni-a-odvedenou-praci">8. Zaznamenej čas ukončení a "odvedenou práci"<a class="headerlink" href="#8-zaznamenej-cas-ukonceni-a-odvedenou-praci" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Čas ukončení procesu, který doběhl: <code>T_aktuální + delta</code>.</li>
+<li>Pro <strong>každý ostatní</strong> běžící proces spočítej, kolik práce bylo za dobu <code>delta</code> odvedeno:</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>odvedená_práce[P] = přidělená_vlákna[P] × delta
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>zbývající_práce[P] = zbývající_práce[P] - odvedená_práce[P]
+</span></code></pre></div>
+<p>Nebo ekvivalentně: zbývající real_time pro každý jiný proces se zkrátí o <code>delta</code> (protože všichni běželi stejnou dobu).</p>
+<h3 id="9-uvolni-vlakna-dokonceneho-procesu-a-aktualizuj-dostupna-vlakna">9. Uvolni vlákna dokončeného procesu a aktualizuj dostupná vlákna<a class="headerlink" href="#9-uvolni-vlakna-dokonceneho-procesu-a-aktualizuj-dostupna-vlakna" title="Permanent link">&para;</a></h3>
+<p>Proces, který doběhl, uvolní svá HW vlákna. Nový počet dostupných vláken:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>dostupná_vlákna = dostupná_vlákna + vlákna_dokončeného_procesu
+</span></code></pre></div>
+<h3 id="10-prerozdel-vlakna-pro-novou-fazi">10. Přerozděl vlákna pro novou fázi<a class="headerlink" href="#10-prerozdel-vlakna-pro-novou-fazi" title="Permanent link">&para;</a></h3>
+<p>Opakuj kroky 4–9 se zbývajícími procesy a nově dostupnými vlákny.</p>
+<p>Pozor: pokud se uvolní vlákna a čekající procesy (nižší priority) mohou nyní dostat přidělení, jsou aktivovány — ale teprve <strong>od tohoto okamžiku</strong> začínají fakticky běžet.</p>
+<h3 id="11-zohledni-background-load-pokud-je-zadan">11. Zohledni background load (pokud je zadán)<a class="headerlink" href="#11-zohledni-background-load-pokud-je-zadan" title="Permanent link">&para;</a></h3>
+<p>Pokud zadání říká „jádro a ostatní procesy zatěžují CPU z X %":</p>
+<ul>
+<li>Efektivní výkon procesoru je jen <code>(100 - X) %</code>.</li>
+<li>Všechny vypočítané reálné časy (v sekundách) vynásob faktorem <code>100 / (100 - X)</code>.</li>
+</ul>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>čas_s_bg_load = čas_bez_bg_load × (100 / (100 - X))
+</span></code></pre></div>
+<p>Příklad: výsledek 90 s při zatížení 68 %: <code>90 × (100 / 32) = 281.25 s</code>.</p>
+<h3 id="12-opakuj-dokud-nedobehnou-vsechny-procesy">12. Opakuj, dokud nedoběhnou všechny procesy<a class="headerlink" href="#12-opakuj-dokud-nedobehnou-vsechny-procesy" title="Permanent link">&para;</a></h3>
+<p>Výsledkem je seznam: kdy doběhl každý proces a celkový čas od T0 do ukončení posledního procesu.</p>
+<hr />
+<h2 id="vzorove-zadani">Vzorové zadání<a class="headerlink" href="#vzorove-zadani" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p>Systém: 4 procesory, každý má 1 jádro, 1 vlákno na jádro. OS používá <strong>statickou prioritu</strong> (vyšší hodnota = vyšší priorita). Jádro a ostatní procesy procesor nezatěžují. Všichni uživatelé spustí procesy v čase T0:</p>
+<table>
+<thead>
+<tr>
+<th>Proces</th>
+<th>Statická priorita</th>
+<th>Počet vláken</th>
+<th>Celková doba výpočtu [s]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>0</td>
+<td>3</td>
+<td>108</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>26</td>
+<td>1</td>
+<td>54</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>80</td>
+<td>3</td>
+<td>270</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>71</td>
+<td>1</td>
+<td>45</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>0</td>
+<td>4</td>
+<td>72</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>26</td>
+<td>2</td>
+<td>72</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Za kolik sekund po T0 se ukončí proces P2?</li>
+<li>Za kolik sekund po T0 se fakticky začne zpracovávat P1?</li>
+<li>Za kolik sekund po T0 se ukončí poslední proces?</li>
+</ol>
+<p><em>Tento typ se objevil prakticky v každém termínu: 2011, 2014, 2018, 2019, 2023.</em></p>
+</div>
+<hr />
+<h2 id="reseni-vzoroveho-zadani">Řešení vzorového zadání<a class="headerlink" href="#reseni-vzoroveho-zadani" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<h3 id="krok-1-pocet-hw-vlaken">Krok 1: Počet HW vláken<a class="headerlink" href="#krok-1-pocet-hw-vlaken" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>HW = 4 procesory × 1 jádro × 1 vlákno = 4 HW vlákna
+</span></code></pre></div>
+<h3 id="krok-2-tabulka-serazena-podle-priority-sestupne-a-doby-vlakna">Krok 2: Tabulka seřazená podle priority (sestupně) a doby vlákna<a class="headerlink" href="#krok-2-tabulka-serazena-podle-priority-sestupne-a-doby-vlakna" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Proces</th>
+<th>Priorita</th>
+<th>Vláken</th>
+<th>Celková doba [s]</th>
+<th>Doba vlákna [s]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P2</td>
+<td>80</td>
+<td>3</td>
+<td>270</td>
+<td>90</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>71</td>
+<td>1</td>
+<td>45</td>
+<td>45</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>26</td>
+<td>1</td>
+<td>54</td>
+<td>54</td>
+</tr>
+<tr>
+<td>P5</td>
+<td>26</td>
+<td>2</td>
+<td>72</td>
+<td>36</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>0</td>
+<td>3</td>
+<td>108</td>
+<td>36</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>0</td>
+<td>4</td>
+<td>72</td>
+<td>18</td>
+</tr>
+</tbody>
+</table>
+<h3 id="krok-3-faze-1-prideleni-vlaken-v-t0">Krok 3: Fáze 1 — přidělení vláken v T0<a class="headerlink" href="#krok-3-faze-1-prideleni-vlaken-v-t0" title="Permanent link">&para;</a></h3>
+<p>Přidělujeme shora dolů z dostupných 4 HW vláken:</p>
+<ul>
+<li><strong>P2 (priorita 80)</strong> chce 3 vlákna → dostane <strong>3</strong>, zbývá 4 − 3 = 1.</li>
+<li><strong>P3 (priorita 71)</strong> chce 1 vlákno → dostane <strong>1</strong>, zbývá 1 − 1 = 0.</li>
+<li><strong>P1, P5 (priorita 26)</strong> → 0 dostupných vláken → <strong>čekají</strong>.</li>
+<li><strong>P0, P4 (priorita 0)</strong> → 0 dostupných vláken → <strong>čekají</strong>.</li>
+</ul>
+<p>Reálná doba běhu v této fázi:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>P2: real_time = 270 / 3 = 90 s
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>P3: real_time =  45 / 1 = 45 s
+</span></code></pre></div>
+<p>Jako první doběhne <strong>P3</strong> za <strong>45 s</strong>.</p>
+<blockquote>
+<p><strong>Odpověď na otázku 1:</strong> P2 dostane celou dobu 3 vlákna, proto skončí za <code>270 / 3 = 90 s</code>.</p>
+</blockquote>
+<h3 id="krok-4-faze-2-po-ukonceni-p3-t0-45-s">Krok 4: Fáze 2 — po ukončení P3 (T0 + 45 s)<a class="headerlink" href="#krok-4-faze-2-po-ukonceni-p3-t0-45-s" title="Permanent link">&para;</a></h3>
+<p>P3 uvolnil 1 HW vlákno → dostupná vlákna = 0 + 1 = <strong>1</strong>.</p>
+<p>Zbývající práce P2: běžel 45 s × 3 vlákna → odvedl 135 s práce → zbývá <code>270 − 135 = 135 s</code>.</p>
+<p>Přidělení:</p>
+<ul>
+<li><strong>P2 (priorita 80)</strong> stále běží se <strong>3 vlákny</strong> (ta mu nebyla odebrána).</li>
+<li>Uvolněné 1 vlákno jde na nejbližší čekající procesy: <strong>P1 a P5 (priorita 26)</strong> — sdílejí 1 HW vlákno poměrně:</li>
+<li>P1 má 1 vlákno, P5 má 2 vlákna → součet = 3.</li>
+<li>P1 dostane: 1 × (1/3) ≈ 0.333 vlákna</li>
+<li>P5 dostane: 1 × (2/3) ≈ 0.667 vlákna</li>
+</ul>
+<blockquote>
+<p><strong>Odpověď na otázku 2:</strong> P1 fakticky začne přijímat výpočetní výkon v čase <strong>T0 + 45 s</strong>.</p>
+</blockquote>
+<p>Reálná doba běhu v této fázi (od T0 + 45):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>P2: real_time = 135 / 3 = 45 s   → doběhne v T0 + 45 + 45 = T0 + 90 s
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>P1: real_time =  54 / (1/3) = 162 s
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>P5: real_time =  72 / (2/3) = 108 s
+</span></code></pre></div>
+<p>Jako první doběhne <strong>P2</strong> za <strong>45 s</strong> od začátku fáze.</p>
+<p>Za těchto 45 s každý z ostatních odvedl:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>P1: odvedená práce = (1/3) × 45 = 15 s → zbývá 54 − 15 = 39 s
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>P5: odvedená práce = (2/3) × 45 = 30 s → zbývá 72 − 30 = 42 s   (doba vlákna: 42/2 = 21 s)
+</span></code></pre></div>
+<h3 id="krok-5-faze-3-po-ukonceni-p2-t0-90-s">Krok 5: Fáze 3 — po ukončení P2 (T0 + 90 s)<a class="headerlink" href="#krok-5-faze-3-po-ukonceni-p2-t0-90-s" title="Permanent link">&para;</a></h3>
+<p>P2 uvolnil 3 HW vlákna → dostupná vlákna = 0 + 3 = <strong>3</strong> (plus P1 a P5 stále sdílejí to 1 původní → celkem 4 vlákna dostupná pro procesy priority 26 a níže, ale přidělujeme od nejvyšší priority).</p>
+<p>Přidělení:</p>
+<ul>
+<li><strong>P1 + P5 (priorita 26)</strong> dohromady chtějí 1 + 2 = 3 vláken → dostupná jsou 4, ale jejich součet je 3 → dostanou plně <strong>3 vlákna</strong> (P1 → 1, P5 → 2). Zbývá 4 − 3 = <strong>1 vlákno</strong>.</li>
+<li><strong>P0 + P4 (priorita 0)</strong> sdílejí zbylé <strong>1 vlákno</strong> poměrně: P0 má 3 vlákna, P4 má 4 → součet = 7.</li>
+<li>P0 dostane: 1 × (3/7) vlákna</li>
+<li>P4 dostane: 1 × (4/7) vlákna</li>
+</ul>
+<p>Reálná doba běhu v této fázi (od T0 + 90):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>P1: real_time = 39 / 1 = 39 s
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>P5: real_time = 42 / 2 = 21 s   → doběhne nejdříve
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>P0: real_time = 108 / (3/7) = 252 s
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>P4: real_time =  72 / (4/7) = 126 s
+</span></code></pre></div>
+<p>Jako první doběhne <strong>P5</strong> za <strong>21 s</strong> od začátku fáze → v čase T0 + 111 s.</p>
+<p>Za těchto 21 s ostatní odvedli:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>P1: odvedená práce = 1 × 21 = 21 s   → zbývá 39 − 21 = 18 s
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>P0: odvedená práce = (3/7) × 21 = 9 s → zbývá 108 − 9 = 99 s
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>P4: odvedená práce = (4/7) × 21 = 12 s → zbývá 72 − 12 = 60 s
+</span></code></pre></div>
+<h3 id="krok-6-faze-4-po-ukonceni-p5-t0-111-s">Krok 6: Fáze 4 — po ukončení P5 (T0 + 111 s)<a class="headerlink" href="#krok-6-faze-4-po-ukonceni-p5-t0-111-s" title="Permanent link">&para;</a></h3>
+<p>P5 uvolnil 2 HW vlákna → dostupná vlákna = 2.</p>
+<p>Přidělení:</p>
+<ul>
+<li><strong>P1 (priorita 26)</strong> chce 1 vlákno → dostane <strong>1</strong>. Zbývá 2 − 1 = <strong>1</strong>.</li>
+<li><strong>P0 + P4 (priorita 0)</strong> sdílejí zbylé <strong>1 vlákno</strong> poměrně (3:4):</li>
+<li>P0: 1 × (3/7) vlákna</li>
+<li>P4: 1 × (4/7) vlákna</li>
+</ul>
+<p>Reálná doba běhu (od T0 + 111):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>P1: real_time = 18 / 1 = 18 s   → doběhne nejdříve
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>P0: real_time = 99 / (3/7) = 231 s
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>P4: real_time = 60 / (4/7) = 105 s
+</span></code></pre></div>
+<p>Jako první doběhne <strong>P1</strong> za <strong>18 s</strong> → v čase T0 + 129 s.</p>
+<p>Za těchto 18 s ostatní odvedli:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>P0: odvedená práce = (3/7) × 18 = 54/7 s  → zbývá 99 − 54/7 = (693 − 54)/7 = 639/7 s
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>P4: odvedená práce = (4/7) × 18 = 72/7 s  → zbývá 60 − 72/7 = (420 − 72)/7 = 348/7 s
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Přepočet: 639/7 ≈ 91.286 s a 348/7 ≈ 49.714 s
+</span></code></pre></div>
+<h3 id="krok-7-faze-5-po-ukonceni-p1-t0-129-s">Krok 7: Fáze 5 — po ukončení P1 (T0 + 129 s)<a class="headerlink" href="#krok-7-faze-5-po-ukonceni-p1-t0-129-s" title="Permanent link">&para;</a></h3>
+<p>P1 uvolnil 1 HW vlákno → dostupná vlákna = 0 + 1 = 1, celkem pro P0 a P4: <strong>4 HW vlákna</strong>.</p>
+<p>Přidělení:</p>
+<ul>
+<li><strong>P0 + P4 (priorita 0)</strong> dohromady chtějí 3 + 4 = 7 vláken, ale dostupná jsou jen <strong>4</strong> → sdílejí poměrně (3:4):</li>
+<li>P0 dostane: 4 × (3/7) = 12/7 vlákna</li>
+<li>P4 dostane: 4 × (4/7) = 16/7 vlákna</li>
+</ul>
+<p>Reálná doba běhu (od T0 + 129):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>P0: real_time = (639/7) / (12/7) = 639/12 = 53.25 s
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>P4: real_time = (348/7) / (16/7) = 348/16 = 21.75 s   → doběhne nejdříve
+</span></code></pre></div>
+<p>Jako první doběhne <strong>P4</strong> za <strong>21.75 s</strong> → v čase T0 + 129 + 21.75 = <strong>T0 + 150.75 s</strong>.</p>
+<p>Za těchto 21.75 s P0 odvedl:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>P0: odvedená práce = (12/7) × 21.75 = 12 × 21.75 / 7 = 261/7 = 37.286 s
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    zbývá: 639/7 − 261/7 = 378/7 = 54 s
+</span></code></pre></div>
+<h3 id="krok-8-faze-6-po-ukonceni-p4-t0-15075-s">Krok 8: Fáze 6 — po ukončení P4 (T0 + 150.75 s)<a class="headerlink" href="#krok-8-faze-6-po-ukonceni-p4-t0-15075-s" title="Permanent link">&para;</a></h3>
+<p>P4 uvolnil (16/7) vláken → dostupná vlákna pro P0 = <strong>4</strong> (všechna).</p>
+<p>P0 chce 3 vlákna → dostane <strong>3</strong>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>P0: real_time = 54 / 3 = 18 s → doběhne v T0 + 150.75 + 18 = T0 + 168.75 s
+</span></code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Pozor na záludný krok</p>
+<p>Výsledek je citlivý na to, jak přesně počítáš zbývající práci po fázích 4 a 5
+a odkdy dostávají vlákna procesy P0 a P4 (až od T0 + 90 s, kdy se uvolní tři
+vlákna — ne dřív). Když mezisoučty zaokrouhluješ nebo tento okamžik určíš
+špatně, dostaneš jiný, chybný čas. <strong>Počítej se zlomky a nezaokrouhluj
+mezivýsledky</strong> — zaokrouhli teprve finální čas. Průběh si vždy ověř na časové
+ose podle konkrétních čísel ze zadání.</p>
+</div>
+<h3 id="shrnuti-vysledku">Shrnutí výsledků<a class="headerlink" href="#shrnuti-vysledku" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Otázka</th>
+<th>Odpověď</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Kdy se ukončí P2?</td>
+<td><strong>T0 + 90 s</strong></td>
+</tr>
+<tr>
+<td>2. Kdy fakticky začne P1?</td>
+<td><strong>T0 + 45 s</strong></td>
+</tr>
+<tr>
+<td>3. Kdy doběhne poslední?</td>
+<td><strong>T0 + 168.75 s</strong> (viz poznámka výše)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Background load</p>
+<p>Kdyby zadání řeklo „jádro a ostatní procesy zatěžují procesor z 68 %", všechny výsledky se násobí <code>100 / (100 − 68) = 100 / 32 = 3.125</code>. Například: P2 doběhne za <code>90 × 3.125 = 281.25 s</code>.</p>
+</div>
+</details>
+<hr />
+<h2 id="dalsi-procviceni">Další procvičení<a class="headerlink" href="#dalsi-procviceni" title="Permanent link">&para;</a></h2>
+<h3 id="varianta-a-mene-procesu-jina-konfigurace">Varianta A — méně procesů, jiná konfigurace<a class="headerlink" href="#varianta-a-mene-procesu-jina-konfigurace" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání A</p>
+<p>Systém: 2 procesory, každý 2 jádra, 1 vlákno na jádro (celkem 4 HW vlákna). Statická priorita (vyšší = lepší). Jádro nezatěžuje CPU. Všechny procesy spuštěny v T0:</p>
+<table>
+<thead>
+<tr>
+<th>Proces</th>
+<th>Priorita</th>
+<th>Vláken</th>
+<th>Celková doba [s]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>50</td>
+<td>2</td>
+<td>60</td>
+</tr>
+<tr>
+<td>B</td>
+<td>50</td>
+<td>2</td>
+<td>40</td>
+</tr>
+<tr>
+<td>C</td>
+<td>20</td>
+<td>3</td>
+<td>90</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Za kolik sekund doběhne proces B?</li>
+<li>Za kolik sekund doběhne poslední proces?</li>
+</ol>
+</div>
+<details class="success">
+<summary>Řešení A</summary>
+<p><strong>HW vlákna:</strong> 2 × 2 × 1 = <strong>4</strong>.</p>
+<p><strong>Doba vlákna:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>A: 60 / 2 = 30 s
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>B: 40 / 2 = 20 s
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>C: 90 / 3 = 30 s
+</span></code></pre></div>
+<p><strong>Fáze 1 (T0):</strong></p>
+<ul>
+<li>A + B (priorita 50) dohromady chtějí 2 + 2 = 4 vláken → dostupná 4 → dostanou plně.</li>
+<li>A → 2 vlákna, B → 2 vlákna.</li>
+<li>C (priorita 20) → zbývá 0 vláken → čeká.</li>
+</ul>
+<p>Reálné doby:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>A: 60 / 2 = 30 s
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>B: 40 / 2 = 20 s   → B doběhne jako první
+</span></code></pre></div>
+<p>B doběhne po <strong>20 s</strong> → v čase <strong>T0 + 20 s</strong>.</p>
+<p>Za 20 s A odvedl: 2 × 20 = 40 s práce → zbývá 60 − 40 = <strong>20 s</strong>.</p>
+<p><strong>Fáze 2 (T0 + 20 s):</strong></p>
+<p>B uvolnil 2 HW vlákna → dostupná = 2.</p>
+<ul>
+<li><strong>A (priorita 50)</strong> běží dál (má stále 2 vlákna).</li>
+<li>Dostupná 2 vlákna přidělíme C (priorita 20, nic jiného nečeká): C dostane <strong>2 vlákna</strong> (chce 3, ale dostane max 2).</li>
+</ul>
+<p>Reálné doby (od T0 + 20):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>A: 20 / 2 = 10 s   → A doběhne jako první
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>C: 90 / 2 = 45 s
+</span></code></pre></div>
+<p>A doběhne po <strong>10 s</strong> → v čase T0 + 30 s.</p>
+<p>Za 10 s C odvedl: 2 × 10 = 20 s práce → zbývá 90 − 20 = <strong>70 s</strong>.</p>
+<p><strong>Fáze 3 (T0 + 30 s):</strong></p>
+<p>A uvolnil 2 HW vlákna → dostupná = 2. Celkem C má nyní 2 + 2 = <strong>4 vlákna</strong> (ale chce jen 3 → dostane <strong>3</strong>).</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>C: real_time = 70 / 3 ≈ 23.33 s → doběhne v T0 + 30 + 23.33 = T0 + 53.33 s
+</span></code></pre></div>
+<p><strong>Výsledky:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Otázka</th>
+<th>Odpověď</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Kdy doběhne B?</td>
+<td><strong>T0 + 20 s</strong></td>
+</tr>
+<tr>
+<td>2. Kdy doběhne poslední?</td>
+<td><strong>T0 + 53.33 s</strong></td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr />
+<h3 id="varianta-b-s-background-load">Varianta B — s background load<a class="headerlink" href="#varianta-b-s-background-load" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání B</p>
+<p>Stejná konfigurace jako ve vzorovém zadání (4 HW vlákna), ale jádro a ostatní procesy zatěžují CPU z <strong>25 %</strong>. Procesy:</p>
+<table>
+<thead>
+<tr>
+<th>Proces</th>
+<th>Priorita</th>
+<th>Vláken</th>
+<th>Celková doba [s]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>X</td>
+<td>10</td>
+<td>2</td>
+<td>80</td>
+</tr>
+<tr>
+<td>Y</td>
+<td>10</td>
+<td>2</td>
+<td>40</td>
+</tr>
+<tr>
+<td>Z</td>
+<td>5</td>
+<td>2</td>
+<td>60</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Za kolik sekund doběhne Y?</li>
+<li>Za kolik sekund doběhne poslední proces (s background load)?</li>
+</ol>
+</div>
+<details class="success">
+<summary>Řešení B</summary>
+<p><strong>HW vlákna:</strong> 4.</p>
+<p><strong>Bez background load nejprve:</strong></p>
+<p>Fáze 1 (T0): X a Y (priorita 10) sdílejí 4 vlákna → X dostane 2, Y dostane 2. Z čeká.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>X: 80 / 2 = 40 s
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>Y: 40 / 2 = 20 s   → Y doběhne první
+</span></code></pre></div>
+<p>Y doběhne po <strong>20 s</strong>. Za tu dobu X odvedl 2 × 20 = 40 s → zbývá 80 − 40 = 40 s.</p>
+<p>Fáze 2 (T0 + 20 s): Y uvolnil 2 vlákna. X stále 2 vlákna; Z dostane uvolněná 2 vlákna.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>X: 40 / 2 = 20 s   → X doběhne první
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>Z: 60 / 2 = 30 s
+</span></code></pre></div>
+<p>X doběhne po 20 s → T0 + 40 s. Za tu dobu Z odvedl 2 × 20 = 40 s → zbývá 60 − 40 = 20 s.</p>
+<p>Fáze 3 (T0 + 40 s): Z dostane všechna 4 vlákna, ale chce jen 2 → dostane <strong>2</strong>.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>Z: 20 / 2 = 10 s → doběhne v T0 + 50 s
+</span></code></pre></div>
+<p>Výsledky bez background load: Y = 20 s, poslední = 50 s.</p>
+<p><strong>S background load 25 %:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>faktor = 100 / (100 − 25) = 100 / 75 = 4/3 ≈ 1.333
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>Y doběhne za: 20 × (4/3) = 80/3 ≈ 26.67 s
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>Poslední za:  50 × (4/3) = 200/3 ≈ 66.67 s
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Otázka</th>
+<th>Odpověď</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Kdy doběhne Y (s BG load 25 %)?</td>
+<td><strong>≈ 26.67 s</strong></td>
+</tr>
+<tr>
+<td>2. Kdy doběhne poslední (s BG load 25 %)?</td>
+<td><strong>≈ 66.67 s</strong></td>
+</tr>
+</tbody>
+</table>
+</details>
+<hr />
+<h2 id="varianty-a-chytaky">Varianty a chytáky<a class="headerlink" href="#varianty-a-chytaky" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Round-robin / časové kvantum:</strong> zadání může zmínit kvantum nebo přepínání kontextu — zpravidla se <strong>zanedbává</strong> (slouží jen jako popis strategie). Počítej, jako by každý proces běžel spojitě.</li>
+<li><strong>Různý výkon jader:</strong> pokud mají jádra různý výkon, uprav vzorec <code>real_time</code> o koeficient výkonu. Pokud jsou všechna jádra stejně rychlá, výkon se nemění.</li>
+<li><strong>Procesy spuštěné v různých časech:</strong> pokud nejsou všechny spuštěny v T0, nepřiděluj jim vlákna dříve, než jsou spuštěny. V okamžiku spuštění nového procesu přerozděluj.</li>
+<li><strong>Vlákna vs. procesy:</strong> zadání někdy říká „vlákna procesu provádějí výpočet" — jedno vlákno procesu = jedno HW vlákno. Pokud proces má 3 vlákna, potřebuje 3 HW vlákna k lineárnímu zrychlení.</li>
+<li><strong>„Fakticky začne zpracovávat"</strong> = okamžik, kdy proces poprvé dostane alespoň část HW vlákna (výpočetního výkonu). Procesy čekající bez přidělení ještě „nezačaly".</li>
+<li><strong>Lineární zrychlení je předpoklad:</strong> ve skutečnosti platí Amdahlův zákon, ale zadání výslovně předpokládá lineární zrychlení — neřeš paralelní overhead.</li>
+<li><strong>Vícenásobné shodné priority s nedostatkem vláken:</strong> poměrné dělení vede na zlomková čísla — pracuj s nimi jako zlomky, nezaokrouhluj průběžně.</li>
+</ul>
+<hr />
+<h2 id="caste-chyby">Časté chyby<a class="headerlink" href="#caste-chyby" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Zapomenutí na přerozdělení vláken</strong> po ukončení procesu. Každé ukončení = nová fáze = znova přiděluj od nejvyšší priority.</li>
+<li><strong>Záměna „celková doba" a „doba vlákna".</strong> <code>celková_doba</code> je práce celého procesu (při 1 vláknu). <code>real_time = celková_doba / přidělená_vlákna</code> — NE <code>celková_doba × přidělená_vlákna</code>.</li>
+<li><strong>Nespočítání odvedené práce pro ostatní procesy</strong> po skončení fáze. Vždy odečti, co bylo hotovo.</li>
+<li><strong>Ignorování čekajících procesů.</strong> Procesy s nižší prioritou dostávají vlákna teprve po ukončení procesů s vyšší prioritou — dříve se neobjevují ve výpočtu.</li>
+<li><strong>Background load zapomenout nebo aplikovat špatně.</strong> Faktor <code>100 / (100 - X)</code> se násobí <strong>výsledným časem</strong>, ne přidělovanými vlákny.</li>
+<li><strong>Zaokrouhlování mezivýsledků.</strong> Zlomky (jako 3/7 vlákna) zachovávej v přesném tvaru po celou dobu výpočtu — zaokrouhluj až finální odpověď.</li>
+<li><strong>Špatné poměrné dělení.</strong> Poměr se počítá z <strong>počtu vláken procesu</strong>, ne z jeho doby výpočtu. A dělí se <strong>dostupná HW vlákna</strong>, ne celkový počet.</li>
+</ol>
+<hr />
+<h2 id="souvisejici">Související<a class="headerlink" href="#souvisejici" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../../skripta/05-planovani/">Skripta: Plánování procesů a vláken</a></li>
+<li><a href="../../teorie-truefalse/">Teoretické otázky — True/False</a></li>
+<li><a href="../">Zpět na přehled praktických příkladů</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../03-deadlock/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Deadlock">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Deadlock
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../05-pamet/" class="md-footer__link md-footer__link--next" aria-label="Další: Správa paměti">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Správa paměti
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

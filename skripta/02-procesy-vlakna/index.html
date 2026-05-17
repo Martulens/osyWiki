@@ -1,0 +1,2746 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/skripta/02-procesy-vlakna/">
+      
+      
+        <link rel="prev" href="../01-uvod/">
+      
+      
+        <link rel="next" href="../03-synchronizace/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Procesy a vlákna - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#program" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Procesy a vlákna
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../otazky/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vztahy-mezi-procesy-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vztahy mezi procesy v Linuxu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adresovy-prostor-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adresový prostor procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vlakno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlákno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vlákno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proces-s-vice-vlakny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proces s více vlákny
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vytvoreni-a-ukonceni-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření a ukončení vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vytvoreni-a-ukonceni-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření a ukončení procesu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vytvoření a ukončení procesu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vytvoreni-procesu-fork-execve-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření procesu — fork, execve, wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ukonceni-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ukončení procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multitasking-a-multithreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multitasking a multithreading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-vlaken-a-prepinani-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken a přepínání kontextu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plánování vláken a přepínání kontextu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planovani-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepinani-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Přepínání kontextu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stavy-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stavy vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casove-zavisle-chyby-a-kriticke-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časově závislé chyby a kritické sekce
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Časově závislé chyby a kritické sekce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministicky-algoritmus-a-casove-zavisle-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministický algoritmus a časově závislé chyby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-editace-souboru-dvema-uzivateli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: Editace souboru dvěma uživateli
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-inkrementace-sdileneho-citace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: Inkrementace sdíleného čítače
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kriticke-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kritické sekce
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#korektni-paralelni-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Korektní paralelní program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#proces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proces
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Proces">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vztahy-mezi-procesy-v-linuxu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vztahy mezi procesy v Linuxu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adresovy-prostor-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adresový prostor procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vlakno" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlákno
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vlákno">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#proces-s-vice-vlakny" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proces s více vlákny
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vytvoreni-a-ukonceni-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření a ukončení vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vytvoreni-a-ukonceni-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření a ukončení procesu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vytvoření a ukončení procesu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vytvoreni-procesu-fork-execve-wait" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vytvoření procesu — fork, execve, wait
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ukonceni-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ukončení procesu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#multitasking-a-multithreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multitasking a multithreading
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-vlaken-a-prepinani-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken a přepínání kontextu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plánování vláken a přepínání kontextu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planovani-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#prepinani-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Přepínání kontextu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stavy-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stavy vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#casove-zavisle-chyby-a-kriticke-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časově závislé chyby a kritické sekce
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Časově závislé chyby a kritické sekce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deterministicky-algoritmus-a-casove-zavisle-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deterministický algoritmus a časově závislé chyby
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-editace-souboru-dvema-uzivateli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: Editace souboru dvěma uživateli
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priklad-inkrementace-sdileneho-citace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Příklad: Inkrementace sdíleného čítače
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kriticke-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kritické sekce
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#korektni-paralelni-program" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Korektní paralelní program
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="procesy-a-vlakna">Procesy a vlákna<a class="headerlink" href="#procesy-a-vlakna" title="Permanent link">&para;</a></h1>
+<p>Tato kapitola vysvětluje základní stavební kameny každého moderního operačního systému: co je program, proces a vlákno, jak se procesy vytvářejí a zanikají, jak se vlákna střídají na jádrech CPU a proč paralelní programy mohou obsahovat zákeřné, těžko odhalitelné chyby. Na závěr jsou definovány podmínky, které musí každý korektní paralelní program splňovat.</p>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#program">Program</a></li>
+<li><a href="#proces">Proces</a><ul>
+<li><a href="#definice-procesu">Definice procesu</a></li>
+<li><a href="#vztahy-mezi-procesy-v-linuxu">Vztahy mezi procesy v Linuxu</a></li>
+<li><a href="#adresovy-prostor-procesu">Adresový prostor procesu</a></li>
+</ul>
+</li>
+<li><a href="#vlakno">Vlákno</a><ul>
+<li><a href="#definice-vlakna">Definice vlákna</a></li>
+<li><a href="#proces-s-vice-vlakny">Proces s více vlákny</a></li>
+<li><a href="#vytvoreni-a-ukonceni-vlakna">Vytvoření a ukončení vlákna</a></li>
+</ul>
+</li>
+<li><a href="#vytvoreni-a-ukonceni-procesu">Vytvoření a ukončení procesu</a><ul>
+<li><a href="#vytvoreni-procesu-fork-execve-wait">Vytvoření procesu — fork, execve, wait</a></li>
+<li><a href="#ukonceni-procesu">Ukončení procesu</a></li>
+</ul>
+</li>
+<li><a href="#multitasking-a-multithreading">Multitasking a multithreading</a></li>
+<li><a href="#planovani-vlaken-a-prepinani-kontextu">Plánování vláken a přepínání kontextu</a><ul>
+<li><a href="#planovani-vlaken">Plánování vláken</a></li>
+<li><a href="#prepinani-kontextu">Přepínání kontextu</a></li>
+<li><a href="#stavy-vlaken">Stavy vláken</a></li>
+</ul>
+</li>
+<li><a href="#casove-zavisle-chyby-a-kriticke-sekce">Časově závislé chyby a kritické sekce</a><ul>
+<li><a href="#deterministicky-algoritmus-a-casove-zavisle-chyby">Deterministický algoritmus a časově závislé chyby</a></li>
+<li><a href="#priklad-editace-souboru-dvema-uzivateli">Příklad: Editace souboru dvěma uživateli</a></li>
+<li><a href="#priklad-inkrementace-sdileneho-citace">Příklad: Inkrementace sdíleného čítače</a></li>
+<li><a href="#kriticke-sekce">Kritické sekce</a></li>
+</ul>
+</li>
+<li><a href="#korektni-paralelni-program">Korektní paralelní program</a></li>
+<li><a href="#shrnuti">Shrnutí</a></li>
+<li><a href="#klicove-pojmy">Klíčové pojmy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="program">Program<a class="headerlink" href="#program" title="Permanent link">&para;</a></h2>
+<p><strong>Program</strong> (nebo aplikace) je z pohledu OS spustitelný binární soubor uložený v sekundární paměti (typicky na disku). Aby mohl OS soubor spustit, musí rozumět jeho formátu. Formát je závislý na cílovém OS:</p>
+<table>
+<thead>
+<tr>
+<th>Formát</th>
+<th>Použití</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ELF</strong> (Executable and Linkable Format)</td>
+<td>GNU/Linux, BSD a obecně unixové systémy</td>
+</tr>
+<tr>
+<td><strong>PE / PE32+</strong> (Portable Executable)</td>
+<td>MS Windows</td>
+</tr>
+</tbody>
+</table>
+<p>Spustitelný soubor obsahuje minimálně tyto části:</p>
+<ul>
+<li><strong>TEXT</strong> — přeložený binární kód (instrukce procesoru),</li>
+<li><strong>DATA</strong> — inicializované globální a statické proměnné,</li>
+<li>informace o sdílených knihovnách a další metadata.</li>
+</ul>
+<div class="admonition example">
+<p class="admonition-title">Zjištění formátu a závislostí v Linuxu</p>
+<p>Příkaz <code>file</code> identifikuje formát souboru, <code>ldd</code> vypíše sdílené knihovny, na kterých program závisí:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>linux:~&gt; file /usr/bin/date
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>/usr/bin/date: ELF 64-bit LSB shared object, x86-64, dynamically linked, stripped
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>linux:~&gt; ldd /usr/bin/date
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        linux-vdso.so.1 (0x00007ffd66fc3000)
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        libc.so.6 =&gt; /lib64/libc.so.6 (0x00007f6e3c5b1000)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>        /lib64/ld-linux-x86-64.so.2 (0x00007f6e3cb84000)
+</span></code></pre></div>
+</div>
+<hr />
+<h2 id="proces">Proces<a class="headerlink" href="#proces" title="Permanent link">&para;</a></h2>
+<h3 id="definice-procesu">Definice procesu<a class="headerlink" href="#definice-procesu" title="Permanent link">&para;</a></h3>
+<p><strong>Proces</strong> je instance spuštěného programu — tedy program "oživený" v paměti a právě vykonávaný. Je to také základní entita, v jejímž rámci OS alokuje a spravuje prostředky: paměť, vlákna, otevřené soubory, zámky, semafory, sokety a další.</p>
+<p>Každý proces má implicitně jedno výpočetní <strong>"main" vlákno</strong>, které začne provádět funkci <code>main()</code>.</p>
+<p>Jádro OS si pro každý proces udržuje sadu datových struktur, které slouží k:</p>
+<ul>
+<li><strong>identifikaci</strong> — číslo procesu (<code>PID</code>), číslo rodičovského procesu (<code>PPID</code>),</li>
+<li><strong>bezpečnosti</strong> — identita procesu (<code>USER</code>, <code>RUSER</code>),</li>
+<li><strong>správě paměti</strong> — tabulka stránek pro překlad virtuálních adres (<code>page table</code>),</li>
+<li><strong>správě souborového systému</strong> — tabulka deskriptorů otevřených souborů.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Datová struktura procesu v Linuxu</p>
+<p>Linux interně nerozlišuje ostře mezi procesem a vláknem — obojí je reprezentováno strukturou <code>task_struct</code>. Pole <code>pid</code> identifikuje konkrétní úlohu, <code>tgid</code> (Thread Group ID) identifikuje skupinu vláken patřících jednomu procesu. Pro nový proces se <code>tgid = pid</code>; pro nové vlákno se <code>pid</code> přiřadí nová hodnota, ale <code>tgid</code> se zkopíruje od tvůrce.</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">  </span><span class="kt">pid_t</span><span class="w">                </span><span class="n">pid</span><span class="p">;</span><span class="w">           </span><span class="c1">// Process ID</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">  </span><span class="kt">pid_t</span><span class="w">                </span><span class="n">tgid</span><span class="p">;</span><span class="w">          </span><span class="c1">// Thread group ID</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">files_struct</span><span class="w"> </span><span class="o">*</span><span class="n">files</span><span class="p">;</span><span class="w">         </span><span class="c1">// Open file information</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">mm_struct</span><span class="w">     </span><span class="o">*</span><span class="n">mm</span><span class="p">;</span><span class="w">           </span><span class="c1">// Memory descriptor</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">signal_struct</span><span class="w"> </span><span class="o">*</span><span class="n">signal</span><span class="p">;</span><span class="w">       </span><span class="c1">// Signal handling</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">  </span><span class="n">u64</span><span class="w">                  </span><span class="n">utime</span><span class="p">;</span><span class="w">         </span><span class="c1">// User time</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">  </span><span class="n">u64</span><span class="w">                  </span><span class="n">stime</span><span class="p">;</span><span class="w">         </span><span class="c1">// System time</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">  </span><span class="p">...</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">  </span><span class="kt">int</span><span class="w">                  </span><span class="n">exit_state</span><span class="p">;</span><span class="w">    </span><span class="c1">// Active, zombie, dead</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="w">  </span><span class="kt">int</span><span class="w">                  </span><span class="n">exit_code</span><span class="p">;</span><span class="w">     </span><span class="c1">// Return code</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="w">  </span><span class="kt">int</span><span class="w">                  </span><span class="n">exit_signal</span><span class="p">;</span><span class="w">   </span><span class="c1">// SIGCHLD, SIGKILL,...</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="w">  </span><span class="p">...</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w">     </span><span class="n">tasks</span><span class="p">;</span><span class="w">         </span><span class="c1">// Doubly linked circular list</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w">   </span><span class="o">*</span><span class="n">real_parent</span><span class="p">;</span><span class="w">  </span><span class="c1">// Real parent</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w">   </span><span class="o">*</span><span class="n">parent</span><span class="p">;</span><span class="w">       </span><span class="c1">// Recipient of return code</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w">     </span><span class="n">children</span><span class="p">;</span><span class="w">      </span><span class="c1">// Children</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w">     </span><span class="n">sibling</span><span class="p">;</span><span class="w">       </span><span class="c1">// Siblings</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">task_struct</span><span class="w">   </span><span class="o">*</span><span class="n">group_leader</span><span class="p">;</span><span class="w"> </span><span class="c1">// Main thread</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="w">  </span><span class="k">struct</span><span class="w"> </span><span class="nc">list_head</span><span class="w">     </span><span class="n">thread_node</span><span class="p">;</span><span class="w">   </span><span class="c1">// Thread group list node</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a><span class="w">  </span><span class="p">...</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Při vzniku nového procesu část datových struktur zdědí hodnoty od rodiče (například tabulka deskriptorů souborů), zatímco část dostane zcela nové hodnoty (například <code>pid</code>).</p>
+<h3 id="vztahy-mezi-procesy-v-linuxu">Vztahy mezi procesy v Linuxu<a class="headerlink" href="#vztahy-mezi-procesy-v-linuxu" title="Permanent link">&para;</a></h3>
+<p>Procesy v Linuxu tvoří stromovou hierarchii. Každý proces zná svého rodiče a své potomky. Díky tomu mohou vzájemně komunikovat. Všechny <code>task_struct</code> jsou zároveň propojeny do <strong>obousměrně zřetězeného kruhového seznamu</strong> všech úloh v systému (pole <code>tasks</code>), takže jádro může efektivně procházet veškeré procesy a vlákna.</p>
+<div class="admonition note">
+<p class="admonition-title">Jak Linux rozlišuje procesy a vlákna</p>
+<p>Vlákna vytvořená procesem PID 9 (například PID 10 a PID 11) mají stejné <code>tgid</code> jako PID 9, ale různé <code>pid</code>. Rodičem PID 10 a PID 11 je z pohledu OS rodič procesu PID 9 (například PID 6) — přesto PID 6 nemá PID 10 a PID 11 ve svém seznamu potomků. Vlákna jsou navíc propojena přes <code>signal-&gt;thread_head</code>.</p>
+</div>
+<h3 id="adresovy-prostor-procesu">Adresový prostor procesu<a class="headerlink" href="#adresovy-prostor-procesu" title="Permanent link">&para;</a></h3>
+<p>Každý proces má svůj <strong>virtuální adresový prostor</strong>, který je od sebe navzájem izolovaný. Skládá se z několika segmentů: kód (<code>TEXT</code>), data (<code>DATA</code>), halda (<code>heap</code>), zásobník (<code>stack</code>) a mapované sdílené knihovny.</p>
+<p><img alt="Adresový prostor procesu s jedním vláknem — mapa segmentů" src="../img/p02-s07-1.png" /></p>
+<div class="admonition example">
+<p class="admonition-title">Zobrazení adresového prostoru v Unixu</p>
+<p>Příkaz <code>pmap -x &lt;PID&gt;</code> zobrazí detailní mapu paměti procesu včetně přístupových práv a mapovaných souborů:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>solaris:~&gt; pmap -x 5652
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>5652:   -bash
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>         Address     Kbytes  RSS  Anon  Locked  Mode    Mapped File
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>0000000100000000       1000  1000     -       - r-x---- bash
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>00000001001FA000         48    48    16       - rwx---- bash
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>000000CC71630000        256   256   192       - rw-----   [ heap ]
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>...
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>FFFFFD6DA3C10000         56    56     8       - rw-----   [ stack ]
+</span></code></pre></div>
+<p>Na výpisu jsou patrné segmenty kódu (<code>r-x</code>), dat (<code>rwx</code>), haldy a zásobníku, ale také mapované sdílené knihovny (např. <code>libc.so.1</code>).</p>
+</div>
+<hr />
+<h2 id="vlakno">Vlákno<a class="headerlink" href="#vlakno" title="Permanent link">&para;</a></h2>
+<h3 id="definice-vlakna">Definice vlákna<a class="headerlink" href="#definice-vlakna" title="Permanent link">&para;</a></h3>
+<p><strong>Vlákno</strong> (historicky označované jako <em>light-weight process</em>, lwp) je výpočetní entita — proud instrukcí — které OS přiděluje jádro CPU. Zatímco proces definuje prostředí a zdroje, vlákno definuje konkrétní výpočet, který se v daném prostředí provádí.</p>
+<p>Vlákna vytvořená v rámci jednoho procesu <strong>sdílí většinu jeho prostředků</strong>: tabulku deskriptorů souborů (<code>files_struct</code>), paměťový deskriptor (<code>mm_struct</code>), zpracování signálů (<code>signal_struct</code>) a další.</p>
+<div class="admonition note">
+<p class="admonition-title">Co je specifické pro každé vlákno</p>
+<p>Přestože vlákna sdílí <code>mm_struct</code>, každé vlákno má <strong>vlastní zásobník</strong> (stack). Ten je vláknu vytvořen ještě před spuštěním pomocí systémového volání <code>mmap()</code> a odkaz na něj je předán do <code>clone()</code>.</p>
+</div>
+<p>Jádro OS si pro každé vlákno udržuje:</p>
+<ul>
+<li><strong>identifikaci</strong> — číslo vlákna <code>TID</code> (v Linuxu je to <code>pid</code> v <code>task_struct</code>),</li>
+<li><strong>zásobník</strong> — lokální proměnné a historie volání funkcí,</li>
+<li><strong>kontext přepínání</strong> — čítač instrukcí, aktuální hodnoty registrů,</li>
+<li><strong>informace pro plánování</strong> — priorita, čas strávený na CPU.</li>
+</ul>
+<h3 id="proces-s-vice-vlakny">Proces s více vlákny<a class="headerlink" href="#proces-s-vice-vlakny" title="Permanent link">&para;</a></h3>
+<p>Když proces vytvoří více vláken, všechna vlákna sdílí jeden virtuální adresový prostor (tedy stejný kód, globální data, haldu a mapované soubory), ale každé má vlastní zásobník. To umožňuje paralelní výpočet v rámci jediného procesu.</p>
+<p><img alt="Proces s více vlákny — sdílení adresového prostoru a samostatné zásobníky" src="../img/p02-s10-1.png" /></p>
+<h3 id="vytvoreni-a-ukonceni-vlakna">Vytvoření a ukončení vlákna<a class="headerlink" href="#vytvoreni-a-ukonceni-vlakna" title="Permanent link">&para;</a></h3>
+<p>Každý proces se vytváří s jediným "main" vláknem. Chceme-li spustit více vláken paralelně, máme několik možností:</p>
+<table>
+<thead>
+<tr>
+<th>Přístup</th>
+<th>Příklady</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proprietární OS API</td>
+<td>Microsoft Windows API, Solaris thread library</td>
+</tr>
+<tr>
+<td><strong>POSIX Thread Library (pthreads)</strong></td>
+<td>GNU/Linux, FreeBSD, MS Windows</td>
+</tr>
+<tr>
+<td>OpenMP</td>
+<td>GNU/Linux, MS Windows, FreeBSD, Solaris</td>
+</tr>
+<tr>
+<td>Jazyková podpora</td>
+<td>C++ (od C++11), Java</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vytvoreni-vlakna-pomoci-posix-pthreads">Vytvoření vlákna pomocí POSIX pthreads<a class="headerlink" href="#vytvoreni-vlakna-pomoci-posix-pthreads" title="Permanent link">&para;</a></h4>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;pthread.h&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">start_routine</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dummy</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">printf</span><span class="p">(</span><span class="s">&quot;Thread: Hello.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">sleep</span><span class="p">(</span><span class="mi">60</span><span class="p">);</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">}</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[])</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">dummy</span><span class="p">;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="n">pthread_t</span><span class="w"> </span><span class="n">tid1</span><span class="p">,</span><span class="w"> </span><span class="n">tid2</span><span class="p">;</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="cm">/* Vytvoření dvou vláken */</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid1</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start_routine</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">    </span><span class="n">pthread_create</span><span class="p">(</span><span class="o">&amp;</span><span class="n">tid2</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">start_routine</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">    </span><span class="cm">/* Čekání na dokončení vláken */</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid1</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dummy</span><span class="p">);</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="n">pthread_join</span><span class="p">(</span><span class="n">tid2</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">dummy</span><span class="p">);</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Klíčové funkce:</p>
+<ul>
+<li><strong><code>pthread_create(pthread_t *tid, ..., void *(*start_routine)(void *), ...)</code></strong> — vytvoří nové vlákno, které začne vykonávat funkci <code>start_routine()</code>. Číslo nového vlákna uloží na adresu <code>tid</code>.</li>
+<li><strong><code>pthread_join(pthread_t tid, ...)</code></strong> — aktuální vlákno se zablokuje a čeká, dokud vlákno s identifikátorem <code>tid</code> neskončí. Analogie <code>wait()</code> pro vlákna.</li>
+</ul>
+<p>Více informací: <code>man pthread_create</code>, <code>man pthread_join</code>.</p>
+<h4 id="ukonceni-vlakna">Ukončení vlákna<a class="headerlink" href="#ukonceni-vlakna" title="Permanent link">&para;</a></h4>
+<p>Vlákno skončí, jakmile se vrátí z funkce, kterou vykonává. Existují také explicitní způsoby ukončení:</p>
+<table>
+<thead>
+<tr>
+<th>Způsob</th>
+<th>Popis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>return</code> z funkce vlákna</td>
+<td>Normální ukončení daného vlákna</td>
+</tr>
+<tr>
+<td><code>return 0</code> z <code>main()</code></td>
+<td>Ukončí hlavní vlákno a s ním i všechna ostatní vlákna se stejným <code>tgid</code></td>
+</tr>
+<tr>
+<td><code>pthread_exit()</code></td>
+<td>Ukončí pouze volající vlákno; sdílené struktury zůstanou (pokud nejde o poslední vlákno skupiny)</td>
+</tr>
+<tr>
+<td><code>exit()</code></td>
+<td>Ukončí všechna vlákna se stejným <code>tgid</code> okamžitě</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Uvolňování sdílených struktur</p>
+<p>Po zavolání <code>pthread_exit()</code> se uvolní pouze zásobník daného vlákna (pomocí <code>munmap()</code>). Sdílené struktury (<code>files_struct</code>, <code>mm_struct</code>, <code>signal_struct</code>) zůstanou zachovány, dokud neskončí poslední vlákno skupiny. Zda je vlákno poslední lze zjistit z čítače <code>signal-&gt;live</code>.</p>
+</div>
+<hr />
+<h2 id="vytvoreni-a-ukonceni-procesu">Vytvoření a ukončení procesu<a class="headerlink" href="#vytvoreni-a-ukonceni-procesu" title="Permanent link">&para;</a></h2>
+<h3 id="vytvoreni-procesu-fork-execve-wait">Vytvoření procesu — fork, execve, wait<a class="headerlink" href="#vytvoreni-procesu-fork-execve-wait" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Trojice <code>fork()</code> / <code>execve()</code> / <code>wait()</code> je jádrem každé otázky na tvorbu procesů v Unixu. Musíte přesně vědět, co každá funkce vrací a co se stane s adresovým prostorem.</p>
+</div>
+<p>V unixových systémech se nový proces vytváří pomocí systémových volání <code>fork(2)</code> a <code>execve(2)</code>. V MS Windows k tomu slouží <code>CreateProcessA()</code>.</p>
+<p><strong>Nový proces může být:</strong></p>
+<ol>
+<li><strong>Klon rodiče</strong> (po samotném <code>fork()</code>) — jádro alokuje nové datové struktury, adresový prostor rodiče se zkopíruje do potomka, čítač instrukcí ukazuje na instrukci následující za <code>fork()</code>.</li>
+<li><strong>Úplně nový proces</strong> (po <code>fork()</code> + <code>execve()</code>) — adresový prostor se přepíše obsahem nového programu, zásobník a halda jsou prázdné, čítač instrukcí ukazuje na první instrukci nového programu.</li>
+</ol>
+<h4 id="popis-funkci">Popis funkcí<a class="headerlink" href="#popis-funkci" title="Permanent link">&para;</a></h4>
+<p><strong><code>fork()</code></strong></p>
+<p>Vytvoří nový proces, který je kopií volajícího. Vrací:
+- v <strong>rodičovském</strong> procesu: PID potomka (při chybě -1),
+- v <strong>potomkovi</strong>: vždy hodnotu <code>0</code>.</p>
+<p>Po návratu z <code>fork()</code> oba procesy běží nezávisle od následující instrukce.</p>
+<p><strong><code>execve(const char *filename, ...)</code></strong></p>
+<p>Adresový prostor procesu, ve kterém je volána, je zcela přepsán obsahem spustitelného souboru <code>filename</code>. Výpočet začíná od začátku nového programu. Původní kód procesu přestane existovat.</p>
+<p><strong><code>wait(int *status)</code></strong></p>
+<p>Zablokuje rodičovský proces, dokud se některý jeho potomek neukončí. Varianta <code>waitpid(2)</code> umožňuje čekat na konkrétního potomka. Návratový kód potomka je uložen na adresu <code>status</code>.</p>
+<p>Více informací: <code>man 2 fork</code>, <code>man 2 execve</code>, <code>man 2 wait</code>.</p>
+<h4 id="ukazkovy-kod">Ukázkový kód<a class="headerlink" href="#ukazkovy-kod" title="Permanent link">&para;</a></h4>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">status</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">-1</span><span class="p">:</span><span class="w"> </span><span class="cm">/* Chyba */</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="p">:</span><span class="w"> </span><span class="cm">/* Potomek */</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">argv</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;sleep&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;30&quot;</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">envp</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">NULL</span><span class="w"> </span><span class="p">};</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">        </span><span class="n">execve</span><span class="p">(</span><span class="s">&quot;/bin/sleep&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">,</span><span class="w"> </span><span class="n">envp</span><span class="p">);</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="cm">/* Rodič */</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="w">        </span><span class="n">wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">status</span><span class="p">);</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<h4 id="prubeh-forkexecwait-krok-za-krokem">Průběh fork/exec/wait krok za krokem<a class="headerlink" href="#prubeh-forkexecwait-krok-za-krokem" title="Permanent link">&para;</a></h4>
+<p><img alt="Diagram průběhu fork(), execve() a wait() mezi rodičem a potomkem" src="../img/p02-s15-1.png" /></p>
+<p>Postup je následující:</p>
+<ol>
+<li><strong>1a</strong> Volání <code>fork()</code> v rodiči způsobí alokování datových struktur v jádře a paměti pro nový proces.</li>
+<li><strong>1b</strong> Část datových struktur nového procesu dostane nové hodnoty (např. nové <code>pid</code>).</li>
+<li><strong>1c</strong> Část datových struktur se zkopíruje od rodiče (např. tabulka deskriptorů souborů).</li>
+<li><strong>1d</strong> Obsah adresového prostoru rodiče se "zkopíruje" do adresového prostoru potomka.</li>
+<li><strong>1e</strong> Z <code>fork()</code> se vrátí — rodiči se uloží PID potomka, potomkovi hodnota <code>0</code>. Oba pokračují dál.</li>
+<li><strong>2a</strong> Rodič zavolá <code>wait()</code> a uspí se. Potomek zavolá <code>execve()</code> a načte nový program.</li>
+<li><strong>3a</strong> Potomek se ukončí (<code>exit()</code> nebo <code>return</code>). Návratový kód je uložen v <code>status</code>.</li>
+<li><strong>3b</strong> Rodič se probudí z <code>wait()</code> a pokračuje dál.</li>
+</ol>
+<h3 id="ukonceni-procesu">Ukončení procesu<a class="headerlink" href="#ukonceni-procesu" title="Permanent link">&para;</a></h3>
+<p>Jádro OS při ukončení procesu:
+- pokusí se předat <strong>návratový kód</strong> rodiči,
+- ukončí všechna vlákna patřící procesu,
+- uvolní adresový prostor a příslušné datové struktury v jádře.</p>
+<p>Způsoby ukončení:</p>
+<ul>
+<li><strong>Proces se ukončí sám</strong> — dosažením konce <code>main()</code> (<code>return</code>) nebo explicitním voláním <code>exit(3)</code> / <code>TerminateProcess()</code>.</li>
+<li><strong>Proces je ukončen jádrem</strong> — fatální chyba (dělení nulou, chybná manipulace s pamětí), přijatý signál apod.</li>
+</ul>
+<h4 id="implementacni-detaily-v-linuxu">Implementační detaily v Linuxu<a class="headerlink" href="#implementacni-detaily-v-linuxu" title="Permanent link">&para;</a></h4>
+<p>Volání <code>exit()</code> nebo <code>return</code> z "main" vlákna spustí systémové volání <code>exit</code>, které v <code>task_struct</code>:</p>
+<ol>
+<li>zapíše návratovou hodnotu do <code>exit_code</code>,</li>
+<li>nastaví <code>exit_state</code> na <strong>zombie</strong>,</li>
+<li>nastaví <code>exit_signal</code> (defaultně <code>SIGCHLD</code>),</li>
+<li>notifikuje rodiče signálem,</li>
+<li>vzdá se procesoru — od nynějška nebude plánován.</li>
+</ol>
+<p><strong>Rodič</strong> poté:
+- pokud již čekal v <code>wait()</code>, probudí se, přečte návratový kód a uvolní <code>task_struct</code> potomka,
+- pokud teprve zavolá <code>wait()</code>, OS zkontroluje, zda existují <strong>zombie</strong> potomci; pokud ano, převezme kód a uvolní strukturu, pokud ne, rodič se uspí.</p>
+<div class="admonition warning">
+<p class="admonition-title">Adopce sirotků</p>
+<p>Pokud rodič skončí dříve než jeho potomci, OS přenastaví ukazatel <code>*parent</code> u všech potomků na proces <code>init</code> (PID 1). Init tyto "sirotky" adoptuje a po jejich skončení správně převezme návratový kód.</p>
+</div>
+<details class="note">
+<summary>Příklad: Kolik procesů vznikne?</summary>
+<p>Kolik celkem procesů vznikne a kdy skončí poslední z nich?</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kt">int</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kt">pid_t</span><span class="w"> </span><span class="n">pid</span><span class="p">;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">pid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fork</span><span class="p">();</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">            </span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Každá iterace zdvojnásobí počet procesů (každý existující proces zavolá <code>fork()</code>). Po první iteraci jsou 2 procesy, po druhé 4, po třetí 8. Celkem vznikne tedy <strong>8 procesů</strong> (včetně původního). Potomci, kteří jsou v podmínce <code>pid == 0</code>, volají <code>sleep(10)</code> a pak skončí. Nicméně potomci vytvořeni v pozdějších iteracích jsou také původní i nově vzniklé procesy — je třeba pečlivě sledovat větve.</p>
+</details>
+<hr />
+<h2 id="multitasking-a-multithreading">Multitasking a multithreading<a class="headerlink" href="#multitasking-a-multithreading" title="Permanent link">&para;</a></h2>
+<p><img alt="Ilustrace multitaskingu a multithreadingu — střídání vláken na jádrech CPU" src="../img/p02-s23-1.png" /></p>
+<p><strong>Multitasking</strong> (nebo <strong>multithreading</strong>) je schopnost OS zdánlivě vykonávat více úloh souběžně. Na systému s jediným jádrem CPU to OS zajišťuje rychlým střídáním vláken — každé vlákno dostane krátký časový úsek (kvantum) a pak je vystřídáno jiným. Na vícejádrovém systému mohou vlákna běžet skutečně paralelně, každé na svém jádře.</p>
+<hr />
+<h2 id="planovani-vlaken-a-prepinani-kontextu">Plánování vláken a přepínání kontextu<a class="headerlink" href="#planovani-vlaken-a-prepinani-kontextu" title="Permanent link">&para;</a></h2>
+<h3 id="planovani-vlaken">Plánování vláken<a class="headerlink" href="#planovani-vlaken" title="Permanent link">&para;</a></h3>
+<p>Jádro OS a vlákna aplikací sdílejí omezený počet "logických" jader CPU. Jedno jádro může v jednom okamžiku zpracovávat právě jedno vlákno. Aby se vlákna spravedlivě podělila o dostupná jádra, používá OS <strong>preemptivní plánování</strong>.</p>
+<p><strong>Preemptivní plánování</strong> funguje takto:</p>
+<ol>
+<li>OS vybere vlákno na základě plánovacích kritérií (priorita, čas čekání, ...).</li>
+<li>Přidělí mu volné jádro CPU a <strong>časové kvantum</strong> — po tuto dobu vlákno běží.</li>
+<li>Jádro CPU je vláknu odebráno, pokud:<ul>
+<li>uplyne časové kvantum (přerušení od časovače),</li>
+<li>vlákno provede systémové volání (např. V/V operaci),</li>
+<li>nastane přerušení (např. dokončení V/V operace).</li>
+</ul>
+</li>
+</ol>
+<h3 id="prepinani-kontextu">Přepínání kontextu<a class="headerlink" href="#prepinani-kontextu" title="Permanent link">&para;</a></h3>
+<p><strong>Přepínání kontextu</strong> (context switch) je mechanismus, při kterém se vlákna vystřídají v používání jádra CPU. <strong>Kontext</strong> vlákna jsou všechny informace potřebné k tomu, aby bylo vlákno možné obnovit přesně od místa, kde bylo přerušeno — zejména čítač instrukcí (<code>PC</code>) a obsah všech registrů procesoru.</p>
+<p>Přepnutí kontextu probíhá ve třech krocích:</p>
+<ol>
+<li>Uložení kontextu přerušeného vlákna.</li>
+<li>Výběr dalšího vlákna plánovačem OS.</li>
+<li>Obnovení (nastavení) kontextu nového vlákna.</li>
+</ol>
+<p>Vlákna sama o sobě "neví", že jsou přerušována — žijí v iluzi nepřetržitého běhu od začátku do konce.</p>
+<p><img alt="Diagram přepínání kontextu mezi dvěma vlákny" src="../img/p02-s26-1.png" /></p>
+<h3 id="stavy-vlaken">Stavy vláken<a class="headerlink" href="#stavy-vlaken" title="Permanent link">&para;</a></h3>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Stavy vláken a přechody mezi nimi jsou standardní zkouškovou otázkou. Naučte se nejen názvy stavů, ale také jaká událost způsobí přechod mezi nimi.</p>
+</div>
+<p>Stav vlákna popisuje, co se s ním právě děje. Základní stavy jsou:</p>
+<p><img alt="Diagram stavů vlákna a přechodů mezi nimi" src="../img/p02-s27-1.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Stav</th>
+<th>Popis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Idle</strong></td>
+<td>Vlákno právě vzniklo</td>
+</tr>
+<tr>
+<td><strong>Ready</strong></td>
+<td>Vlákno čeká, až mu bude přiděleno jádro CPU</td>
+</tr>
+<tr>
+<td><strong>Running</strong></td>
+<td>Vlákno je právě zpracováváno jádrem CPU</td>
+</tr>
+<tr>
+<td><strong>Blocked</strong></td>
+<td>Vlákno čeká na událost (dokončení V/V operace, příchod signálu, ...)</td>
+</tr>
+<tr>
+<td><strong>Zombie</strong></td>
+<td>Vlákno se ukončuje, ale ještě nebylo vše dokončeno</td>
+</tr>
+<tr>
+<td><strong>Free</strong></td>
+<td>Vlákno bylo kompletně zrušeno (pouze teoretický stav)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="casove-zavisle-chyby-a-kriticke-sekce">Časově závislé chyby a kritické sekce<a class="headerlink" href="#casove-zavisle-chyby-a-kriticke-sekce" title="Permanent link">&para;</a></h2>
+<h3 id="deterministicky-algoritmus-a-casove-zavisle-chyby">Deterministický algoritmus a časově závislé chyby<a class="headerlink" href="#deterministicky-algoritmus-a-casove-zavisle-chyby" title="Permanent link">&para;</a></h3>
+<p><strong>Deterministický algoritmus</strong> vždy ze stejných vstupních podmínek vytvoří stejné výsledky — bez ohledu na to, kdy a jak rychle běží.</p>
+<p><strong>Časově závislé chyby</strong> (race conditions) jsou situace, kdy dvě nebo více vláken přistupuje ke společným sdíleným prostředkům (sdílené proměnné, sdílené soubory, ...) a výsledek deterministického algoritmu závisí na rychlosti a pořadí, v jakém tato vlákna tyto prostředky používají.</p>
+<div class="admonition warning">
+<p class="admonition-title">Zákeřnost časově závislých chyb</p>
+<p>Časově závislé chyby vykazují <strong>náhodný výskyt</strong> — projevují se jen za určitých okolností (konkrétní pořadí přepnutí vláken) a jsou proto velmi obtížně odhalitelné a reprodukovatelné. Při hledání může pomoci nástroj jako <strong>Valgrind</strong>, ale nelze se na něj stoprocentně spoléhat. Nejlepší obranou je správný návrh paralelního algoritmu.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Časově závislé chyby a kritické sekce jsou intenzivně zkoušeny. Musíte být schopni identifikovat race condition v ukázkovém kódu, popsat, proč k ní dojde, a navrhnout opravu.</p>
+</div>
+<h3 id="priklad-editace-souboru-dvema-uzivateli">Příklad: Editace souboru dvěma uživateli<a class="headerlink" href="#priklad-editace-souboru-dvema-uzivateli" title="Permanent link">&para;</a></h3>
+<p><img alt="Příklad race condition — dva uživatelé editují stejný soubor" src="../img/p02-s29-1.png" /></p>
+<p>Dva uživatelé (nebo dvě vlákna) čtou soubor, každý provede úpravu a zapíše zpět. Pokud oba přečtou soubor ve stejnou chvíli (ještě před zápisem druhého), zápis toho druhého přepíše změny prvního. Výsledný soubor bude obsahovat změny jen jednoho z nich, ačkoliv oba zapsali.</p>
+<h3 id="priklad-inkrementace-sdileneho-citace">Příklad: Inkrementace sdíleného čítače<a class="headerlink" href="#priklad-inkrementace-sdileneho-citace" title="Permanent link">&para;</a></h3>
+<p><img alt="Příklad race condition — dvě vlákna inkrementují sdílený čítač" src="../img/p02-s30-1.png" /></p>
+<p>Dvě vlákna inkrementují společný čítač uložený v paměti na adrese <code>A</code>. Procesor provádí inkrementaci ve třech krocích:</p>
+<div class="language-asm highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nf">load</span><span class="w">  </span><span class="no">R</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="no">A</span><span class="p">]</span><span class="w">   </span><span class="c1">; načti hodnotu z paměti do registru R</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nf">inc</span><span class="w">   </span><span class="no">R</span><span class="w">        </span><span class="c1">; inkrementuj registr R</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nf">store</span><span class="w"> </span><span class="p">[</span><span class="no">A</span><span class="p">],</span><span class="w"> </span><span class="no">R</span><span class="w">   </span><span class="c1">; ulož hodnotu z registru zpět do paměti</span>
+</span></code></pre></div>
+<p>Pokud dojde k přepnutí kontextu mezi instrukcí <code>load</code> a <code>store</code>, může nastat tento scénář:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Vlákno 1: load  R1, [A]   → R1 = 5
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Vlákno 2: load  R2, [A]   → R2 = 5   (přečte starou hodnotu!)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Vlákno 1: inc   R1        → R1 = 6
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Vlákno 1: store [A], R1   → A = 6
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Vlákno 2: inc   R2        → R2 = 6
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Vlákno 2: store [A], R2   → A = 6    (přepíše výsledek vlákna 1!)
+</span></code></pre></div>
+<p>Ačkoliv obě vlákna provedla inkrementaci, výsledek je <code>6</code> místo správného <code>7</code>. Jedna inkrementace byla ztracena.</p>
+<h3 id="kriticke-sekce">Kritické sekce<a class="headerlink" href="#kriticke-sekce" title="Permanent link">&para;</a></h3>
+<p><strong>Kritická sekce</strong> (critical section) je část programu, ve které vlákno používá sdílené prostředky (sdílená proměnná, sdílený soubor, ...).</p>
+<p><strong>Sdružené kritické sekce</strong> jsou kritické sekce dvou nebo více vláken, které se týkají téhož sdíleného prostředku.</p>
+<p><strong>Vzájemné vyloučení</strong> (mutual exclusion) je pravidlo, že vláknům není dovoleno nacházet se ve sdružené kritické sekci současně. Jinými slovy: přístup ke sdílenému prostředku musí být výlučný — v daném okamžiku ho smí používat nejvýše jedno vlákno.</p>
+<div class="admonition note">
+<p class="admonition-title">Správné pořadí pojmů</p>
+<p>Problém vzniká tehdy, když dvě vlákna vstoupí do svých <strong>sdružených</strong> kritických sekcí naráz. Řešením je zajistit <strong>vzájemné vyloučení</strong> — to je cílem synchronizačních primitiv (mutexy, semafory, ...) probíraných v dalších kapitolách.</p>
+</div>
+<hr />
+<h2 id="korektni-paralelni-program">Korektní paralelní program<a class="headerlink" href="#korektni-paralelni-program" title="Permanent link">&para;</a></h2>
+<p>Při psaní paralelních programů musí programátor dodržovat tato pravidla:</p>
+<ol>
+<li>
+<p><strong>Žádné předpoklady o rychlosti vláken.</strong> Různá vlákna mohou běžet různě rychle v závislosti na plánování a zátěži systému. Správnost programu nesmí záviset na tom, které vlákno je "rychlejší".</p>
+</li>
+<li>
+<p><strong>Zajistit výlučný přístup ke sdíleným prostředkům.</strong> Vlákna musí být před kritickou sekcí v případě potřeby pozastavena. Zároveň žádné vlákno nesmí čekat neomezeně dlouho na vstup do kritické sekce.</p>
+</li>
+<li>
+<p><strong>Mimo kritickou sekci vlákno nesmí být blokováno ostatními vlákny.</strong> Synchronizace smí zdržovat vlákno pouze po dobu nezbytně nutnou.</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Tato tři pravidla tvoří základ pro analýzu správnosti synchronizačních algoritmů — objevují se jako hodnotící kritéria v zadáních příkladů.</p>
+</div>
+<hr />
+<h2 id="shrnuti">Shrnutí<a class="headerlink" href="#shrnuti" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Program</strong> je binární soubor na disku (ELF pro Unix, PE pro Windows); obsahuje TEXT (kód), DATA (proměnné) a metadata.</li>
+<li><strong>Proces</strong> je instance spuštěného programu — entita pro alokaci prostředků; má vlastní virtuální adresový prostor a minimálně jedno vlákno.</li>
+<li><strong>Vlákno</strong> je proud instrukcí, které OS přiděluje jádro CPU; vlákna sdílí adresový prostor procesu, ale mají vlastní zásobník a kontext.</li>
+<li>V Linuxu jsou procesy i vlákna reprezentovány strukturou <code>task_struct</code>; rozlišují se pomocí <code>pid</code> a <code>tgid</code>.</li>
+<li>Nový proces v Unixu vzniká voláním <code>fork()</code> (klon rodiče) + <code>execve()</code> (načtení nového programu); rodič čeká na potomka pomocí <code>wait()</code>.</li>
+<li>Ukončující se proces přejde do stavu <strong>zombie</strong>, dokud rodič nepřevezme návratový kód; pokud rodič skončí dříve, init adoptuje sirotky.</li>
+<li>Vlákna se na jádrech CPU střídají pomocí <strong>preemptivního plánování</strong> — OS přiděluje časová kvanta a při přepínání ukládá/obnovuje kontext vlákna.</li>
+<li>Vlákno může být ve stavech: Idle, Ready, Running, Blocked, Zombie, Free.</li>
+<li><strong>Časově závislé chyby</strong> (race conditions) vznikají při nekontrolovaném přístupu více vláken ke sdíleným prostředkům; mají náhodný výskyt a jsou těžko odhalitelné.</li>
+<li><strong>Kritická sekce</strong> je část kódu přistupující ke sdílenému prostředku; <strong>vzájemné vyloučení</strong> zabraňuje souběžnému vstupu více vláken do sdružených kritických sekcí.</li>
+<li>Korektní paralelní program neklade předpoklady o rychlosti vláken, zajišťuje výlučný přístup ke sdíleným prostředkům a neblokuje vlákna mimo kritickou sekci.</li>
+</ul>
+<hr />
+<h2 id="klicove-pojmy">Klíčové pojmy<a class="headerlink" href="#klicove-pojmy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Program</strong> — spustitelný binární soubor uložený v sekundární paměti, obsahující kód (TEXT), data (DATA) a metadata; jeho formát závisí na cílovém OS (ELF, PE).</li>
+<li><strong>ELF</strong> (Executable and Linkable Format) — binární formát spustitelných souborů používaný v unixových OS.</li>
+<li><strong>PE</strong> (Portable Executable) — binární formát spustitelných souborů používaný v MS Windows.</li>
+<li><strong>Proces</strong> — instance spuštěného programu; základní entita OS pro alokaci prostředků (paměť, vlákna, soubory, ...); má vlastní virtuální adresový prostor.</li>
+<li><strong>PID</strong> (Process ID) — jedinečné číslo identifikující proces (nebo vlákno) v rámci OS.</li>
+<li><strong>PPID</strong> (Parent Process ID) — číslo rodičovského procesu.</li>
+<li><strong>TGID</strong> (Thread Group ID) — identifikátor skupiny vláken; všechna vlákna jednoho procesu sdílí stejné TGID, které se rovná PID hlavního vlákna.</li>
+<li><strong><code>task_struct</code></strong> — datová struktura v Linuxovém jádře reprezentující jak proces, tak vlákno; obsahuje PID, TGID, paměťový deskriptor, tabulku souborů a další.</li>
+<li><strong>Virtuální adresový prostor</strong> — izolovaný paměťový prostor každého procesu; skládá se ze segmentů TEXT, DATA, heap, stack a mapovaných knihoven.</li>
+<li><strong>Vlákno</strong> — výpočetní entita (proud instrukcí), které OS přiděluje jádro CPU; vlákna v procesu sdílí adresový prostor, ale mají vlastní zásobník a kontext.</li>
+<li><strong>TID</strong> (Thread ID) — číslo vlákna; v Linuxu totožné s <code>pid</code> v <code>task_struct</code>.</li>
+<li><strong>Light-weight process (LWP)</strong> — historický název pro vlákno.</li>
+<li><strong>Zásobník vlákna</strong> (stack) — privátní paměťová oblast vlákna pro lokální proměnné a historii volání funkcí; v Linuxu alokována pomocí <code>mmap()</code>.</li>
+<li><strong><code>fork()</code></strong> — systémové volání v Unixu, které vytvoří nový proces jako kopii rodiče; v rodiči vrátí PID potomka, v potomkovi vrátí 0.</li>
+<li><strong><code>execve()</code></strong> — systémové volání, které přepíše adresový prostor procesu obsahem nového spustitelného souboru; výpočet začíná od začátku nového programu.</li>
+<li><strong><code>wait()</code> / <code>waitpid()</code></strong> — systémové volání, které zablokuje rodičovský proces, dokud se potomek (nebo konkrétní potomek) neukončí; předá návratový kód.</li>
+<li><strong>Zombie</strong> — stav ukončeného procesu, jehož <code>task_struct</code> ještě nebyla uvolněna, protože rodič nepřevzal návratový kód.</li>
+<li><strong>Adopce sirotků</strong> — mechanismus, při kterém init (PID 1) přijme potomky procesu, který skončil dříve než oni.</li>
+<li><strong>POSIX Thread Library (pthreads)</strong> — přenositelné rozhraní pro práci s vlákny na unixových systémech; klíčové funkce jsou <code>pthread_create()</code> a <code>pthread_join()</code>.</li>
+<li><strong><code>pthread_create()</code></strong> — vytvoří nové vlákno, které bude vykonávat zadanou funkci.</li>
+<li><strong><code>pthread_exit()</code></strong> — ukončí pouze volající vlákno; sdílené struktury procesu zůstanou zachovány.</li>
+<li><strong><code>pthread_join()</code></strong> — zablokuje volající vlákno, dokud zadané vlákno neskončí.</li>
+<li><strong>Multitasking / Multithreading</strong> — schopnost OS zdánlivě (nebo skutečně na vícejádrovém HW) provádět více úloh souběžně.</li>
+<li><strong>Preemptivní plánování</strong> — strategie, při které OS přiděluje vláknům časová kvanta a může vlákno přerušit i bez jeho "souhlasu".</li>
+<li><strong>Časové kvantum</strong> — časový úsek, po který OS nechá vlákno běžet na jádře CPU, než provede přeplánování.</li>
+<li><strong>Přepínání kontextu</strong> (context switch) — mechanismus uložení kontextu běžícího vlákna a obnovení kontextu jiného vlákna; zajišťuje iluzi nepřerušovaného běhu každého vlákna.</li>
+<li><strong>Kontext vlákna</strong> — veškeré informace potřebné k obnovení výpočtu vlákna od místa přerušení; zejména čítač instrukcí a hodnoty registrů.</li>
+<li><strong>Stav vlákna</strong> — Idle (nové), Ready (čeká na CPU), Running (běží), Blocked (čeká na událost), Zombie (ukončuje se), Free (zrušeno).</li>
+<li><strong>Časově závislá chyba</strong> (race condition) — chyba vzniklá nekontrolovaným souběžným přístupem více vláken ke sdíleným prostředkům; výsledek závisí na pořadí a rychlosti vláken, vykazuje náhodný výskyt.</li>
+<li><strong>Kritická sekce</strong> (critical section) — část kódu, ve které vlákno přistupuje ke sdílenému prostředku.</li>
+<li><strong>Sdružené kritické sekce</strong> — kritické sekce dvou nebo více vláken týkající se téhož sdíleného prostředku.</li>
+<li><strong>Vzájemné vyloučení</strong> (mutual exclusion) — princip, že sdružené kritické sekce nesmí být vykonávány souběžně; nejvýše jedno vlákno smí být v kritické sekci najednou.</li>
+<li><strong>Deterministický algoritmus</strong> — algoritmus, který ze stejných vstupů vždy produkuje stejné výstupy bez ohledu na časování.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../01-uvod/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Úvod do operačních systémů">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Úvod do operačních systémů
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../03-synchronizace/" class="md-footer__link md-footer__link--next" aria-label="Další: Synchronizace a meziprocesová komunikace">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Synchronizace a meziprocesová komunikace
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

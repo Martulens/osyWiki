@@ -1,0 +1,2766 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/otazky/prakticke/07-souborove-systemy/">
+      
+      
+        <link rel="prev" href="../06-disky-raid/">
+      
+      
+        <link rel="next" href="../../teorie-truefalse/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Souborové systémy - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#co-tento-typ-ulohy-proveruje" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Souborové systémy
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../skripta/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../skripta/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ufs-vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UFS — vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fat-vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAT — vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volne-objekty-fs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volné objekty FS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fs-operace-prehled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FS operace — přehled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-vypocet-kapacit-ufs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Výpočet kapacit UFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-vypocet-kapacit-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Výpočet kapacit FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-srovnani-volneho-prostoru-bitmapa-vs-seznam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Srovnání volného prostoru (bitmapa vs. seznam)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-trasovani-fs-operaci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Trasování FS operací
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-ufs-maximalni-velikost-souboru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) UFS — maximální velikost souboru
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-volne-objekty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C) Volné objekty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-fs-operace-mv-v-ramci-tehoz-ufs-noatime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D) FS operace — mv v rámci téhož UFS (noatime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-1-ufs-s-mensim-blokem-a-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 1: UFS s menším blokem a FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-2-fs-operace-hard-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 2: FS operace — hard link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ufs-vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        UFS — vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fat-vzorce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FAT — vzorce
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#volne-objekty-fs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Volné objekty FS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fs-operace-prehled" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FS operace — přehled
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-vypocet-kapacit-ufs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A. Výpočet kapacit UFS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-vypocet-kapacit-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B. Výpočet kapacit FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-srovnani-volneho-prostoru-bitmapa-vs-seznam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C. Srovnání volného prostoru (bitmapa vs. seznam)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-trasovani-fs-operaci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D. Trasování FS operací
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-ufs-maximalni-velikost-souboru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A) UFS — maximální velikost souboru
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#b-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        B) FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#c-volne-objekty" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        C) Volné objekty
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#d-fs-operace-mv-v-ramci-tehoz-ufs-noatime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        D) FS operace — mv v rámci téhož UFS (noatime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-1-ufs-s-mensim-blokem-a-fat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 1: UFS s menším blokem a FAT
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-2-fs-operace-hard-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta 2: FS operace — hard link
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="souborove-systemy">Souborové systémy<a class="headerlink" href="#souborove-systemy" title="Permanent link">&para;</a></h1>
+<p>Úlohy na souborové systémy se zaměřují na dvě oblasti: <strong>výpočty kapacit</strong> (maximální velikost souboru v UFS, velikost FAT tabulky, srovnání správy volného prostoru) a <strong>sledování operací nad FS</strong> (kolik i-nodů a datových bloků se při <code>cp</code>/<code>mv</code>/<code>ln</code>/<code>rm</code> přečte nebo zapíše). Obě oblasti jsou pravidelnou součástí každého zkouškového termínu.</p>
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje</a></li>
+<li><a href="#co-potrebujes-znat">Co potřebuješ znát</a><ul>
+<li><a href="#ufs-vzorce">UFS — vzorce</a></li>
+<li><a href="#fat-vzorce">FAT — vzorce</a></li>
+<li><a href="#volne-objekty-fs">Volné objekty FS</a></li>
+<li><a href="#fs-operace-prehled">FS operace — přehled</a></li>
+</ul>
+</li>
+<li><a href="#postup-reseni-krok-za-krokem">Postup řešení krok za krokem</a><ul>
+<li><a href="#a-vypocet-kapacit-ufs">A. Výpočet kapacit UFS</a></li>
+<li><a href="#b-vypocet-kapacit-fat">B. Výpočet kapacit FAT</a></li>
+<li><a href="#c-srovnani-volneho-prostoru-bitmapa-vs-seznam">C. Srovnání volného prostoru (bitmapa vs. seznam)</a></li>
+<li><a href="#d-trasovani-fs-operaci">D. Trasování FS operací</a></li>
+</ul>
+</li>
+<li><a href="#vzorove-zadani">Vzorové zadání</a></li>
+<li><a href="#reseni-vzoroveho-zadani">Řešení vzorového zadání</a><ul>
+<li><a href="#a-ufs-maximalni-velikost-souboru">A) UFS — maximální velikost souboru</a></li>
+<li><a href="#b-fat">B) FAT</a></li>
+<li><a href="#c-volne-objekty">C) Volné objekty</a></li>
+<li><a href="#d-fs-operace-mv-v-ramci-tehoz-ufs-noatime">D) FS operace — mv v rámci téhož UFS (noatime)</a></li>
+</ul>
+</li>
+<li><a href="#dalsi-procviceni">Další procvičení</a><ul>
+<li><a href="#varianta-1-ufs-s-mensim-blokem-a-fat">Varianta 1: UFS s menším blokem a FAT</a></li>
+<li><a href="#varianta-2-fs-operace-hard-link">Varianta 2: FS operace — hard link</a></li>
+</ul>
+</li>
+<li><a href="#varianty-a-chytaky">Varianty a chytáky</a></li>
+<li><a href="#caste-chyby">Časté chyby</a></li>
+<li><a href="#souvisejici">Související</a></li>
+</ul>
+</div>
+</details>
+<hr />
+<h2 id="co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje<a class="headerlink" href="#co-tento-typ-ulohy-proveruje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Porozumění struktuře i-nodu v UFS — přímé a nepřímé ukazatele, počet odkazů v bloku.</li>
+<li>Schopnost vypočítat maximální velikost souboru a souborového systému z daných parametrů.</li>
+<li>Porozumění struktuře FAT — kolik místa zabírá FAT tabulka, jak velký soubor může FAT adresovat.</li>
+<li>Srovnání bitové mapy a zřetězeného seznamu pro správu volného prostoru.</li>
+<li>Schopnost trasovat operace <code>cp</code>, <code>mv</code>, <code>ln</code>, <code>rm</code> a spočítat přesný počet přečtených a zapsaných i-nodů a datových bloků, včetně alokací.</li>
+</ul>
+<hr />
+<h2 id="co-potrebujes-znat">Co potřebuješ znát<a class="headerlink" href="#co-potrebujes-znat" title="Permanent link">&para;</a></h2>
+<h3 id="ufs-vzorce">UFS — vzorce<a class="headerlink" href="#ufs-vzorce" title="Permanent link">&para;</a></h3>
+<p><strong>Počet odkazů v jednom bloku (R):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>R = velikost_bloku_v_B * 8 / bity_odkazu
+</span></code></pre></div>
+<p>Příklad: blok 8 KiB, odkaz 64bitový → R = 8192 * 8 / 64 = 1024</p>
+<p><strong>Celkový počet adresovatelných datových bloků:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>12 + R + R^2 + R^3
+</span></code></pre></div>
+<ul>
+<li>12 přímých odkazů přímo v i-nodu</li>
+<li>R odkazů přes jednonásobný nepřímý blok</li>
+<li>R^2 odkazů přes dvojnásobný nepřímý blok (blok s R ukazateli na bloky s R ukazateli)</li>
+<li>R^3 odkazů přes trojnásobný nepřímý blok</li>
+</ul>
+<p><strong>Maximální velikost souboru:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>max_velikost = (12 + R + R^2 + R^3) * velikost_bloku
+</span></code></pre></div>
+<p><strong>Maximální velikost souborového systému:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>max_FS = 2^(bity_adresy) * velikost_bloku
+</span></code></pre></div>
+<p>(Omezeno délkou adresy, ne i-nodem — souborový systém může mít více souborů.)</p>
+<h3 id="fat-vzorce">FAT — vzorce<a class="headerlink" href="#fat-vzorce" title="Permanent link">&para;</a></h3>
+<p><strong>Maximální velikost souboru (v FAT):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>max_soubor_FAT = 2^(bity_adresy) * velikost_clusteru
+</span></code></pre></div>
+<p><strong>Počet clusterů v oblasti:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>pocet_clusteru = kapacita_oblasti / velikost_clusteru
+</span></code></pre></div>
+<p><strong>Velikost FAT tabulky:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>velikost_FAT = pocet_clusteru * ceil(bity_adresy / 8)
+</span></code></pre></div>
+<p>Adresa se zaokrouhluje na celé bajty (28 bitů → 4 B, 12 bitů → 2 B).</p>
+<h3 id="volne-objekty-fs">Volné objekty FS<a class="headerlink" href="#volne-objekty-fs" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Struktura</th>
+<th>Paměť</th>
+<th>Kdy je výhodná</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bitmapa</td>
+<td>B bitů (1 bit / blok)</td>
+<td>Skoro vždy; rychlé bitové operace</td>
+</tr>
+<tr>
+<td>Zřetězený seznam</td>
+<td>F * D bitů (adresa na volný blok)</td>
+<td>Pokud je F * D &lt; B</td>
+</tr>
+</tbody>
+</table>
+<p>Podmínka, kdy je zřetězený seznam menší než bitmapa: <strong>F * D &lt; B</strong></p>
+<ul>
+<li>B = celkový počet bloků FS</li>
+<li>F = počet volných bloků</li>
+<li>D = počet bitů adresy jednoho bloku</li>
+</ul>
+<h3 id="fs-operace-prehled">FS operace — přehled<a class="headerlink" href="#fs-operace-prehled" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operace</th>
+<th>I-nody ke čtení</th>
+<th>I-nody k zápisu</th>
+<th>Datové bloky ke čtení</th>
+<th>Datové bloky k zápisu</th>
+<th>Alokace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mv</code> (stejný FS)</td>
+<td>cesta zdroj + cesta cíl + soubor</td>
+<td>zdrojový adresář + cílový adresář</td>
+<td>obsah všech adresářů cesty</td>
+<td>obsah zdrojového + cílového adresáře</td>
+<td>žádná</td>
+</tr>
+<tr>
+<td><code>mv</code> (jiný FS)</td>
+<td>stejné jako <code>cp</code> + <code>rm</code></td>
+<td>stejné jako <code>cp</code> + <code>rm</code></td>
+<td>data souboru</td>
+<td>data souboru</td>
+<td>ano (cíl), uvolnění (zdroj)</td>
+</tr>
+<tr>
+<td><code>ln</code> (hard link)</td>
+<td>cesta cíle + soubor</td>
+<td>soubor (++čítač) + cílový adresář</td>
+<td>obsah adresářů cesty cíle</td>
+<td>obsah cílového adresáře</td>
+<td>žádná</td>
+</tr>
+<tr>
+<td><code>ln -s</code> (symlink)</td>
+<td>cesta cíle</td>
+<td>nový i-node linku + cílový adresář</td>
+<td>obsah adresářů cesty cíle</td>
+<td>datový blok linku (cílová cesta) + obsah cílového adresáře</td>
+<td>1 i-node + 1 datový blok</td>
+</tr>
+<tr>
+<td><code>rm</code></td>
+<td>celá cesta + soubor</td>
+<td>zdrojový adresář + i-node souboru</td>
+<td>obsah všech adresářů cesty</td>
+<td>obsah zdrojového adresáře</td>
+<td>uvolnění i-nodu + bloků</td>
+</tr>
+<tr>
+<td><code>cp</code></td>
+<td>cesty obou + zdroj</td>
+<td>nový i-node + cílový adresář</td>
+<td>obsah adresářů + data zdroje</td>
+<td>data cíle + obsah cílového adresáře</td>
+<td>1 i-node + datové bloky</td>
+</tr>
+</tbody>
+</table>
+<p><a href="../../../skripta/07-souborove-systemy/">Skripta: Datová úložiště a souborové systémy</a></p>
+<hr />
+<h2 id="postup-reseni-krok-za-krokem">Postup řešení krok za krokem<a class="headerlink" href="#postup-reseni-krok-za-krokem" title="Permanent link">&para;</a></h2>
+<h3 id="a-vypocet-kapacit-ufs">A. Výpočet kapacit UFS<a class="headerlink" href="#a-vypocet-kapacit-ufs" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Přečti zadání:</strong> zapiš si velikost bloku (v bajtech), délku odkazu (v bitech) a počet přímých a nepřímých odkazů v i-nodu.</p>
+</li>
+<li>
+<p><strong>Spočítej R — počet odkazů v jednom bloku:</strong></p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>R = velikost_bloku_v_B * 8 / bity_odkazu
+</span></code></pre></div>
+<p>Příklad: blok 8 KiB = 8192 B, odkaz 64 b → R = 8192 * 8 / 64 = 65536 / 64 = <strong>1024</strong></p>
+<ol>
+<li>
+<p><strong>Zkontroluj, zda R je celé číslo.</strong> Pokud ne, zkontroluj jednotky (B vs. KiB).</p>
+</li>
+<li>
+<p><strong>Spočítej příspěvky jednotlivých úrovní:</strong></p>
+</li>
+<li>Přímé: 12 bloků (standardně)</li>
+<li>Jednonásobný nepřímý: R bloků (1 blok s R ukazateli → R datových bloků)</li>
+<li>Dvojnásobný nepřímý: R^2 bloků (1 blok → R bloků → R^2 datových bloků)</li>
+<li>
+<p>Trojnásobný nepřímý: R^3 bloků</p>
+</li>
+<li>
+<p><strong>Sečti celkový počet adresovatelných bloků:</strong></p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>N_bloků = 12 + R + R^2 + R^3
+</span></code></pre></div>
+<ol>
+<li><strong>Vypočítej maximální velikost souboru:</strong></li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>max_soubor = N_bloků * velikost_bloku
+</span></code></pre></div>
+<p>Výsledek převeď na vhodnou jednotku (TiB, GiB...).</p>
+<ol>
+<li>
+<p><strong>Pokud se ptají na maximální velikost FS</strong> (ne souboru): maximální počet bloků v FS je omezen délkou adresy, nikoliv strukturou i-nodu. Max bloků = 2^(bity_adresy), max velikost FS = 2^(bity_adresy) * velikost_bloku.</p>
+</li>
+<li>
+<p><strong>Zkontroluj, zda R^3 &gt;&gt; 12 + R + R^2.</strong> Při velkém R dominuje trojnásobný nepřímý odkaz, ostatní jsou zanedbatelné. Přesné číslo ale vždy spočítej.</p>
+</li>
+</ol>
+<h3 id="b-vypocet-kapacit-fat">B. Výpočet kapacit FAT<a class="headerlink" href="#b-vypocet-kapacit-fat" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Přečti zadání:</strong> zapiš si velikost clusteru a počet bitů adresy.</p>
+</li>
+<li>
+<p><strong>Maximální velikost souboru:</strong></p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>max_soubor_FAT = 2^(bity_adresy) * velikost_clusteru
+</span></code></pre></div>
+<p>Příklad: 28 b adresa, cluster 16 KiB → 2^28 * 2^14 B = 2^42 B = 4 TiB</p>
+<ol>
+<li><strong>Pokud se ptají na velikost FAT tabulky pro danou oblast:</strong></li>
+<li>Spočítej počet clusterů: kapacita_oblasti / velikost_clusteru</li>
+<li>Zaokrouhli délku adresy na celé bajty: ceil(bity_adresy / 8)</li>
+<li>
+<p>Velikost FAT = počet_clusterů * bajty_na_adresu</p>
+</li>
+<li>
+<p><strong>Pozor na zaokrouhlení adresy:</strong> 28 b → 4 B (ne 3,5 B). 12 b → 2 B. Vždy ceil.</p>
+</li>
+<li>
+<p><strong>FAT32 omezení:</strong> přestože adresa FAT32 má 32 b, fakticky se používá jen 28 b (4 b jsou rezervovány). Pokud zadání říká 28 b, je to FAT32 v reálném světě.</p>
+</li>
+</ol>
+<h3 id="c-srovnani-volneho-prostoru-bitmapa-vs-seznam">C. Srovnání volného prostoru (bitmapa vs. seznam)<a class="headerlink" href="#c-srovnani-volneho-prostoru-bitmapa-vs-seznam" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Bitmapa:</strong> každý blok FS má 1 bit → celkem B bitů.</p>
+</li>
+<li>
+<p><strong>Zřetězený seznam:</strong> každý <strong>volný</strong> blok drží adresu dalšího volného bloku → celkem F * D bitů, kde F je počet volných bloků a D je délka adresy v bitech.</p>
+</li>
+<li>
+<p><strong>Podmínka, kdy je seznam menší:</strong></p>
+</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>F * D &lt; B
+</span></code></pre></div>
+<p>Přičemž B a D jsou z parametrů FS, F závisí na obsazenosti.</p>
+<ol>
+<li><strong>Interpretace:</strong> zřetězený seznam je výhodný, pokud je disk <strong>téměř plný</strong> (F je malé). Pokud je disk téměř prázdný (F blízké B), bitmapa je menší.</li>
+</ol>
+<h3 id="d-trasovani-fs-operaci">D. Trasování FS operací<a class="headerlink" href="#d-trasovani-fs-operaci" title="Permanent link">&para;</a></h3>
+<p>Tato část je nejpracnější a vyžaduje systematický přístup.</p>
+<p><strong>Příprava:</strong></p>
+<ol>
+<li><strong>Nakresli si obě cesty</strong> (zdroj i cíl) jako seznam komponent oddělených <code>/</code>. Každá komponenta je buď adresář, nebo soubor.</li>
+<li><strong>Zkontroluj konfiguraci:</strong> je FS s <code>atime</code> nebo <code>noatime</code>? FAT32 atime ignoruje vždy. <code>noatime</code> znamená, že čtení souboru/adresáře <strong>nezapisuje</strong> i-node (čas přístupu se neaktualizuje).</li>
+<li><strong>Přečti, co je v paměti:</strong> zadání obvykle říká, co je předem načteno (superblock, i-node kořene, nebo nic). To, co je načteno, se nepočítá do operací čtení.</li>
+</ol>
+<p><strong>Obecné pravidlo pro procházení cesty (platí pro všechny operace):</strong></p>
+<p>Pro každý adresář v cestě (od kořene po předposlední komponentu):
+- Načti i-node tohoto adresáře (pokud ještě není v paměti)
+- Načti datový blok (obsah) tohoto adresáře (prohledání záznamu s názvem dalšího prvku)</p>
+<p>Pro terminální prvek (soubor nebo cílový adresář):
+- Načti jeho i-node</p>
+<p><strong>mv v rámci téhož FS (krok za krokem):</strong></p>
+<ol>
+<li>Projdi celou <strong>zdrojovou cestu</strong> (všechny adresáře + i-node souboru) — čtení i-nodů a datových bloků adresářů.</li>
+<li>Projdi celou <strong>cílovou cestu</strong> (všechny adresáře). Pokud se <code>/</code> nebo jiný adresář opakuje, nepočítej znovu (je v paměti). Cílový soubor (přesouvaný) <strong>se nečte</strong> — přepisuje se záznam.</li>
+<li><strong>Zapiš:</strong> datový blok a i-node zdrojového adresáře (odebrání záznamu, aktualizace mtime). Datový blok a i-node cílového adresáře (přidání záznamu, mtime).</li>
+<li><strong>Alokace: žádná.</strong> mv v rámci téhož FS je jen přepojení odkazu v adresáři — i-node souboru se nemění (jen dereference), datové bloky souboru se nedotýkají.</li>
+<li><strong>Pozor na noatime:</strong> pokud je FS s <code>noatime</code>, čtení adresářů nezapisuje jejich i-node (čas přístupu se nemění → i-node se nezapisuje jen kvůli čtení).</li>
+</ol>
+<p><strong>ln (hard link, krok za krokem):</strong></p>
+<ol>
+<li>Projdi <strong>zdrojovou cestu</strong> — načti i-nody a datové bloky adresářů, načti i-node souboru.</li>
+<li>Projdi <strong>cílovou cestu</strong> (adresáře) — načti i-nody a datové bloky adresářů.</li>
+<li><strong>Zapiš:</strong> i-node souboru (inkrementace čítače pevných linků). Datový blok a i-node cílového adresáře (přidání záznamu).</li>
+<li><strong>Alokace:</strong> žádná (hard link nealokuje nový i-node, jen zvyšuje čítač existujícího).</li>
+</ol>
+<p><strong>ln -s (symbolický link, krok za krokem):</strong></p>
+<ol>
+<li>Projdi <strong>cílovou cestu</strong> (adresáře kde bude link) — načti i-nody a datové bloky adresářů.</li>
+<li><strong>Zdrojová cesta se nečte</strong> — symbolický link se nestará o to, zda cíl existuje.</li>
+<li><strong>Zapiš:</strong> nový i-node pro link (alokace). Datový blok linku (cílová cesta jako řetězec) — pokud ji FS nezapíše přímo do i-nodu. Datový blok a i-node cílového adresáře (přidání záznamu).</li>
+<li><strong>Alokace:</strong> 1 i-node + (obvykle) 1 datový blok.</li>
+</ol>
+<p><strong>rm (krok za krokem):</strong></p>
+<ol>
+<li>Projdi <strong>celou cestu</strong> — načti i-nody a datové bloky adresářů, načti i-node souboru.</li>
+<li><strong>Zapiš:</strong> datový blok a i-node posledního adresáře (odebrání záznamu, mtime). I-node souboru (dekrementace čítače; pokud = 0, uvolni).</li>
+<li><strong>Uvolnění:</strong> i-node souboru + všechny datové bloky souboru + bloky s nepřímými ukazateli. Každé uvolnění se počítá zvlášť.</li>
+<li>U velkého souboru pamatuj, že se uvolňují i bloky <strong>s ukazateli</strong> (jednonásobný, dvojnásobný, trojnásobný nepřímý blok), nejen datové bloky.</li>
+</ol>
+<p><strong>cp (krok za krokem):</strong></p>
+<ol>
+<li>Projdi <strong>zdrojovou cestu</strong> — načti i-nody a datové bloky adresářů, načti i-node zdrojového souboru.</li>
+<li>Načti <strong>datové bloky zdrojového souboru</strong> (všechna data).</li>
+<li>Projdi <strong>cílovou cestu</strong> (adresáře) — načti i-nody a datové bloky adresářů.</li>
+<li><strong>Zapiš:</strong> nový i-node pro kopii (alokace). Datové bloky kopie (alokace + zápis). Datový blok a i-node cílového adresáře (přidání záznamu).</li>
+<li><strong>Alokace:</strong> 1 i-node + počet datových bloků souboru.</li>
+</ol>
+<hr />
+<h2 id="vzorove-zadani">Vzorové zadání<a class="headerlink" href="#vzorove-zadani" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p><strong>A) UFS.</strong> UFS pracuje s i-nody, které mají 12 přímých odkazů a po jednom jednonásobném, dvojnásobném a trojnásobném nepřímém odkazu. Velikost datového bloku 8 KiB, odkazy na blok jsou 64bitové. Jaká je maximální velikost souboru?</p>
+<p><strong>B) FAT.</strong> FAT pracuje s clustery 16 KiB, odkaz na cluster je 28bitový. (1) Jaká je maximální velikost souboru? (2) Jaká je velikost FAT tabulky pro oblast 32 GiB?</p>
+<p><strong>C) Volné objekty.</strong> FS má B datových bloků, z toho F volných, adresa bloku D bitů. Za jaké podmínky zabírá zřetězený seznam volných bloků méně paměti než bitmapa?</p>
+<p><strong>D) FS operace.</strong> UFS, blok 16 KiB, připojeno s <code>noatime</code>. Provede se:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>mv /usr/boot/lib/local/dev/php.ini /var/boot/src/home/include/test.cpp
+</span></code></pre></div>
+<p>Přesun je v rámci téhož UFS. Kolik i-nodů a datových bloků se načte/zapíše? Kolik alokací/uvolnění?</p>
+<p><em>UFS: 2010, 2011, 2014, 2019. FAT: 2011, 2012. Volné objekty: 2010, 2011. FS operace: každý termín od 2014.</em></p>
+</div>
+<hr />
+<h2 id="reseni-vzoroveho-zadani">Řešení vzorového zadání<a class="headerlink" href="#reseni-vzoroveho-zadani" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<h3 id="a-ufs-maximalni-velikost-souboru">A) UFS — maximální velikost souboru<a class="headerlink" href="#a-ufs-maximalni-velikost-souboru" title="Permanent link">&para;</a></h3>
+<p><strong>Krok 1: Spočítej R</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>R = 8192 B * 8 / 64 = 65536 / 64 = 1024
+</span></code></pre></div>
+<p><strong>Krok 2: Příspěvky jednotlivých úrovní</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>přímé:                   12
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>jednonásobný nepřímý:  1024                           =       1 024
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>dvojnásobný nepřímý:   1024^2                         =   1 048 576
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>trojnásobný nepřímý:   1024^3                         = 1 073 741 824
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>                       ———————————————————————————————
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>celkem bloků:                                         = 1 074 791 436
+</span></code></pre></div>
+<p><strong>Krok 3: Maximální velikost souboru</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1 074 791 436 * 8192 B = 8 804 505 763 ...B ≈ 8.8 TiB
+</span></code></pre></div>
+<p>Dominantní složka je trojnásobný nepřímý odkaz (1024^3 = 1,07 × 10^9 bloků), ostatní jsou zanedbatelné.</p>
+<h3 id="b-fat">B) FAT<a class="headerlink" href="#b-fat" title="Permanent link">&para;</a></h3>
+<p><strong>Krok 1: Maximální velikost souboru</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>2^28 * 16 KiB = 2^28 * 2^14 B = 2^42 B = 4 TiB
+</span></code></pre></div>
+<p><strong>Krok 2: Velikost FAT tabulky pro oblast 32 GiB</strong></p>
+<p>Počet clusterů:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>32 GiB / 16 KiB = 2^35 B / 2^14 B = 2^21 clusterů
+</span></code></pre></div></p>
+<p>Bajty na adresu (28 b → zaokrouhlení):
+<div class="language-text highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>ceil(28 / 8) = ceil(3,5) = 4 B
+</span></code></pre></div></p>
+<p>Velikost FAT:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>2^21 * 4 B = 2^23 B = 8 MiB
+</span></code></pre></div></p>
+<h3 id="c-volne-objekty">C) Volné objekty<a class="headerlink" href="#c-volne-objekty" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Bitmapa: <strong>B bitů</strong> (jeden bit na každý blok, bez ohledu na obsazenost)</li>
+<li>Zřetězený seznam: <strong>F * D bitů</strong> (každý volný blok drží D-bitovou adresu dalšího)</li>
+</ul>
+<p>Zřetězený seznam je menší, pokud: <strong>F * D &lt; B</strong></p>
+<p>Například: B = 10^9 bloků, D = 32 b → seznam je menší pokud F &lt; B / D = 10^9 / 32 ≈ 3,1 × 10^7 volných bloků. Tj. disk musí být obsazený z více než 96,9 %.</p>
+<h3 id="d-fs-operace-mv-v-ramci-tehoz-ufs-noatime">D) FS operace — <code>mv</code> v rámci téhož UFS (noatime)<a class="headerlink" href="#d-fs-operace-mv-v-ramci-tehoz-ufs-noatime" title="Permanent link">&para;</a></h3>
+<p><strong>Příprava:</strong> Rozpiš obě cesty:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>zdroj:  /  usr  boot  lib  local  dev  php.ini
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>cíl:    /  var  boot  src  home  include  test.cpp  (test.cpp se tvoří)
+</span></code></pre></div>
+<p><code>noatime</code> — čtení adresářů nezapisuje jejich i-node.</p>
+<p><strong>Načtené i-nody (čtení):</strong></p>
+<p>Procházíme zdrojovou cestu a cílovou cestu. Kořen <code>/</code> je společný — počítáme jen jednou. Boot adresář se na obou cestách jmenuje stejně, ale jde o <strong>různé adresáře</strong> (mají odlišného rodiče), takže se počítají zvlášť.</p>
+<table>
+<thead>
+<tr>
+<th>Adresář/soubor</th>
+<th>Patří do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/ (kořen)</td>
+<td>obě cesty — 1×</td>
+</tr>
+<tr>
+<td>usr</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>boot (pod usr)</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>local</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>dev</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>php.ini (i-node souboru)</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>var</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>boot (pod var)</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>src</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>home</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>include</td>
+<td>cílová cesta</td>
+</tr>
+</tbody>
+</table>
+<p>Celkem: <strong>11 načtených i-nodů</strong></p>
+<p><strong>Načtené datové bloky (obsah adresářů):</strong></p>
+<p>Pro každý adresář v obou cestách se čte jeho obsah (prohledávání záznamu). Soubor <code>php.ini</code> se nečte (mv v rámci FS data nekopíruje).</p>
+<table>
+<thead>
+<tr>
+<th>Datový blok adresáře</th>
+<th>Patří do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>obsah /</td>
+<td>společný — 1×</td>
+</tr>
+<tr>
+<td>obsah usr</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>obsah boot (pod usr)</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>obsah lib</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>obsah local</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>obsah dev</td>
+<td>zdrojová cesta</td>
+</tr>
+<tr>
+<td>obsah var</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>obsah boot (pod var)</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>obsah src</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>obsah home</td>
+<td>cílová cesta</td>
+</tr>
+<tr>
+<td>obsah include</td>
+<td>cílová cesta</td>
+</tr>
+</tbody>
+</table>
+<p>Celkem: <strong>11 načtených datových bloků</strong></p>
+<p><strong>Zapsané i-nody:</strong></p>
+<ul>
+<li>i-node <code>dev</code> (mtime — odebrání záznamu pro php.ini)</li>
+<li>i-node <code>include</code> (mtime — přidání záznamu pro test.cpp)</li>
+</ul>
+<p>Celkem: <strong>2 zapsané i-nody</strong></p>
+<p><strong>Zapsané datové bloky:</strong></p>
+<ul>
+<li>obsah <code>dev</code> (odebrání záznamu php.ini)</li>
+<li>obsah <code>include</code> (přidání záznamu test.cpp)</li>
+</ul>
+<p>Celkem: <strong>2 zapsané datové bloky</strong></p>
+<p><strong>Alokace a uvolnění:</strong></p>
+<p><code>mv</code> v rámci téhož FS přesouvá jen záznam v adresáři. I-node souboru a jeho datové bloky zůstávají nedotčeny. <strong>0 alokací, 0 uvolnění.</strong></p>
+<div class="admonition note">
+<p class="admonition-title">mv na jiný FS</p>
+<p>Kdyby <code>/usr</code> a <code>/var</code> byly na různých FS (různé diskové oddíly), <code>mv</code> by se choval jako <code>cp</code> + <code>rm</code>. Kopírovaly by se <strong>všechny datové bloky souboru php.ini</strong>, alokoval by se nový i-node + datové bloky na cílovém FS, a zdrojový i-node + datové bloky by se uvolnily. Počet operací by byl řádově vyšší.</p>
+</div>
+</details>
+<hr />
+<h2 id="dalsi-procviceni">Další procvičení<a class="headerlink" href="#dalsi-procviceni" title="Permanent link">&para;</a></h2>
+<h3 id="varianta-1-ufs-s-mensim-blokem-a-fat">Varianta 1: UFS s menším blokem a FAT<a class="headerlink" href="#varianta-1-ufs-s-mensim-blokem-a-fat" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p><strong>A) UFS.</strong> I-node má 12 přímých odkazů, jednonásobný, dvojnásobný a trojnásobný nepřímý. Velikost bloku 4 KiB, odkaz 32bitový. Jaká je maximální velikost souboru?</p>
+<p><strong>B) FAT.</strong> Cluster 4 KiB, adresa 32bitová (fakticky 28bitová jako FAT32). (1) Max velikost souboru? (2) Velikost FAT tabulky pro oblast 2 TiB?</p>
+</div>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<p><strong>A) UFS, blok 4 KiB, odkaz 32 b:</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>R = 4096 * 8 / 32 = 32768 / 32 = 1024
+</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>N_bloků = 12 + 1024 + 1024^2 + 1024^3 = 1 074 791 436
+</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>max_soubor = 1 074 791 436 * 4096 B = 4 TiB (přibližně)
+</span></code></pre></div>
+<p>Přesně: 1 074 791 436 * 4096 = 4 402 341 969 920 B ≈ 4,004 TiB</p>
+<div class="admonition warning">
+<p class="admonition-title">Pozor na velikost odkazu</p>
+<p>Odkaz 32bitový s blokem 4 KiB a odkaz 64bitový s blokem 8 KiB dávají stejné R = 1024. Výsledný počet bloků je stejný, ale maximální velikost souboru je 2× menší (blok je 2× menší). Nezaměňuj R se samotnou velikostí souboru — vždy dosaď správnou velikost bloku.</p>
+</div>
+<p><strong>B) FAT32 (28bitová adresa), cluster 4 KiB:</strong></p>
+<p>Max soubor:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a>2^28 * 4 KiB = 2^28 * 2^12 B = 2^40 B = 1 TiB
+</span></code></pre></div></p>
+<p>Velikost FAT pro oblast 2 TiB:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>počet clusterů = 2 TiB / 4 KiB = 2^41 / 2^12 = 2^29 clusterů
+</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>ceil(28/8) = 4 B na adresu
+</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>velikost FAT = 2^29 * 4 B = 2^31 B = 2 GiB
+</span></code></pre></div></p>
+<p>FAT tabulka 2 GiB se ale do RAM vejde jen obtížně — proto FAT32 obvykle limituje velikost oblasti na 2 TiB.</p>
+</details>
+<h3 id="varianta-2-fs-operace-hard-link">Varianta 2: FS operace — hard link<a class="headerlink" href="#varianta-2-fs-operace-hard-link" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p>UFS, blok 4 KiB, <code>noatime</code>. V paměti je načten pouze superblock. Provede se:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>ln /usr/src/games/src/https.conf /var/log/etc/bin/etc/doc/libpcre.so
+</span></code></pre></div>
+<p>Kolik i-nodů se načte? Kolik zapíše? Kolik datových bloků se načte? Kolik zapíše? Kolik alokací?</p>
+</div>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<p>Zdrojová cesta: <code>/</code> <code>usr</code> <code>src</code> <code>games</code> <code>src</code> (jiný než první src!) <code>https.conf</code>
+Cílová cesta: <code>/</code> <code>var</code> <code>log</code> <code>etc</code> <code>bin</code> <code>etc</code> (jiný!) <code>doc</code> <code>libpcre.so</code> (nový hard link)</p>
+<p><strong>Hard link nevyžaduje přístup ke zdrojovému souboru jako k datům</strong> — musíme jen načíst jeho i-node a inkrementovat čítač linků.</p>
+<p><strong>Načtené i-nody:</strong></p>
+<p>Zdrojová cesta (adresáře + soubor):
+- / (kořen), usr, src, games, src, https.conf = 6 i-nodů</p>
+<p>Cílová cesta (adresáře, bez /):
+- var, log, etc, bin, etc, doc = 6 i-nodů</p>
+<p>Celkem: <strong>12 načtených i-nodů</strong></p>
+<p><strong>Načtené datové bloky (obsah adresářů):</strong></p>
+<p>Zdrojová cesta: /, usr, src, games, src = 5 datových bloků
+Cílová cesta (bez /): var, log, etc, bin, etc, doc = 6 datových bloků</p>
+<p>Celkem: <strong>11 načtených datových bloků</strong></p>
+<p><strong>Zapsané i-nody:</strong></p>
+<ul>
+<li>i-node <code>https.conf</code> (inkrementace čítače pevných linků, mtime)</li>
+<li>i-node <code>doc</code> (mtime — přidání záznamu libpcre.so)</li>
+</ul>
+<p>Celkem: <strong>2 zapsané i-nody</strong></p>
+<p><strong>Zapsané datové bloky:</strong></p>
+<ul>
+<li>obsah adresáře <code>doc</code> (přidání záznamu libpcre.so)</li>
+</ul>
+<p>Celkem: <strong>1 zapsaný datový blok</strong></p>
+<p><strong>Alokace:</strong></p>
+<p>Hard link nealokuje žádný nový i-node ani datový blok. <strong>0 alokací.</strong></p>
+</details>
+<hr />
+<h2 id="varianty-a-chytaky">Varianty a chytáky<a class="headerlink" href="#varianty-a-chytaky" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>mv v rámci téhož FS vs. mezi různými FS.</strong> Zkontroluj mountpoint obou cest. Pokud jsou na různých diskových oddílech (jiných FS), <code>mv</code> = <code>cp</code> + <code>rm</code> s miliony operací u velkého souboru.</li>
+<li><strong>noatime vs. atime.</strong> Při <code>atime</code> každé čtení adresáře aktualizuje jeho i-node → přibývají zápisy i-nodů adresářů na celé cestě. Při <code>noatime</code> se i-node adresáře zapisuje jen při skutečné modifikaci obsahu.</li>
+<li><strong>FAT32 atime.</strong> FAT32 čas přístupu vůbec nepoužívá — atime/noatime parametry nemají vliv.</li>
+<li><strong><code>/</code> se počítá jednou.</strong> Kořenový adresář je sdílen oběma cestami — jeho i-node a datový blok se načtou jen jednou i když je na obou cestách.</li>
+<li><strong>Stejné jméno adresáře ≠ stejný adresář.</strong> <code>/usr/boot</code> a <code>/var/boot</code> jsou různé adresáře s různými i-nody i datovými bloky — počítají se zvlášť.</li>
+<li><strong>Zaokrouhlení FAT adresy.</strong> 28 b → 4 B (ne 3,5 B). 12 b → 2 B. Vždy ceil(bity/8).</li>
+<li><strong>hard link vs. symbolický link.</strong> Hard link: žádný nový i-node, jen ++čítač na existujícím. Symbolický link: nový i-node + datový blok s cílovou cestou. Hard link nelze přes hranice FS; symbolický lze.</li>
+<li><strong>rm velkého souboru.</strong> Uvolňují se nejen datové bloky s daty, ale i bloky s nepřímými ukazateli (jednonásobný = 1 blok, dvojnásobný = 1+R bloků, trojnásobný = 1+R+R^2 bloků). Každé uvolnění se počítá zvlášť.</li>
+<li><strong>i-node má 128 B.</strong> Pokud zadání ptá na počet i-nodů v bloku nebo na velikost tabulky i-nodů.</li>
+<li><strong>Počet odkazů v bloku závisí na velikosti bloku i délce adresy.</strong> R = B_blok * 8 / b_odkaz. Změna délky adresy ze 32 b na 64 b sníží R na polovinu (při stejném bloku).</li>
+</ul>
+<hr />
+<h2 id="caste-chyby">Časté chyby<a class="headerlink" href="#caste-chyby" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Záměna R a počtu bloků.</strong> R je počet odkazů v jednom blokovém záznamu, ne počet adresovatelných bloků.</li>
+<li><strong>Zapomínání na bloky s ukazateli.</strong> Při výpočtu max velikosti souboru se NEZAPOČÍTÁVAJÍ bloky s nepřímými ukazateli — ty jsou metadata. Velikost souboru = N_datových_bloků * velikost_bloku.</li>
+<li><strong>Špatná jednotka odkazu.</strong> Pokud je odkaz 64bitový, R = blok_B * 8 / 64. Pokud chybně použiješ 32, dostaneš 2× větší R a špatný výsledek.</li>
+<li><strong>mv vs. cp při výpočtu operací.</strong> mv v rámci FS nekopíruje data → 0 čtení datových bloků souboru, 0 alokací. cp vždy kopíruje → N čtení + N zápisů + alokace.</li>
+<li><strong>Počítání adresy FAT jako celých bajtů.</strong> 28 b adresy → 4 B, ne 3,5 B. Vždy ceil.</li>
+<li><strong>Zapomínání na i-node souboru při mv.</strong> I-node souboru se načte (musíme ověřit, že jde o soubor a získat metadata), ale nezapisuje se (mv v rámci FS mění jen záznamy v adresářích).</li>
+<li><strong>Nepočítání i-nodu cílového adresáře při zápisu.</strong> Přidání záznamu do adresáře = zápis datového bloku adresáře + zápis i-nodu adresáře (mtime). Obojí.</li>
+<li><strong>Záměna noatime a FAT.</strong> noatime platí jen pro FS, kde se atime normálně používá (UFS, ext). FAT atime nepoužívá vůbec bez ohledu na parametry připojení.</li>
+</ul>
+<hr />
+<h2 id="souvisejici">Související<a class="headerlink" href="#souvisejici" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../../skripta/07-souborove-systemy/">Skripta: Datová úložiště a souborové systémy</a></li>
+<li><a href="../../teorie-truefalse/">Teoretické otázky (true/false)</a></li>
+<li><a href="../">Praktické příklady — přehled všech typů úloh</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../06-disky-raid/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Disky a RAID">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Disky a RAID
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../teorie-truefalse/" class="md-footer__link md-footer__link--next" aria-label="Další: Teoretické otázky (pravda / nepravda)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Teoretické otázky (pravda / nepravda)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

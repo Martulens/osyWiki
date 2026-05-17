@@ -1,0 +1,3123 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/skripta/03-synchronizace/">
+      
+      
+        <link rel="prev" href="../02-procesy-vlakna/">
+      
+      
+        <link rel="next" href="../04-deadlock/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Synchronizace a meziprocesová komunikace - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#problemy-paralelniho-vypoctu" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Synchronizace a meziprocesová komunikace
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../otazky/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problemy-paralelniho-vypoctu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problémy paralelního výpočtu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prehled-synchronizacnich-nastroju" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Přehled synchronizačních nástrojů
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-kriticka-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Kritická sekce
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronizační problém: Kritická sekce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aktivni-cekani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktivní čekání
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blokujici-systemova-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blokující systémová volání
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-producent-konzument" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Producent-konzument
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronizační problém: Producent-konzument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proc-nestaci-proste-wait-a-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proč nestačí prosté wait() a signal()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podminene-promenne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podmíněné proměnné
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semafory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semafory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-iteracni-vypocty-a-bariery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Iterační výpočty a bariéry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klasicke-synchronizacni-ulohy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klasické synchronizační úlohy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vecerici-filosofove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Večeřící filosofové
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Večeřící filosofové">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naivni-reseni-a-jeho-problemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naivní řešení a jeho problémy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-reseni-pomoci-mutexu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné řešení pomocí mutexu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-semaforu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné optimální řešení pomocí mutexu a N semaforů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-podminenych-promennych" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné optimální řešení pomocí mutexu a N podmíněných proměnných
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctenari-pisari" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Čtenáři-písaři
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Čtenáři-písaři">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-ale-neoptimalni-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné (ale neoptimální) řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reseni-s-hladovenim-pisaru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení s hladověním písařů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-spravedlive-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální spravedlivé řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spici-holici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spící holiči
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spící holiči">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlastnosti-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlastnosti řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#problemy-paralelniho-vypoctu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problémy paralelního výpočtu
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prehled-synchronizacnich-nastroju" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Přehled synchronizačních nástrojů
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-kriticka-sekce" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Kritická sekce
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronizační problém: Kritická sekce">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aktivni-cekani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aktivní čekání
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blokujici-systemova-volani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blokující systémová volání
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-producent-konzument" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Producent-konzument
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronizační problém: Producent-konzument">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#proc-nestaci-proste-wait-a-signal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Proč nestačí prosté wait() a signal()
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#podminene-promenne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Podmíněné proměnné
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#semafory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Semafory
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizacni-problem-iteracni-vypocty-a-bariery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizační problém: Iterační výpočty a bariéry
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klasicke-synchronizacni-ulohy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klasické synchronizační úlohy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vecerici-filosofove" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Večeřící filosofové
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Večeřící filosofové">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naivni-reseni-a-jeho-problemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naivní řešení a jeho problémy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-reseni-pomoci-mutexu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné řešení pomocí mutexu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-semaforu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné optimální řešení pomocí mutexu a N semaforů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-podminenych-promennych" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné optimální řešení pomocí mutexu a N podmíněných proměnných
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ctenari-pisari" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Čtenáři-písaři
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Čtenáři-písaři">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spravne-ale-neoptimalni-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správné (ale neoptimální) řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reseni-s-hladovenim-pisaru" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení s hladověním písařů
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-spravedlive-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální spravedlivé řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spici-holici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spící holiči
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Spící holiči">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#definice-problemu_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Definice problému
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimalni-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Optimální řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vlastnosti-reseni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vlastnosti řešení
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="synchronizace-a-meziprocesova-komunikace">Synchronizace a meziprocesová komunikace<a class="headerlink" href="#synchronizace-a-meziprocesova-komunikace" title="Permanent link">&para;</a></h1>
+<p>Tato kapitola pokrývá dvě úzce propojená témata. Nejprve si vysvětlíme, proč souběžné programy potřebují synchronizaci a jaké nástroje máme k dispozici — od hardwarových instrukcí přes zámky a podmíněné proměnné až po semafory a bariéry. Poté si ukážeme, jak tyto nástroje použít při řešení tří klasických synchronizačních úloh: večeřících filosofů, čtenářů a písařů a spících holičů. Na těchto modelových příkladech uvidíme, jakých chyb se lze dopustit a jak vypadají správná, optimální a spravedlivá řešení.</p>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#problemy-paralelniho-vypoctu">Problémy paralelního výpočtu</a></li>
+<li><a href="#prehled-synchronizacnich-nastroju">Přehled synchronizačních nástrojů</a></li>
+<li><a href="#synchronizacni-problem-kriticka-sekce">Synchronizační problém: Kritická sekce</a><ul>
+<li><a href="#aktivni-cekani">Aktivní čekání</a></li>
+<li><a href="#blokujici-systemova-volani">Blokující systémová volání</a></li>
+</ul>
+</li>
+<li><a href="#synchronizacni-problem-producent-konzument">Synchronizační problém: Producent-konzument</a><ul>
+<li><a href="#proc-nestaci-proste-wait-a-signal">Proč nestačí prosté wait() a signal()</a></li>
+<li><a href="#podminene-promenne">Podmíněné proměnné</a></li>
+<li><a href="#semafory">Semafory</a></li>
+</ul>
+</li>
+<li><a href="#synchronizacni-problem-iteracni-vypocty-a-bariery">Synchronizační problém: Iterační výpočty a bariéry</a></li>
+<li><a href="#klasicke-synchronizacni-ulohy">Klasické synchronizační úlohy</a></li>
+<li><a href="#vecerici-filosofove">Večeřící filosofové</a><ul>
+<li><a href="#definice-problemu">Definice problému</a></li>
+<li><a href="#naivni-reseni-a-jeho-problemy">Naivní řešení a jeho problémy</a></li>
+<li><a href="#spravne-reseni-pomoci-mutexu">Správné řešení pomocí mutexu</a></li>
+<li><a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-semaforu">Správné optimální řešení pomocí mutexu a N semaforů</a></li>
+<li><a href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-podminenych-promennych">Správné optimální řešení pomocí mutexu a N podmíněných proměnných</a></li>
+</ul>
+</li>
+<li><a href="#ctenari-pisari">Čtenáři-písaři</a><ul>
+<li><a href="#definice-problemu_1">Definice problému</a></li>
+<li><a href="#spravne-ale-neoptimalni-reseni">Správné (ale neoptimální) řešení</a></li>
+<li><a href="#reseni-s-hladovenim-pisaru">Řešení s hladověním písařů</a></li>
+<li><a href="#optimalni-spravedlive-reseni">Optimální spravedlivé řešení</a></li>
+</ul>
+</li>
+<li><a href="#spici-holici">Spící holiči</a><ul>
+<li><a href="#definice-problemu_2">Definice problému</a></li>
+<li><a href="#optimalni-reseni">Optimální řešení</a></li>
+<li><a href="#vlastnosti-reseni">Vlastnosti řešení</a></li>
+</ul>
+</li>
+<li><a href="#shrnuti">Shrnutí</a></li>
+<li><a href="#klicove-pojmy">Klíčové pojmy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="problemy-paralelniho-vypoctu">Problémy paralelního výpočtu<a class="headerlink" href="#problemy-paralelniho-vypoctu" title="Permanent link">&para;</a></h2>
+<p>Jakmile více vláken sdílí data nebo prostředky, mohou nastat tři kategorie problémů. Je důležité je od sebe odlišit, protože mají různé příčiny i léky.</p>
+<p><strong>Časově závislé chyby (race conditions)</strong> vznikají tehdy, kdy nepoužijeme žádnou synchronizaci. Více vláken čte a zapisuje do sdílené paměti, a výsledek závisí na tom, v jakém pořadí jsou instrukce prokládány — tedy na rychlosti vláken. Výsledek je nedeterministický a obtížně reprodukovatelný.</p>
+<p>Jakmile synchronizaci přidáme, hrozí nové problémy:</p>
+<ul>
+<li><strong>Uváznutí (deadlock)</strong> — skupina vláken čeká na události, které může vyvolat pouze jedno z čekajících vláken. Žádné vlákno nepokročí, systém zamrzne.</li>
+<li><strong>Livelock</strong> — vlákna nejsou zablokována, ale neustále mění svůj stav v reakci na ostatní a přitom žádné nedokončí výpočet. Je to jako dva lidé v chodbě, kteří si neustále uhýbají na stejnou stranu.</li>
+<li><strong>Hladovění (starvation)</strong> — vlákno je ve stavu „Ready" (připraveno), ale je opakovaně předbíháno ostatními vlákny a po dlouhou dobu nezíská přístup k prostředkům.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Synchronizace neřeší vše automaticky</p>
+<p>Špatně navrženou synchronizaci lze dostat do deadlocku nebo livelocku stejně snadno jako kód bez synchronizace. Každé řešení je nutné analyzovat z hlediska všech tří výše uvedených problémů.</p>
+</div>
+<hr />
+<h2 id="prehled-synchronizacnich-nastroju">Přehled synchronizačních nástrojů<a class="headerlink" href="#prehled-synchronizacnich-nastroju" title="Permanent link">&para;</a></h2>
+<p>Synchronizační mechanismy existují na různých úrovních systému. Přehled ukazuje, jak jsou vrstveny:</p>
+<table>
+<thead>
+<tr>
+<th>Úroveň</th>
+<th>Příklady</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hardware</strong></td>
+<td>SPARC v9: <code>cas</code>, <code>ldstub</code>, <code>swap</code>; x86-64: <code>xchg</code>, <code>cmpxchg</code></td>
+</tr>
+<tr>
+<td><strong>Jádro OS</strong></td>
+<td>Linux: atomic operations, spin locks, reader-writer locks; Solaris: adaptive locks; Windows: executive dispatcher objects</td>
+</tr>
+<tr>
+<td><strong>Aplikace (Unix/POSIX)</strong></td>
+<td>pipes, signály, System V semafory, fronty zpráv</td>
+</tr>
+<tr>
+<td><strong>Aplikace (vlákna)</strong></td>
+<td>POSIX Threads: mutexy, condition variables, semafory; C++11: <code>std::mutex</code>, <code>std::condition_variable</code></td>
+</tr>
+</tbody>
+</table>
+<p>Tato kapitola se zaměřuje především na úroveň aplikací a vláken, protože tam synchronizaci řeší programátor nejčastěji.</p>
+<hr />
+<h2 id="synchronizacni-problem-kriticka-sekce">Synchronizační problém: Kritická sekce<a class="headerlink" href="#synchronizacni-problem-kriticka-sekce" title="Permanent link">&para;</a></h2>
+<p><strong>Kritická sekce (critical region/section)</strong> je část kódu, ve které vlákno přistupuje ke sdílenému prostředku. Základní požadavek je prostý: v jednom okamžiku smí být uvnitř kritické sekce nejvýše jedno vlákno. Ostatní vlákna, která chtějí vstoupit, musí počkat.</p>
+<p>Čekání lze realizovat dvěma základními způsoby:</p>
+<ol>
+<li><strong>Aktivní čekání (busy waiting, spinning)</strong> — vlákno ve smyčce opakovaně testuje podmínku vstupu a spotřebovává procesorový čas.</li>
+<li><strong>Blokující systémová volání / knihovní funkce</strong> — vlákno se přepne do stavu „Blocked" a procesor je přidělen jiným vláknům; vlákno je probuzeno, až se sekce uvolní.</li>
+</ol>
+<h3 id="aktivni-cekani">Aktivní čekání<a class="headerlink" href="#aktivni-cekani" title="Permanent link">&para;</a></h3>
+<p>Při aktivním čekání se používá sdílená proměnná (tzv. zámek), která indikuje, zda je kritická sekce volná nebo obsazená. Před vstupem vlákno testuje hodnotu proměnné; pokud je sekce zamčena, čeká ve smyčce. Jakmile se sekce uvolní, vlákno ji zamkne a vstoupí. Po opuštění sekce zámek odemkne.</p>
+<p><img alt="Race conditions vs. aktivní čekání — srovnání časových průběhů dvou vláken" src="../img/p03-s06-1.png" /></p>
+<h4 id="proc-nestaci-obycejna-promenna-lock">Proč nestačí obyčejná proměnná <code>lock</code><a class="headerlink" href="#proc-nestaci-obycejna-promenna-lock" title="Permanent link">&para;</a></h4>
+<p>Intuitivní implementace pomocí proměnné <code>lock</code> vypadá takto:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kt">int</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="cm">/* 0 = odemčeno, 1 = zamčeno */</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">thread_A</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">lock</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">  </span><span class="cm">/* busy wait */</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">           </span><span class="cm">/* zamkni */</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="n">critical_region_A</span><span class="p">();</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">           </span><span class="cm">/* odemkni */</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Tento kód je <strong>chybný</strong>. Problém je v tom, že test (<code>while (lock == 1)</code>) a nastavení (<code>lock = 1</code>) jsou dvě oddělené operace, mezi které může být vložen přepínač kontextu. Představme si, že obě vlákna otestují <code>lock == 0</code> před tím, než kterékoli z nich nastaví <code>lock = 1</code> — obě pak vstoupí do kritické sekce současně.</p>
+<p><img alt="Proč naivní řešení s proměnnou lock selže — race condition mezi testem a zápisem" src="../img/p03-s08-1.png" /></p>
+<h4 id="instrukce-tsl-test-and-set-lock">Instrukce TSL (Test-and-Set-Lock)<a class="headerlink" href="#instrukce-tsl-test-and-set-lock" title="Permanent link">&para;</a></h4>
+<p>Řešení spočívá v tom, aby test a nastavení proběhly <strong>atomicky</strong> — jako jedna nedělitelná instrukce. K tomu slouží hypotetická instrukce <strong>TSL</strong> (test-and-set-lock), která:</p>
+<ol>
+<li>Načte obsah slova z dané adresy v paměti do registru.</li>
+<li>Nastaví obsah slova v paměti na nenulovou hodnotu (zamkne sekci).</li>
+</ol>
+<p>Oba kroky probíhají atomicky — žádné jiné vlákno nemůže k danému slovu přistoupit v průběhu instrukce. Implementace závisí na hardwarové architektuře (např. zamčení paměťové sběrnice).</p>
+<p><img alt="Diagram instrukce TSL — atomický test a nastavení zámku" src="../img/p03-s10-1.png" /></p>
+<p>Průchod kritickou sekcí pomocí TSL v assembleru:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>enter_region:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    tsl REGISTER, LOCK    ; zkopíruj lock do registru a nastav lock na 1
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    cmp REGISTER, #0      ; byl lock nula?
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    jne enter_region      ; pokud ne, lock byl nastaven, čekej
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    ret                   ; vstup do kritické sekce
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>leave_region:
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    store LOCK, #0        ; nastav lock na 0
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    ret                   ; návrat z kritické sekce
+</span></code></pre></div>
+<p>Reálné ISA neobsahují přímo instrukci TSL, ale nabízejí ekvivalenty:</p>
+<table>
+<thead>
+<tr>
+<th>Architektura</th>
+<th>Instrukce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPARC v9</td>
+<td><code>ldstub</code>, <code>cas</code>, <code>swap</code></td>
+</tr>
+<tr>
+<td>x86-64</td>
+<td><code>xchg</code>, <code>cmpxchg</code></td>
+</tr>
+<tr>
+<td>RISC-V</td>
+<td><code>amoswap</code>, <code>amoadd</code>; nebo pár <code>lr</code>/<code>sc</code> (Load-Reserved/Store-Conditional)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="vlastnosti-aktivniho-cekani">Vlastnosti aktivního čekání<a class="headerlink" href="#vlastnosti-aktivniho-cekani" title="Permanent link">&para;</a></h4>
+<p><strong>Výhody:</strong>
+- Minimální režie, pokud vlákno nemusí čekat nebo čeká jen velmi krátce.</p>
+<p><strong>Nevýhody:</strong>
+- Čekající vlákno zatíží jedno jádro CPU na 100 % po celou dobu čekání.
+- V jistých situacích může dojít k uváznutí — viz <strong>inverzní prioritní problém</strong>.</p>
+<h4 id="inverzni-prioritni-problem-priority-inversion">Inverzní prioritní problém (Priority Inversion)<a class="headerlink" href="#inverzni-prioritni-problem-priority-inversion" title="Permanent link">&para;</a></h4>
+<p>Problém nastane za těchto podmínek:</p>
+<ul>
+<li>OS používá prioritní plánování s fixní prioritou.</li>
+<li>CPU má omezený počet jader.</li>
+<li>Vlákno A (nízká priorita) se nachází v kritické sekci.</li>
+<li>Vlákno B (vyšší priorita) aktivně čeká na vstup do kritické sekce.</li>
+<li>Všechna jádra jsou obsazena vlákny s vyšší prioritou než A.</li>
+</ul>
+<p>V tomto scénáři vlákno B svým aktivním čekáním obsadí jádro a zároveň díky vyšší prioritě vytlačí vlákno A z procesoru — vlákno A tedy nemůže dokončit práci v kritické sekci a odemknout ji. Systém uvázne, přestože žádné vlákno nevolá blokující funkci.</p>
+<p><img alt="Inverzní prioritní problém — vlákno B brání vláknu A dokončit kritickou sekci" src="../img/p03-s14-1.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Umějte popsat inverzní prioritní problém: jaké podmínky jsou nutné a proč aktivní čekání vede k uváznutí. Tento problém je důvodem, proč se aktivní čekání nepoužívá v obecných aplikacích, ale jen v jádru OS nebo na krátkých kritických sekcích.</p>
+</div>
+<h3 id="blokujici-systemova-volani">Blokující systémová volání<a class="headerlink" href="#blokujici-systemova-volani" title="Permanent link">&para;</a></h3>
+<p>Blokující přístup je z hlediska efektivity lepší pro delší doby čekání. Místo aby vlákno točilo smyčku, systém přepne jeho stav na „Blocked" a procesor je přidělen jinému vláknu. Mechanismus si pamatuje stav kritické sekce a udržuje seznam čekajících vláken.</p>
+<ul>
+<li><strong>Při vstupu do zamčené sekce:</strong> vlákno zavolá funkci, která ho zablokuje — přejde do stavu „Blocked" a přestane mu být přidělován procesor. Pasivně čeká.</li>
+<li><strong>Při vstupu do odemčené sekce:</strong> funkce pouze si zapamatuje zamčení a vlákno vstoupí.</li>
+<li><strong>Po opuštění sekce:</strong> vlákno probudí jedno čekající vlákno (nebo si zapamatuje, že je sekce volná).</li>
+</ul>
+<p><img alt="Srovnání přístupu bez synchronizace a s blokujícím čekáním" src="../img/p03-s16-1.png" /></p>
+<h4 id="zamky-mutexy">Zámky — Mutexy<a class="headerlink" href="#zamky-mutexy" title="Permanent link">&para;</a></h4>
+<p><strong>Mutex</strong> (MUTual EXclusion lock) je nejzákladnější blokující synchronizační primitiv. Pamatuje si svůj stav (zamčený/odemčený) a množinu blokovaných vláken. Nad mutexem jsou definovány atomické operace:</p>
+<ul>
+<li><code>mutex_lock(mutex_t *mutex)</code> — pokud je mutex odemčený, zamkne ho. Pokud je zamčený, zablokuje volající vlákno.</li>
+<li><code>mutex_unlock(mutex_t *mutex)</code> — pokud čekají vlákna, jedno z nich probudí; jinak odemkne mutex.</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mtx</span><span class="p">;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">thread_A</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span><span class="w">     </span><span class="cm">/* vstup do kritické sekce */</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">        </span><span class="n">critical_region_A</span><span class="p">();</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span><span class="w">   </span><span class="cm">/* opuštění kritické sekce */</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Příklady API:</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Typy a funkce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POSIX</td>
+<td><code>pthread_mutex_t</code>, <code>pthread_mutex_lock()</code>, <code>pthread_mutex_trylock()</code>, <code>pthread_mutex_unlock()</code></td>
+</tr>
+<tr>
+<td>C++</td>
+<td><code>std::mutex</code>, <code>std::lock_guard</code>, <code>std::unique_lock</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Výhody:</strong> Čekání nepředstavuje žádnou CPU zátěž.</p>
+<p><strong>Nevýhody:</strong> Blokování a odblokování vyžaduje změnu stavu vlákna v jádře OS — to je dražší operace než TSL.</p>
+<div class="admonition info">
+<p class="admonition-title">Kdy zvolit aktivní čekání vs. mutex?</p>
+<p>Aktivní čekání se vyplatí jen tehdy, kdy se očekává velmi krátká doba čekání (mikrosekund) a víceprocesorový systém. Pro delší čekání vždy použijte blokující mutex — ušetříte CPU.</p>
+</div>
+<hr />
+<h2 id="synchronizacni-problem-producent-konzument">Synchronizační problém: Producent-konzument<a class="headerlink" href="#synchronizacni-problem-producent-konzument" title="Permanent link">&para;</a></h2>
+<p><strong>Producent-konzument</strong> (producer-consumer) je klasická synchronizační úloha modelující výměnu dat přes sdílenou paměť (frontu) s omezenou velikostí <code>N</code>. Producent vkládá data do fronty, konzument je vybírá.</p>
+<p>Tři problémy, které musíme vyřešit:</p>
+<ol>
+<li>Výlučný přístup při vkládání a vybírání (fronta je sdílený prostředek).</li>
+<li>Pokud je fronta <strong>prázdná</strong>, musíme zablokovat konzumenta.</li>
+<li>Pokud je fronta <strong>plná</strong>, musíme zablokovat producenta.</li>
+</ol>
+<p><img alt="Schéma producent-konzument se sdílenou frontou" src="../img/p03-s21-1.png" /></p>
+<h3 id="proc-nestaci-proste-wait-a-signal">Proč nestačí prosté wait() a signal()<a class="headerlink" href="#proc-nestaci-proste-wait-a-signal" title="Permanent link">&para;</a></h3>
+<p>Uvažme hypotetické funkce <code>wait()</code> (zablokuj vlákno) a <code>signal(thread)</code> (probuď vlákno). Naivní implementace vypadá:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">        </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">produce_item</span><span class="p">();</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">();</span><span class="w">           </span><span class="cm">/* fronta plná, usni */</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">        </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">consumer_thread</span><span class="p">);</span><span class="w">  </span><span class="cm">/* probuď konzumenta */</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="kt">void</span><span class="w"> </span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wait</span><span class="p">();</span><span class="w">           </span><span class="cm">/* fronta prázdná, usni */</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">        </span><span class="n">remove_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">producer_thread</span><span class="p">);</span><span class="w">  </span><span class="cm">/* probuď producenta */</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="n">consume_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Toto řešení je <strong>chybné</strong>. Přemýšlejme: fronta je prázdná (<code>count == 0</code>), konzument právě otestoval podmínku a chystá se zavolat <code>wait()</code>, ale ještě to nestihl — přepneme kontext na producenta. Ten vloží prvek, zvýší <code>count</code> na 1 a zavolá <code>signal()</code> — jenže konzument ještě nespí, takže signál se ztratí. Poté konzument zavolá <code>wait()</code> a zasekne se navždy, ačkoli fronta není prázdná.</p>
+<p><img alt="Situace, kdy se ztratí signál — race condition s wait() a signal()" src="../img/p03-s24-1.png" /></p>
+<h3 id="podminene-promenne">Podmíněné proměnné<a class="headerlink" href="#podminene-promenne" title="Permanent link">&para;</a></h3>
+<p><strong>Podmíněná proměnná (condition variable)</strong> řeší výše popsaný problém tím, že operace „odemkni mutex a usni" je atomická — nelze ji přerušit přepínačem kontextu.</p>
+<p>Klíčové operace:</p>
+<ul>
+<li><code>cond_wait(cond_t *var, mutex_t *mutex)</code> — volá se se zamčeným mutexem. Atomicky odemkne mutex a zablokuje vlákno. Po probuzení je mutex opět zamčen.</li>
+<li><code>cond_signal(cond_t *var)</code> — odblokuje aspoň jedno ze zablokovaných vláken.</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="cp">#define N 100</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kt">int</span><span class="w">     </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mtx</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">cond_t</span><span class="w">  </span><span class="n">cv_empty</span><span class="p">,</span><span class="w"> </span><span class="n">cv_full</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="kt">void</span><span class="w"> </span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">        </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">produce_item</span><span class="p">();</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv_full</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span><span class="w">  </span><span class="cm">/* fronta plná */</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">            </span><span class="n">insert_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="w">            </span><span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv_empty</span><span class="p">);</span><span class="w">  </span><span class="cm">/* probuď konzumenta */</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="p">}</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a><span class="kt">void</span><span class="w"> </span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a><span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv_empty</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span><span class="w">  </span><span class="cm">/* fronta prázdná */</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a><span class="w">            </span><span class="n">remove_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a><span class="w">            </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a><span class="w">            </span><span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv_full</span><span class="p">);</span><span class="w">   </span><span class="cm">/* probuď producenta */</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a><span class="w">        </span><span class="n">consume_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky — proč <code>while</code> místo <code>if</code>?</p>
+<p>Podmínka před <code>cond_wait</code> musí být <strong>while smyčka</strong>, ne <code>if</code>. Důvody jsou dva:</p>
+<ol>
+<li><strong>Více producentů/konzumentů:</strong> když se probudí více vláken najednou (např. po <code>cond_broadcast</code>), podmínka může být splněna jen pro jedno z nich. Ostatní se musí vrátit a znovu čekat.</li>
+<li><strong>Falešné probuzení (spurious wakeup):</strong> POSIX Threads a WinAPI dovolují, aby se vlákno probudilo, aniž by jiné vlákno zavolalo <code>cond_signal()</code>. Po probuzení vlákno znovu zkontroluje podmínku ve <code>while</code> smyčce.</li>
+</ol>
+</div>
+<p><img alt="Proč while místo if — spurious wakeup a více vláken" src="../img/p03-s28-1.png" /></p>
+<p>Příklady API pro podmíněné proměnné:</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Typy a funkce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POSIX</td>
+<td><code>pthread_cond_t</code>, <code>pthread_cond_wait()</code>, <code>pthread_cond_signal()</code>, <code>pthread_cond_broadcast()</code></td>
+</tr>
+<tr>
+<td>C++</td>
+<td><code>std::condition_variable</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="semafory">Semafory<a class="headerlink" href="#semafory" title="Permanent link">&para;</a></h3>
+<p><strong>Semafor</strong> je zobecnění mutexu — obsahuje celočíselný čítač a frontu čekajících vláken. Zatímco mutex je binární (zamčeno/odemčeno), semafor může nabývat libovolných nezáporných hodnot.</p>
+<p>Atomické operace nad semaforem <code>sem</code>:</p>
+<ul>
+<li><code>sem_init(sem_t *sem, unsigned value)</code> — nastaví čítač na <code>value</code> a vyprázdní frontu.</li>
+<li><code>sem_wait(sem_t *sem)</code> — pokud je čítač &gt; 0, sníží ho o 1. Jinak zablokuje volající vlákno.</li>
+<li><code>sem_post(sem_t *sem)</code> — pokud čekají vlákna, jedno probudí. Jinak zvýší čítač o 1.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky — semafor jako mutex</p>
+<p>Binární semafor inicializovaný na 1 se chová jako mutex. <code>sem_wait</code> odpovídá <code>mutex_lock</code>, <code>sem_post</code> odpovídá <code>mutex_unlock</code>. Semafor je ale obecnější — lze ho použít i pro signalizaci (inicializace na 0).</p>
+</div>
+<p><strong>Kritická sekce pomocí semaforu:</strong></p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">sem_t</span><span class="w"> </span><span class="n">bin_sem</span><span class="p">;</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bin_sem</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">   </span><span class="cm">/* inicializace na 1 = odemčeno */</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="kt">void</span><span class="w"> </span><span class="nf">Thread_A</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bin_sem</span><span class="p">);</span><span class="w">   </span><span class="cm">/* vstup — zamkni */</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">        </span><span class="n">critical_region_A</span><span class="p">();</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bin_sem</span><span class="p">);</span><span class="w">   </span><span class="cm">/* opuštění — odemkni */</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Producent-konzument pomocí semaforů:</strong> Používáme tři synchronizační objekty:</p>
+<ul>
+<li><code>mutex</code> — chrání výlučný přístup k frontě.</li>
+<li><code>empty</code> — semafor počítající volná místa ve frontě (inicializován na N).</li>
+<li><code>full</code> — semafor počítající zaplněná místa (inicializován na 0).</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="cp">#define N 100</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mtx</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">sem_t</span><span class="w">   </span><span class="n">empty</span><span class="p">,</span><span class="w"> </span><span class="n">full</span><span class="p">;</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="p">);</span><span class="w">   </span><span class="cm">/* N volných míst */</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">full</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">    </span><span class="cm">/* 0 plných míst */</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">producer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">        </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">produce_item</span><span class="p">();</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">        </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">);</span><span class="w">       </span><span class="cm">/* čekej na volné místo */</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">            </span><span class="n">enter_item</span><span class="p">(</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">full</span><span class="p">);</span><span class="w">        </span><span class="cm">/* oznam nový prvek */</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="p">}</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a><span class="kt">void</span><span class="w"> </span><span class="nf">consumer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">full</span><span class="p">);</span><span class="w">        </span><span class="cm">/* čekej na prvek */</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">            </span><span class="n">remove_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mtx</span><span class="p">);</span>
+</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a><span class="w">        </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">empty</span><span class="p">);</span><span class="w">       </span><span class="cm">/* oznam volné místo */</span>
+</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a><span class="w">        </span><span class="n">consume_item</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="p">);</span>
+</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Pořadí sem_wait — důležitý detail</p>
+<p>Producent volá <code>sem_wait(&amp;empty)</code> <strong>před</strong> <code>mutex_lock</code>. Kdybychom pořadí otočili (nejdřív <code>mutex_lock</code>, pak <code>sem_wait</code>), mohlo by dojít k deadlocku: producent drží mutex a čeká na <code>empty</code>, zatímco konzument čeká na mutex, aby mohl <code>sem_post(&amp;empty)</code>.</p>
+</div>
+<p>Příklady API pro semafory:</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Funkce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unix System V</td>
+<td><code>semget()</code>, <code>semctl()</code>, <code>semop()</code></td>
+</tr>
+<tr>
+<td>POSIX</td>
+<td><code>sem_t</code>, <code>sem_init()</code>, <code>sem_wait()</code>, <code>sem_post()</code></td>
+</tr>
+<tr>
+<td>C++</td>
+<td>Semafory nejsou standardně implementovány</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="synchronizacni-problem-iteracni-vypocty-a-bariery">Synchronizační problém: Iterační výpočty a bariéry<a class="headerlink" href="#synchronizacni-problem-iteracni-vypocty-a-bariery" title="Permanent link">&para;</a></h2>
+<p>Při iteračních výpočtech (například výpočet n-té mocniny matice pomocí více vláken) je nutné zajistit, aby všechna vlákna dokončila i-tou iteraci dříve, než kterékoli z nich začne iteraci (i+1). K tomu slouží <strong>bariéra (barrier)</strong>.</p>
+<p>Bariéra obsahuje:
+- <strong>čítač</strong> definující sílu bariéry — počet vláken, která musí bariéru „navštívit",
+- <strong>frontu</strong> vláken čekajících na uvolnění.</p>
+<p>Atomické operace:</p>
+<ul>
+<li><code>barrier_init(barrier_t *bar, int value)</code> — nastaví čítač na <code>value</code>.</li>
+<li><code>barrier_wait(barrier_t *bar)</code> — sníží čítač o 1 a zablokuje vlákno. Pokud je čítač nulový (poslední vlákno), probudí všechna čekající vlákna a reset čítač.</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="cp">#define M 4   </span><span class="cm">/* počet vláken */</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="cp">#define N 10  </span><span class="cm">/* počet iterací */</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="n">barrier_t</span><span class="w"> </span><span class="n">bar</span><span class="p">;</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">barrier_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bar</span><span class="p">,</span><span class="w"> </span><span class="n">M</span><span class="p">);</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="kt">void</span><span class="w"> </span><span class="nf">thread_function</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">;</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">        </span><span class="n">iteration</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">        </span><span class="n">barrier_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bar</span><span class="p">);</span><span class="w">  </span><span class="cm">/* počkej na ostatní vlákna */</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><img alt="Synchronizace iteračního výpočtu pomocí bariéry — vlákna čekají na sebe po každé iteraci" src="../img/p03-s34-1.png" /></p>
+<p>Příklady API pro bariéry:</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Typy a funkce</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POSIX</td>
+<td><code>barrier_t</code>, <code>pthread_barrier_init()</code>, <code>pthread_barrier_wait()</code></td>
+</tr>
+<tr>
+<td>C++</td>
+<td><code>std::experimental::barrier</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="klasicke-synchronizacni-ulohy">Klasické synchronizační úlohy<a class="headerlink" href="#klasicke-synchronizacni-ulohy" title="Permanent link">&para;</a></h2>
+<p>Klasické synchronizační úlohy slouží jako modelové příklady pro ověření správnosti synchronizačních mechanismů. Každá úloha reprezentuje určitý typ soupeření o prostředky. Správné řešení musí být bez race conditions, deadlocku a livelocku. Optimální řešení maximalizuje paralelismus. Spravedlivé řešení zabraňuje hladovění.</p>
+<hr />
+<h2 id="vecerici-filosofove">Večeřící filosofové<a class="headerlink" href="#vecerici-filosofove" title="Permanent link">&para;</a></h2>
+<h3 id="definice-problemu">Definice problému<a class="headerlink" href="#definice-problemu" title="Permanent link">&para;</a></h3>
+<p><strong>Večeřící filosofové</strong> (Dining Philosophers) modelují situaci, kdy několik vláken soutěží o omezený počet prostředků, přičemž každé vlákno potřebuje více prostředků najednou.</p>
+<p>Scénář: N filosofů sedí kolem kulatého stolu. Mezi každými dvěma sousedními talíři leží jedna vidlička — celkem N vidliček pro N filosofů. Hladový filosof potřebuje obě vidličky (vlevo i vpravo), aby mohl jíst. Filosof se nachází v jednom ze tří stavů:</p>
+<ul>
+<li><strong>přemýšlí</strong> — nepotřebuje žádné prostředky,</li>
+<li><strong>má hlad</strong> — snaží se získat obě vidličky,</li>
+<li><strong>jí</strong> — drží obě vidličky a používá je.</li>
+</ul>
+<p><strong>Cíle:</strong>
+- Správné řešení: bez race conditions, deadlocku, livelocku a hladovění.
+- Optimální řešení: současně může jíst až <code>floor(N/2)</code> filosofů.</p>
+<h3 id="naivni-reseni-a-jeho-problemy">Naivní řešení a jeho problémy<a class="headerlink" href="#naivni-reseni-a-jeho-problemy" title="Permanent link">&para;</a></h3>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="cp">#define N     5</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="cp">#define LEFT  (i % N)</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="cp">#define RIGHT ((i+1) % N)</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">philosopher</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="w">        </span><span class="n">think</span><span class="p">();</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="w">        </span><span class="n">take_fork</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span><span class="w">   </span><span class="cm">/* vezmi levou vidličku */</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="w">        </span><span class="n">take_fork</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span><span class="w">  </span><span class="cm">/* vezmi pravou vidličku */</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="w">        </span><span class="n">eat</span><span class="p">();</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="w">        </span><span class="n">put_fork</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="w">        </span><span class="n">put_fork</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><img alt="Naivní řešení — situace kdy všichni filosofové vezmou levou vidličku a uváznou" src="../img/p04-s04-1.png" /></p>
+<p>Toto naivní řešení <strong>selže při deadlocku</strong>: pokud všichni filosofové vezmou levou vidličku současně, budou všichni čekat na pravou vidličku — ta ale leží vlevo od souseda, který ji také drží.</p>
+<p>Možné „vylepšení" — filosof vrátí levou vidličku, pokud pravá není k dispozici, a zkusí to znovu. Toto ale vede k <strong>livelocku</strong>: je možné (byť nepravděpodobné), že všichni filosofové budou synchronně brát a vracet levou vidličku donekonečna.</p>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Umějte vysvětlit, proč naivní řešení vede k deadlocku a proč vylepšení s vracením vidličky vede k livelocku. Jsou to učebnicové příklady obou jevů.</p>
+</div>
+<h3 id="spravne-reseni-pomoci-mutexu">Správné řešení pomocí mutexu<a class="headerlink" href="#spravne-reseni-pomoci-mutexu" title="Permanent link">&para;</a></h3>
+<p>Jednoduché správné řešení: celý stůl s vidličkami považujeme za kritickou sekci chráněnou jedním mutexem.</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">philosopher</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="w">        </span><span class="n">think</span><span class="p">();</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="w">            </span><span class="n">take_fork</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="w">            </span><span class="n">take_fork</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="w">            </span><span class="n">eat</span><span class="p">();</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a><span class="w">            </span><span class="n">put_fork</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">            </span><span class="n">put_fork</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Toto řešení je <strong>správné</strong> (bez race conditions a deadlocku), ale <strong>není optimální</strong> — v každém okamžiku může jíst nejvýše jeden filosof, i když by mohli jíst dva sousedé, kteří nesdílejí vidličku.</p>
+<h3 id="spravne-optimalni-reseni-pomoci-mutexu-a-n-semaforu">Správné optimální řešení pomocí mutexu a N semaforů<a class="headerlink" href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-semaforu" title="Permanent link">&para;</a></h3>
+<p>Optimální řešení vyžaduje jemnější synchronizaci. Každý filosof má vlastní semafor <code>s[i]</code> a sdílené pole stavů <code>state[N]</code>.</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="cp">#define N     5</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="cp">#define LEFT  ((i-1+N) % N)</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="cp">#define RIGHT ((i+1) % N)</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="n">thinking</span><span class="p">,</span><span class="w"> </span><span class="n">hungry</span><span class="p">,</span><span class="w"> </span><span class="n">eating</span><span class="p">}</span><span class="w"> </span><span class="n">state_t</span><span class="p">;</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">state_t</span><span class="w"> </span><span class="n">state</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="n">sem_t</span><span class="w">   </span><span class="n">s</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="cm">/* inicializace */</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">N</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thinking</span><span class="p">;</span><span class="w"> </span><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="p">}</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="kt">void</span><span class="w"> </span><span class="n">philosopher</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">        </span><span class="n">think</span><span class="p">();</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">        </span><span class="n">take_forks</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="w">        </span><span class="n">eat</span><span class="p">();</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="w">        </span><span class="n">put_forks</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="p">}</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="kt">void</span><span class="w"> </span><span class="n">take_forks</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="w">        </span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">hungry</span><span class="p">;</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="w">        </span><span class="n">test</span><span class="p">(</span><span class="n">i</span><span class="p">);</span><span class="w">          </span><span class="cm">/* zkus jíst */</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a><span class="w">    </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w">      </span><span class="cm">/* čekej, pokud nejde jíst */</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a><span class="p">}</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a><span class="kt">void</span><span class="w"> </span><span class="n">put_forks</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a><span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a><span class="w">        </span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">thinking</span><span class="p">;</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a><span class="w">        </span><span class="n">test</span><span class="p">(</span><span class="n">LEFT</span><span class="p">);</span><span class="w">       </span><span class="cm">/* možná teď může jíst levý soused */</span>
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a><span class="w">        </span><span class="n">test</span><span class="p">(</span><span class="n">RIGHT</span><span class="p">);</span><span class="w">      </span><span class="cm">/* možná teď může jíst pravý soused */</span>
+</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35" href="#__codelineno-10-35"></a><span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36" href="#__codelineno-10-36"></a><span class="p">}</span>
+</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37" href="#__codelineno-10-37"></a>
+</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38" href="#__codelineno-10-38"></a><span class="kt">void</span><span class="w"> </span><span class="n">test</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-39"><a id="__codelineno-10-39" name="__codelineno-10-39" href="#__codelineno-10-39"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">hungry</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</span><span id="__span-10-40"><a id="__codelineno-10-40" name="__codelineno-10-40" href="#__codelineno-10-40"></a><span class="w">        </span><span class="n">state</span><span class="p">[</span><span class="n">LEFT</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">eating</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+</span><span id="__span-10-41"><a id="__codelineno-10-41" name="__codelineno-10-41" href="#__codelineno-10-41"></a><span class="w">        </span><span class="n">state</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">]</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">eating</span><span class="p">)</span>
+</span><span id="__span-10-42"><a id="__codelineno-10-42" name="__codelineno-10-42" href="#__codelineno-10-42"></a><span class="w">    </span><span class="p">{</span>
+</span><span id="__span-10-43"><a id="__codelineno-10-43" name="__codelineno-10-43" href="#__codelineno-10-43"></a><span class="w">        </span><span class="n">state</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eating</span><span class="p">;</span>
+</span><span id="__span-10-44"><a id="__codelineno-10-44" name="__codelineno-10-44" href="#__codelineno-10-44"></a><span class="w">        </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span><span class="w">  </span><span class="cm">/* filosof i může jíst */</span>
+</span><span id="__span-10-45"><a id="__codelineno-10-45" name="__codelineno-10-45" href="#__codelineno-10-45"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-46"><a id="__codelineno-10-46" name="__codelineno-10-46" href="#__codelineno-10-46"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><strong>Jak to funguje:</strong> Filosof, který chce jíst, nastaví svůj stav na <code>hungry</code> a zavolá <code>test()</code>. Funkce <code>test()</code> zkontroluje, zda oba sousedé nejedí — pokud ne, nastaví stav na <code>eating</code> a zavolá <code>sem_post</code>, čímž filosofa „probudí" (nebo ho hned pustí do sekce <code>eat()</code>). Po jídle filosof zavolá <code>put_forks()</code>, kde zkontroluje, zda nyní mohou jíst jeho sousedé — pokud ano, probudí je.</p>
+<p><img alt="Ukázka průběhu správného optimálního řešení s mutexem a semafory" src="../img/p04-s08-1.png" /></p>
+<h3 id="spravne-optimalni-reseni-pomoci-mutexu-a-n-podminenych-promennych">Správné optimální řešení pomocí mutexu a N podmíněných proměnných<a class="headerlink" href="#spravne-optimalni-reseni-pomoci-mutexu-a-n-podminenych-promennych" title="Permanent link">&para;</a></h3>
+<p>Alternativní implementace používá pro každého filosofa podmíněnou proměnnou <code>cv[i]</code> a pole stavů vidliček <code>fork[N]</code>.</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="cp">#define N     5</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="cp">#define LEFT  (i % N)</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="cp">#define RIGHT ((i+1) % N)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="n">available</span><span class="p">,</span><span class="w"> </span><span class="n">used</span><span class="p">}</span><span class="w"> </span><span class="n">state_t</span><span class="p">;</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="n">state_t</span><span class="w"> </span><span class="n">fork</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="n">cond_t</span><span class="w">  </span><span class="n">cv</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="kt">void</span><span class="w"> </span><span class="nf">take_forks</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">forks_available</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">            </span><span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span><span class="w">  </span><span class="cm">/* čekej na obě vidličky */</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">        </span><span class="n">fork</span><span class="p">[</span><span class="n">LEFT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">used</span><span class="p">;</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">        </span><span class="n">fork</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">used</span><span class="p">;</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="p">}</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="kt">void</span><span class="w"> </span><span class="nf">put_forks</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">        </span><span class="n">fork</span><span class="p">[</span><span class="n">LEFT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">available</span><span class="p">;</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">        </span><span class="n">fork</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">available</span><span class="p">;</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">        </span><span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">[</span><span class="n">LEFT</span><span class="p">]);</span><span class="w">   </span><span class="cm">/* probuď levého souseda */</span>
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">        </span><span class="n">cond_signal</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cv</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">]);</span><span class="w">  </span><span class="cm">/* probuď pravého souseda */</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="p">}</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="kt">bool</span><span class="w"> </span><span class="nf">forks_available</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">fork</span><span class="p">[</span><span class="n">LEFT</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">fork</span><span class="p">[</span><span class="n">RIGHT</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">available</span><span class="p">);</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Obě řešení (semaforové i s podmíněnými proměnnými) jsou správná a optimální.</p>
+<hr />
+<h2 id="ctenari-pisari">Čtenáři-písaři<a class="headerlink" href="#ctenari-pisari" title="Permanent link">&para;</a></h2>
+<h3 id="definice-problemu_1">Definice problému<a class="headerlink" href="#definice-problemu_1" title="Permanent link">&para;</a></h3>
+<p><strong>Čtenáři-písaři</strong> (Readers-Writers) modelují situaci, kdy různé typy vláken mají různé požadavky na přístup ke sdílenému prostředku (např. databázi):</p>
+<ul>
+<li><strong>Čtenáři (readers)</strong> — přistupují ke sdílenému prostředku pouze pro čtení. Více čtenářů může číst současně, pokud nepíše žádný písař.</li>
+<li><strong>Písaři (writers)</strong> — modifikují obsah sdíleného prostředku. Pouze jeden písař může zapisovat v jeden okamžik a žádný jiný vlákno (ani čtenář) nesmí přistupovat k prostředku zároveň.</li>
+</ul>
+<p><strong>Cíle:</strong>
+- Správné řešení: bez race conditions a deadlocku.
+- Optimální řešení: více čtenářů čte současně (pokud nepíše písař).
+- Spravedlivé řešení: žádné vlákno není předbíháno — čtenáři ani písaři nemohou „přeskočit" čekající vlákno.</p>
+<p><img alt="Definice a přehled požadavků úlohy čtenáři-písaři" src="../img/p04-s10-1.png" /></p>
+<h3 id="spravne-ale-neoptimalni-reseni">Správné (ale neoptimální) řešení<a class="headerlink" href="#spravne-ale-neoptimalni-reseni" title="Permanent link">&para;</a></h3>
+<p>Nejjednodušší řešení — jeden mutex chrání celý sdílený prostředek:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="kt">void</span><span class="w"> </span><span class="nf">reader</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">            </span><span class="n">read_data</span><span class="p">();</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="n">use_data</span><span class="p">();</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="p">}</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="kt">void</span><span class="w"> </span><span class="nf">writer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">        </span><span class="n">prepare_data</span><span class="p">();</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">            </span><span class="n">write_data</span><span class="p">();</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Toto řešení je správné, ale neoptimální — pouze jeden čtenář čte v daný moment, přestože více čtenářů by mohlo číst bezpečně paralelně.</p>
+<h3 id="reseni-s-hladovenim-pisaru">Řešení s hladověním písařů<a class="headerlink" href="#reseni-s-hladovenim-pisaru" title="Permanent link">&para;</a></h3>
+<p>Optimální přístup umožňuje souběžné čtení více čtenářů. Používáme dvě synchronizační proměnné:</p>
+<ul>
+<li><code>mutex_rc</code> — chrání čítač čtenářů <code>rc</code>.</li>
+<li><code>mutex_db</code> — zamyká přístup k databázi (může ho zamknout pouze první čtenář, odemkne poslední).</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kt">int</span><span class="w">     </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">         </span><span class="cm">/* počet aktivních čtenářů */</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex_rc</span><span class="p">;</span><span class="w">       </span><span class="cm">/* chrání čítač rc */</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex_db</span><span class="p">;</span><span class="w">       </span><span class="cm">/* chrání přístup k databázi */</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="kt">void</span><span class="w"> </span><span class="nf">reader</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_rc</span><span class="p">);</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_db</span><span class="p">);</span><span class="w">   </span><span class="cm">/* první čtenář zamkne DB */</span>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_rc</span><span class="p">);</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="n">read_data</span><span class="p">();</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_rc</span><span class="p">);</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_db</span><span class="p">);</span><span class="w"> </span><span class="cm">/* poslední čtenář odemkne DB */</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_rc</span><span class="p">);</span>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="w">        </span><span class="n">use_data</span><span class="p">();</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a><span class="p">}</span>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="kt">void</span><span class="w"> </span><span class="nf">writer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="w">        </span><span class="n">prepare_data</span><span class="p">();</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_db</span><span class="p">);</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="w">            </span><span class="n">write_data</span><span class="p">();</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex_db</span><span class="p">);</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="p">}</span>
+</span></code></pre></div>
+<p>Toto řešení je správné a optimální (více čtenářů čte zároveň), ale <strong>není spravedlivé</strong> — pokud čtenáři přicházejí nepřetržitě, písař nikdy nezíská přístup k databázi (hladovění písařů).</p>
+<p><img alt="Situace hladovění písařů — nepřetržitý proud čtenářů blokuje písaře" src="../img/p04-s13-1.png" /></p>
+<h3 id="optimalni-spravedlive-reseni">Optimální spravedlivé řešení<a class="headerlink" href="#optimalni-spravedlive-reseni" title="Permanent link">&para;</a></h3>
+<p>Spravedlnost vyžaduje, aby vlákna přistupovala k prostředku v pořadí, v jakém začala čekat. Protože většina API (POSIX Threads, WinAPI) <strong>negarantuje FIFO pořadí</strong> probouzení čekajících vláken, musíme si toto pořadí udržovat sami.</p>
+<p>Řešení udržuje frontu čekajících vláken jako zřetězený seznam položek <code>item_t</code>:</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">writer</span><span class="p">,</span><span class="w"> </span><span class="n">reader</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="n">type_t</span><span class="p">;</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">    </span><span class="n">item_t</span><span class="w"> </span><span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">    </span><span class="n">type_t</span><span class="w">  </span><span class="n">type</span><span class="p">;</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">    </span><span class="kt">int</span><span class="w">     </span><span class="n">counter</span><span class="p">;</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">    </span><span class="n">cond_t</span><span class="w">  </span><span class="n">cv</span><span class="p">;</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="p">}</span><span class="w"> </span><span class="n">item_t</span><span class="p">;</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="kt">int</span><span class="w">     </span><span class="n">rc</span><span class="p">,</span><span class="w"> </span><span class="n">wc</span><span class="p">,</span><span class="w"> </span><span class="n">wrc</span><span class="p">,</span><span class="w"> </span><span class="n">wwc</span><span class="p">;</span><span class="w">  </span><span class="cm">/* počty čtoucích, zapisujících, čekajících čtenářů/písařů */</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="n">item_t</span><span class="w">  </span><span class="o">*</span><span class="n">first</span><span class="p">,</span><span class="w"> </span><span class="o">*</span><span class="n">last</span><span class="p">;</span>
+</span></code></pre></div>
+<p><img alt="Schéma fronty čekajících vláken pro spravedlivé řešení čtenářů-písařů" src="../img/p04-s15-1.png" /></p>
+<p>Klíčové pomocné funkce:</p>
+<ul>
+<li><code>update_last_item()</code> — čtenář se přidá k poslední skupině čtenářů ve frontě (nebo vytvoří novou položku). Písař vždy vytváří novou položku.</li>
+<li><code>update_first_item()</code> — sníží čítač první položky; pokud je nulový, položku zruší.</li>
+<li><code>wakeup_first_item()</code> — probudí všechna vlákna čekající v první položce fronty (pro čtenáře volá <code>cond_broadcast</code>, pro písaře stačí <code>cond_signal</code>).</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">reader</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wwc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">        </span><span class="cm">/* čeká písař =&gt; čekej i ty */</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="w">                </span><span class="n">wrc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wrc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a><span class="w">                </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">update_last_item</span><span class="p">(</span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="n">reader</span><span class="p">);</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w">                </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">                    </span><span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="o">-&gt;</span><span class="n">cv</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="w">                </span><span class="n">wrc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wrc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="w">                </span><span class="n">update_first_item</span><span class="p">(</span><span class="n">first</span><span class="p">);</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a><span class="w">        </span><span class="n">read_data</span><span class="p">();</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a><span class="w">            </span><span class="n">rc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="n">wakeup_first_item</span><span class="p">(</span><span class="n">first</span><span class="p">);</span><span class="w">  </span><span class="cm">/* probuď písaře */</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a><span class="w">        </span><span class="n">use_data</span><span class="p">();</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kt">void</span><span class="w"> </span><span class="nf">writer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="w">        </span><span class="n">prepare_data</span><span class="p">();</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wrc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wwc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">  </span><span class="cm">/* kdokoli je tam =&gt; čekej */</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">                </span><span class="n">wwc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wwc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">                </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">update_last_item</span><span class="p">(</span><span class="n">last</span><span class="p">,</span><span class="w"> </span><span class="n">writer</span><span class="p">);</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="w">                </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">rc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="w">                    </span><span class="n">cond_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">item</span><span class="o">-&gt;</span><span class="n">cv</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a><span class="w">                </span><span class="n">wwc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wwc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">                </span><span class="n">update_first_item</span><span class="p">(</span><span class="n">first</span><span class="p">);</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a><span class="w">            </span><span class="n">wc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">        </span><span class="n">write_data</span><span class="p">();</span>
+</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="w">            </span><span class="n">wc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">            </span><span class="n">wakeup_first_item</span><span class="p">(</span><span class="n">first</span><span class="p">);</span><span class="w">  </span><span class="cm">/* probuď následující čtenáře/písaře */</span>
+</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="p">}</span>
+</span></code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Řešení čtenářů-písařů se třemi vlastnostmi (správné, optimální, spravedlivé) je typická zkouškový příklad. Umějte vysvětlit, co každá vlastnost znamená a proč jednoduché řešení s jedním mutexem nesplňuje optimalitu, a proč řešení s dvěma mutexy nesplňuje spravedlnost.</p>
+</div>
+<hr />
+<h2 id="spici-holici">Spící holiči<a class="headerlink" href="#spici-holici" title="Permanent link">&para;</a></h2>
+<h3 id="definice-problemu_2">Definice problému<a class="headerlink" href="#definice-problemu_2" title="Permanent link">&para;</a></h3>
+<p><strong>Spící holiči</strong> (Sleeping Barbers) modelují situaci s N holiči, N holícími křesly a M čekacími místy pro zákazníky.</p>
+<p>Pravidla:</p>
+<ul>
+<li>Pokud není žádný zákazník, holič sedí do holícího křesla a usne.</li>
+<li>Přijde-li zákazník:</li>
+<li>Holič spí (je volný) — zákazník ho probudí a nechá se ostříhat.</li>
+<li>Holič je obsazený, ale je volné čekací místo — zákazník počká.</li>
+<li>Čekárna je plná — zákazník odejde.</li>
+</ul>
+<p><img alt="Schéma holičství s N holiči a M čekacími místy" src="../img/p04-s20-1.png" /></p>
+<h3 id="optimalni-reseni">Optimální řešení<a class="headerlink" href="#optimalni-reseni" title="Permanent link">&para;</a></h3>
+<p>Řešení používá jeden mutex a dva semafory:</p>
+<ul>
+<li><code>customers</code> — semafor signalizující přítomnost zákazníků čekajících na obsloužení (inicializován na 0).</li>
+<li><code>barbers</code> — semafor signalizující volné holiče (inicializován na 0).</li>
+<li><code>wc</code> — počítadlo zákazníků čekajících v čekárně (chráněno mutexem).</li>
+</ul>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="cp">#define M 5              </span><span class="cm">/* počet čekacích míst */</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="kt">int</span><span class="w">     </span><span class="n">wc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">          </span><span class="cm">/* zákazníci v čekárně */</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="n">mutex_t</span><span class="w"> </span><span class="n">mutex</span><span class="p">;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">sem_t</span><span class="w">   </span><span class="n">customers</span><span class="p">,</span><span class="w"> </span><span class="n">barbers</span><span class="p">;</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">customers</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="n">sem_init</span><span class="p">(</span><span class="o">&amp;</span><span class="n">barbers</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="kt">void</span><span class="w"> </span><span class="nf">customer</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="w">    </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">M</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">            </span><span class="n">wc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">            </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">customers</span><span class="p">);</span><span class="w">   </span><span class="cm">/* oznam holiči, že čekáš */</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">            </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">            </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">barbers</span><span class="p">);</span><span class="w">     </span><span class="cm">/* čekej na volného holiče */</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">            </span><span class="n">have_haircut</span><span class="p">();</span>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">            </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span><span class="w">   </span><span class="cm">/* čekárna plná, odejdi */</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="p">}</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="kt">void</span><span class="w"> </span><span class="nf">barber</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">TRUE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="w">        </span><span class="n">sem_wait</span><span class="p">(</span><span class="o">&amp;</span><span class="n">customers</span><span class="p">);</span><span class="w">   </span><span class="cm">/* čekej na zákazníka */</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="w">        </span><span class="n">mutex_lock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a><span class="w">            </span><span class="n">wc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">wc</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a><span class="w">            </span><span class="n">sem_post</span><span class="p">(</span><span class="o">&amp;</span><span class="n">barbers</span><span class="p">);</span><span class="w"> </span><span class="cm">/* oznam zákazníkovi, že jsi volný */</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a><span class="w">        </span><span class="n">mutex_unlock</span><span class="p">(</span><span class="o">&amp;</span><span class="n">mutex</span><span class="p">);</span>
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a><span class="w">        </span><span class="n">perform_haircut</span><span class="p">();</span>
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a><span class="p">}</span>
+</span></code></pre></div>
+<p><img alt="Průběh optimálního řešení spících holičů — zákazníci a holiči v akci" src="../img/p04-s22-1.png" /></p>
+<h3 id="vlastnosti-reseni">Vlastnosti řešení<a class="headerlink" href="#vlastnosti-reseni" title="Permanent link">&para;</a></h3>
+<p>Toto řešení je <strong>optimální</strong> — pracuje maximum holičů, pokud je dostatek zákazníků. Nicméně <strong>není spravedlivé</strong>: holiči probouzejí zákazníky v libovolném pořadí, ne nutně v pořadí příchodu. Zákazníci se tedy mohou předbíhat a na některé se nemusí dostat — <strong>hladovění (starvation)</strong>.</p>
+<p>Problém by bylo možné vyřešit FIFO frontou čekajících zákazníků — podobně jako u spravedlivého řešení čtenářů-písařů.</p>
+<hr />
+<h2 id="shrnuti">Shrnutí<a class="headerlink" href="#shrnuti" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bez synchronizace hrozí <strong>race conditions</strong> (nedeterministické výsledky při sdíleném přístupu k datům).</li>
+<li>Se synchronizací hrozí <strong>deadlock</strong> (vzájemné čekání), <strong>livelock</strong> (neproduktivní aktivita) a <strong>starvation</strong> (dlouhodobé nepřidělení prostředků).</li>
+<li><strong>Aktivní čekání (busy waiting)</strong> pomocí instrukce TSL je správné na úrovni hardware, ale plýtvá CPU a může vést k inverznímu prioritnímu problému.</li>
+<li><strong>Mutex</strong> (blokující zámek) je základní primitiv pro vzájemné vyloučení — čekání nespotřebovává CPU.</li>
+<li><strong>Podmíněná proměnná</strong> umožňuje atomicky odemknout mutex a zablokovat vlákno; podmínka musí být testována ve <code>while</code> smyčce kvůli spurious wakeup a souběžným probuzením.</li>
+<li><strong>Semafor</strong> je zobecnění mutexu s celočíselným čítačem; binární semafor (hodnota 0/1) nahradí mutex, generální semafor slouží k signalizaci a počítání prostředků.</li>
+<li><strong>Bariéra</strong> synchronizuje iterační výpočty: všechna vlákna musí dokončit iteraci i před tím, než pokračují na iteraci i+1.</li>
+<li><strong>Večeřící filosofové</strong>: naivní řešení vede k deadlocku; vylepšení s vracením vidliček k livelocku; správné optimální řešení vyžaduje mutex + N semaforů (nebo podmíněných proměnných) a funkci <code>test()</code>.</li>
+<li><strong>Čtenáři-písaři</strong>: více čtenářů může číst paralelně, pokud nepíše žádný písař; dosažení spravedlnosti (bez hladovění) vyžaduje explicitní FIFO frontu čekajících vláken.</li>
+<li><strong>Spící holiči</strong>: řešení pomocí mutexu a dvou semaforů je optimální (pracují všichni volní holiči), ale nespravedlivé (zákazníci se mohou předbíhat).</li>
+</ul>
+<hr />
+<h2 id="klicove-pojmy">Klíčové pojmy<a class="headerlink" href="#klicove-pojmy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Race condition (časově závislá chyba)</strong> — nedeterministická chyba způsobená nekontrolovaným souběžným přístupem více vláken ke sdíleným datům.</li>
+<li><strong>Deadlock (uváznutí)</strong> — situace, kdy skupina vláken čeká na události, které může vyvolat pouze jedno z čekajících vláken; systém se zasekne.</li>
+<li><strong>Livelock</strong> — situace, kdy vlákna aktivně mění svůj stav, ale žádné z nich nedokončí výpočet; na rozdíl od deadlocku jsou vlákna spuštěná.</li>
+<li><strong>Starvation (hladovění)</strong> — vlákno je ve stavu Ready, ale je opakovaně předbíháno a nedostane se k prostředkům po dlouhou dobu.</li>
+<li><strong>Kritická sekce (critical section/region)</strong> — část kódu, kde vlákno přistupuje ke sdílenému prostředku; v jednom okamžiku smí být v kritické sekci nejvýše jedno vlákno.</li>
+<li><strong>Aktivní čekání (busy waiting, spinning)</strong> — vlákno ve smyčce opakovaně testuje podmínku vstupu do kritické sekce a přitom spotřebovává 100 % jednoho jádra CPU.</li>
+<li><strong>Instrukce TSL (Test-and-Set-Lock)</strong> — atomická hardwarová instrukce, která načte hodnotu z paměti a nastaví ji na nenulovou hodnotu v jedné nedělitelné operaci; základ správné implementace aktivního čekání.</li>
+<li><strong>Atomická operace</strong> — operace, která se z pohledu ostatních vláken jeví jako nedělitelná; nelze ji přerušit přepínačem kontextu ani jiným vláknem.</li>
+<li><strong>Inverzní prioritní problém (priority inversion)</strong> — uváznutí způsobené aktivním čekáním: vlákno s vysokou prioritou čeká na vlákno s nízkou prioritou, které ale nemůže pokračovat, protože je vytlačeno z procesoru právě vysokoprioritním vláknem.</li>
+<li><strong>Mutex (MUTual EXclusion lock, vzájemné vyloučení)</strong> — blokující synchronizační primitiv; vlákno čekající na zamčený mutex je přepnuto do stavu Blocked a nespotřebovává CPU.</li>
+<li><code>mutex_lock</code> — zamkne mutex nebo zablokuje volající vlákno, pokud je mutex zamčen.</li>
+<li><code>mutex_unlock</code> — odemkne mutex nebo probudí jedno čekající vlákno.</li>
+<li><strong>Podmíněná proměnná (condition variable)</strong> — synchronizační primitiv umožňující vláknu atomicky odemknout mutex a zablokovat se; probuzení nastane po zavolání <code>cond_signal</code> nebo <code>cond_broadcast</code>.</li>
+<li><code>cond_wait(var, mutex)</code> — atomicky odemkne mutex a zablokuje vlákno; po probuzení mutex opět zamkne.</li>
+<li><code>cond_signal(var)</code> — probudí aspoň jedno vlákno čekající na podmíněné proměnné.</li>
+<li><strong>Spurious wakeup (falešné probuzení)</strong> — vlákno čekající na podmíněné proměnné se může probudit bez zavolání <code>cond_signal</code>; proto musí být podmínka testována ve <code>while</code> smyčce.</li>
+<li><strong>Semafor</strong> — synchronizační primitiv s celočíselným čítačem; <code>sem_wait</code> sníží čítač nebo zablokuje vlákno, <code>sem_post</code> zvýší čítač nebo probudí čekající vlákno.</li>
+<li><strong>Binární semafor</strong> — semafor inicializovaný na 1, který se chová jako mutex; hodnoty nabývá pouze 0 a 1.</li>
+<li><strong>Generální (počítací) semafor</strong> — semafor s čítačem &gt; 1, vhodný pro počítání dostupných instancí prostředku nebo signalizaci.</li>
+<li><strong>Bariéra (barrier)</strong> — synchronizační primitiv pro iterační výpočty; vlákna čekají, dokud požadovaný počet vláken nezavolá <code>barrier_wait</code>, poté jsou všechna uvolněna.</li>
+<li><strong>Producent-konzument (producer-consumer)</strong> — klasická synchronizační úloha: producent vkládá data do sdílené fronty, konzument je odebírá; nutná synchronizace výlučného přístupu a signalizace plné/prázdné fronty.</li>
+<li><strong>Večeřící filosofové (Dining Philosophers)</strong> — klasická synchronizační úloha modelující soupeření N vláken o N sdílených prostředků (vidliček), kde každé vlákno potřebuje dva sousední prostředky; optimální řešení dovoluje <code>floor(N/2)</code> vláken pracovat paralelně.</li>
+<li><strong>Čtenáři-písaři (Readers-Writers)</strong> — klasická synchronizační úloha: více čtenářů může číst paralelně, ale písař potřebuje výlučný přístup; spravedlivé řešení vyžaduje FIFO frontu čekajících vláken.</li>
+<li><strong>Hladovění písařů</strong> — situace v úloze čtenářů-písařů, kdy nepřetržitý proud čtenářů trvale blokuje přístup písařů k sdílenému prostředku.</li>
+<li><strong>Spící holiči (Sleeping Barbers)</strong> — klasická synchronizační úloha: holič čeká na zákazníka (sem_wait), zákazník čeká na holiče (sem_wait); zákazník odejde, pokud je čekárna plná; řešení je optimální, ale bez FIFO nespravedlivé.</li>
+<li><strong>POSIX Threads (pthreads)</strong> — standardní API pro práci s vlákny v Unixových systémech; poskytuje <code>pthread_mutex_t</code>, <code>pthread_cond_t</code>, <code>sem_t</code>, <code>barrier_t</code>.</li>
+<li><strong>Funkce test() (ve filosofech)</strong> — pomocná funkce kontrolující, zda filosof může jíst (oba sousedé nejedí a filosof má hlad); pokud ano, nastaví stav na <code>eating</code> a zavolá <code>sem_post</code> na filosofův semafor.</li>
+<li><strong>Spravedlivé řešení</strong> — synchronizační schéma, ve kterém žádné vlákno není předbíháno; čekající vlákna jsou obsloužena v pořadí, v jakém začala čekat (FIFO).</li>
+<li><strong>Optimální řešení</strong> — synchronizační schéma maximalizující paralelismus; co nejvíce vláken pracuje souběžně, pokud to korektnost dovoluje.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../02-procesy-vlakna/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Procesy a vlákna">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Procesy a vlákna
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../04-deadlock/" class="md-footer__link md-footer__link--next" aria-label="Další: Uváznutí (deadlock)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Uváznutí (deadlock)
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

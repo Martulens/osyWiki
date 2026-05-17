@@ -1,0 +1,3216 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/otazky/prakticke/03-deadlock/">
+      
+      
+        <link rel="prev" href="../02-synchronizace/">
+      
+      
+        <link rel="next" href="../04-planovani/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Deadlock - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#co-tento-typ-ulohy-proveruje" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Deadlock
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../skripta/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../skripta/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../skripta/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coffmanovy-podminky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coffmanovy podmínky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bezpecny-stav" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bezpečný stav
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vzorce-a-datove-struktury" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce a datové struktury
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-zkontroluj-co-je-zadano" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Zkontroluj, co je zadáno
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-sestav-matici-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Sestav matici Need
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-inicializuj-work-a-finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: Inicializuj Work a Finish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-hledej-kandidata-vlakno-ktere-lze-uspokojit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Hledej kandidáta — vlákno, které lze uspokojit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-uspokojeni-vlakna-aktualizuj-work-a-finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Uspokojení vlákna — aktualizuj Work a Finish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-vyhodnot-vysledek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Vyhodnoť výsledek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-coffmanovy-podminky-a-bezpecny-stav-multichoice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Coffmanovy podmínky a bezpečný stav (multichoice)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-8-alokacni-graf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 8: Alokační graf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-9-overeni-konkretniho-poradi-typicka-multichoice-otazka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 9: Ověření konkrétního pořadí (typická multichoice otázka)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-10-tipujes-li-poradi-zacni-od-vlaken-s-nejmensim-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 10: Tipuješ-li pořadí, začni od vláken s nejmenším Need
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-sestav-matici-need-max-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Sestav matici Need = Max - Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-inicializace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Inicializace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-prvni-pruchod-hledame-vlakno-s-need-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: První průchod — hledáme vlákno s Need &lt;= Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-druhy-pruchod-work-1-1-9-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Druhý průchod — Work = (1, 1, 9, 6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-treti-pruchod-work-1-2-9-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Třetí průchod — Work = (1, 2, 9, 7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-ctvrty-pruchod-work-1-2-9-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Čtvrtý průchod — Work = (1, 2, 9, 7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-paty-pruchod-work-3-3-10-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Pátý průchod — Work = (3, 3, 10, 9)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vysledek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Výsledek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odpovedi-na-multichoice-otazky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Odpovědi na multichoice otázky
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-a-system-se-3-prostredky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta A — systém se 3 prostředky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-b-nebezpecny-stav" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta B — nebezpečný stav
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#co-tento-typ-ulohy-proveruje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co tento typ úlohy prověřuje
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#co-potrebujes-znat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Co potřebuješ znát
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Co potřebuješ znát">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#coffmanovy-podminky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Coffmanovy podmínky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bezpecny-stav" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bezpečný stav
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vzorce-a-datove-struktury" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorce a datové struktury
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postup-reseni-krok-za-krokem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Postup řešení krok za krokem
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Postup řešení krok za krokem">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-zkontroluj-co-je-zadano" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Zkontroluj, co je zadáno
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-sestav-matici-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Sestav matici Need
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-inicializuj-work-a-finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: Inicializuj Work a Finish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-hledej-kandidata-vlakno-ktere-lze-uspokojit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Hledej kandidáta — vlákno, které lze uspokojit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-uspokojeni-vlakna-aktualizuj-work-a-finish" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Uspokojení vlákna — aktualizuj Work a Finish
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-vyhodnot-vysledek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Vyhodnoť výsledek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-coffmanovy-podminky-a-bezpecny-stav-multichoice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Coffmanovy podmínky a bezpečný stav (multichoice)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-8-alokacni-graf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 8: Alokační graf
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-9-overeni-konkretniho-poradi-typicka-multichoice-otazka" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 9: Ověření konkrétního pořadí (typická multichoice otázka)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-10-tipujes-li-poradi-zacni-od-vlaken-s-nejmensim-need" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 10: Tipuješ-li pořadí, začni od vláken s nejmenším Need
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vzorove-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vzorové zadání
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#reseni-vzoroveho-zadani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Řešení vzorového zadání
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Řešení vzorového zadání">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#krok-1-sestav-matici-need-max-allocation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 1: Sestav matici Need = Max - Allocation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-2-inicializace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 2: Inicializace
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-3-prvni-pruchod-hledame-vlakno-s-need-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 3: První průchod — hledáme vlákno s Need &lt;= Work
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-4-druhy-pruchod-work-1-1-9-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 4: Druhý průchod — Work = (1, 1, 9, 6)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-5-treti-pruchod-work-1-2-9-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 5: Třetí průchod — Work = (1, 2, 9, 7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-6-ctvrty-pruchod-work-1-2-9-7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 6: Čtvrtý průchod — Work = (1, 2, 9, 7)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#krok-7-paty-pruchod-work-3-3-10-9" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Krok 7: Pátý průchod — Work = (3, 3, 10, 9)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vysledek" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Výsledek
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#odpovedi-na-multichoice-otazky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Odpovědi na multichoice otázky
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dalsi-procviceni" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Další procvičení
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Další procvičení">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#varianta-a-system-se-3-prostredky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta A — systém se 3 prostředky
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#varianta-b-nebezpecny-stav" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianta B — nebezpečný stav
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#varianty-a-chytaky" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Varianty a chytáky
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caste-chyby" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Časté chyby
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#souvisejici" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Související
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="deadlock">Deadlock<a class="headerlink" href="#deadlock" title="Permanent link">&para;</a></h1>
+<p>Úloha na Bankéřův algoritmus patří mezi nejjistěji se opakující typy na zkoušce BI-OSY. Dostanete tabulku s maximálními požadavky a již přidělenými prostředky, vektorem volných prostředků a vaším úkolem je rozhodnout, zda je systém v <strong>bezpečném stavu</strong>, a pokud ano, uvést bezpečné pořadí uspokojení vláken.</p>
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje</a></li>
+<li><a href="#co-potrebujes-znat">Co potřebuješ znát</a><ul>
+<li><a href="#coffmanovy-podminky">Coffmanovy podmínky</a></li>
+<li><a href="#bezpecny-stav">Bezpečný stav</a></li>
+<li><a href="#vzorce-a-datove-struktury">Vzorce a datové struktury</a></li>
+</ul>
+</li>
+<li><a href="#postup-reseni-krok-za-krokem">Postup řešení krok za krokem</a><ul>
+<li><a href="#krok-1-zkontroluj-co-je-zadano">Krok 1: Zkontroluj, co je zadáno</a></li>
+<li><a href="#krok-2-sestav-matici-need">Krok 2: Sestav matici Need</a></li>
+<li><a href="#krok-3-inicializuj-work-a-finish">Krok 3: Inicializuj Work a Finish</a></li>
+<li><a href="#krok-4-hledej-kandidata-vlakno-ktere-lze-uspokojit">Krok 4: Hledej kandidáta — vlákno, které lze uspokojit</a></li>
+<li><a href="#krok-5-uspokojeni-vlakna-aktualizuj-work-a-finish">Krok 5: Uspokojení vlákna — aktualizuj Work a Finish</a></li>
+<li><a href="#krok-6-vyhodnot-vysledek">Krok 6: Vyhodnoť výsledek</a></li>
+<li><a href="#krok-7-coffmanovy-podminky-a-bezpecny-stav-multichoice">Krok 7: Coffmanovy podmínky a bezpečný stav (multichoice)</a></li>
+<li><a href="#krok-8-alokacni-graf">Krok 8: Alokační graf</a></li>
+<li><a href="#krok-9-overeni-konkretniho-poradi-typicka-multichoice-otazka">Krok 9: Ověření konkrétního pořadí (typická multichoice otázka)</a></li>
+<li><a href="#krok-10-tipujes-li-poradi-zacni-od-vlaken-s-nejmensim-need">Krok 10: Tipuješ-li pořadí, začni od vláken s nejmenším Need</a></li>
+</ul>
+</li>
+<li><a href="#vzorove-zadani">Vzorové zadání</a></li>
+<li><a href="#reseni-vzoroveho-zadani">Řešení vzorového zadání</a><ul>
+<li><a href="#krok-1-sestav-matici-need-max-allocation">Krok 1: Sestav matici Need = Max - Allocation</a></li>
+<li><a href="#krok-2-inicializace">Krok 2: Inicializace</a></li>
+<li><a href="#krok-3-prvni-pruchod-hledame-vlakno-s-need-work">Krok 3: První průchod — hledáme vlákno s Need &lt;= Work</a></li>
+<li><a href="#krok-4-druhy-pruchod-work-1-1-9-6">Krok 4: Druhý průchod — Work = (1, 1, 9, 6)</a></li>
+<li><a href="#krok-5-treti-pruchod-work-1-2-9-7">Krok 5: Třetí průchod — Work = (1, 2, 9, 7)</a></li>
+<li><a href="#krok-6-ctvrty-pruchod-work-1-2-9-7">Krok 6: Čtvrtý průchod — Work = (1, 2, 9, 7)</a></li>
+<li><a href="#krok-7-paty-pruchod-work-3-3-10-9">Krok 7: Pátý průchod — Work = (3, 3, 10, 9)</a></li>
+<li><a href="#vysledek">Výsledek</a></li>
+<li><a href="#odpovedi-na-multichoice-otazky">Odpovědi na multichoice otázky</a></li>
+</ul>
+</li>
+<li><a href="#dalsi-procviceni">Další procvičení</a><ul>
+<li><a href="#varianta-a-system-se-3-prostredky">Varianta A — systém se 3 prostředky</a></li>
+<li><a href="#varianta-b-nebezpecny-stav">Varianta B — nebezpečný stav</a></li>
+</ul>
+</li>
+<li><a href="#varianty-a-chytaky">Varianty a chytáky</a></li>
+<li><a href="#caste-chyby">Časté chyby</a></li>
+<li><a href="#souvisejici">Související</a></li>
+</ul>
+</div>
+</details>
+<hr />
+<h2 id="co-tento-typ-ulohy-proveruje">Co tento typ úlohy prověřuje<a class="headerlink" href="#co-tento-typ-ulohy-proveruje" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Zda rozumíte pojmu <strong>bezpečný stav</strong> a umíte ho algoritmicky ověřit.</li>
+<li>Zda dokážete sestavit matici <strong>Need = Max − Allocation</strong> a správně pracovat s vektorem <strong>Work</strong>.</li>
+<li>Zda znáte <strong>Coffmanovy podmínky</strong> a víte, jak se vztahují k bezpečnému stavu (a proč bezpečný stav neznamená, že podmínky nejsou splněny).</li>
+<li>Zda umíte číst a interpretovat <strong>alokační graf</strong> (cyklus = uváznutí, jen u jednoinstancových prostředků je to nutná i postačující podmínka).</li>
+</ul>
+<hr />
+<h2 id="co-potrebujes-znat">Co potřebuješ znát<a class="headerlink" href="#co-potrebujes-znat" title="Permanent link">&para;</a></h2>
+<h3 id="coffmanovy-podminky">Coffmanovy podmínky<a class="headerlink" href="#coffmanovy-podminky" title="Permanent link">&para;</a></h3>
+<p>Aby mohlo dojít k deadlocku, musí být <strong>všechny čtyři podmínky splněny současně</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Podmínka</th>
+<th>Anglicky</th>
+<th>Popis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vzájemné vyloučení</td>
+<td>Mutual exclusion</td>
+<td>Prostředek je v daný okamžik přidělen nejvýše jednomu vláknu</td>
+</tr>
+<tr>
+<td>Neodnímatelnost</td>
+<td>No preemption</td>
+<td>Přidělený prostředek nelze vláknu násilně odebrat</td>
+</tr>
+<tr>
+<td>Drž a čekej</td>
+<td>Hold and wait</td>
+<td>Vlákno drží část prostředků a zároveň čeká na další</td>
+</tr>
+<tr>
+<td>Kruhové čekání</td>
+<td>Circular wait</td>
+<td>Existuje cyklus vláken, kde každé čeká na prostředek držený dalším</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">Klíčový poznatek</p>
+<p>Porušení <strong>jediné</strong> podmínky postačuje k tomu, aby deadlock principiálně nemohl nastat. Strategie prevence (deadlock prevention) se snaží trvale porušit jednu z prvních tří podmínek — nejpraktičtější je porušení kruhového čekání vzestupným číslováním prostředků.</p>
+</div>
+<h3 id="bezpecny-stav">Bezpečný stav<a class="headerlink" href="#bezpecny-stav" title="Permanent link">&para;</a></h3>
+<p><strong>Bezpečný stav</strong> je takový stav systému, ze kterého existuje alespoň jedna posloupnost přidělování prostředků, která zaručí postupné uspokojení potřeb <strong>všech</strong> vláken bez uváznutí.</p>
+<p><strong>Nebezpečný stav</strong> neznamená okamžitý deadlock — pouze říká, že taková bezpečná posloupnost neexistuje a deadlock <em>může</em> nastat.</p>
+<h3 id="vzorce-a-datove-struktury">Vzorce a datové struktury<a class="headerlink" href="#vzorce-a-datove-struktury" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Need[i] = Max[i] - Allocation[i]    (pro každé vlákno i a každý typ prostředku)
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>Work    = Available                  (inicializace; Work se v průběhu mění)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>Finish  = [false, false, ..., false] (pro každé vlákno)
+</span></code></pre></div>
+<p>Kde:
+- <strong>Max</strong> — maximální počet prostředků každého typu, které vlákno může celkem potřebovat
+- <strong>Allocation</strong> — počet prostředků každého typu aktuálně přidělených vláknu
+- <strong>Need</strong> — kolik prostředků vlákno ještě maximálně potřebuje
+- <strong>Available</strong> — počet volných prostředků každého typu (vstup)
+- <strong>Work</strong> — pracovní kopie Available, která se zvětšuje po uspokojení každého vlákna</p>
+<p>Odkaz na teorii: <a href="../../../skripta/04-deadlock/">Skripta: Uváznutí</a></p>
+<hr />
+<h2 id="postup-reseni-krok-za-krokem">Postup řešení krok za krokem<a class="headerlink" href="#postup-reseni-krok-za-krokem" title="Permanent link">&para;</a></h2>
+<p>Toto je <strong>těžiště celého tématu</strong>. Naučte se postup nazpaměť — u zkoušky ho budete provádět mechanicky krok za krokem.</p>
+<h3 id="krok-1-zkontroluj-co-je-zadano">Krok 1: Zkontroluj, co je zadáno<a class="headerlink" href="#krok-1-zkontroluj-co-je-zadano" title="Permanent link">&para;</a></h3>
+<p>Zadání může uvádět:
+- přímo tabulku <strong>Need</strong> (není třeba nic počítat), nebo
+- tabulky <strong>Max</strong> a <strong>Allocation</strong> zvlášť (musíš spočítat Need), nebo
+- smíšenou formu (Max a Alloc v jedné tabulce — nejčastější případ).</p>
+<p>Vždy si přečti hlavičky sloupců. Přeskočení tohoto kroku způsobuje nejčastější chyby.</p>
+<h3 id="krok-2-sestav-matici-need">Krok 2: Sestav matici Need<a class="headerlink" href="#krok-2-sestav-matici-need" title="Permanent link">&para;</a></h3>
+<p>Pro každé vlákno <code>i</code> a každý typ prostředku <code>r</code>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Need[i][r] = Max[i][r] - Allocation[i][r]
+</span></code></pre></div>
+<p>Proveď výpočet systematicky řádek po řádku. Zkontroluj, že všechny hodnoty jsou nezáporné — pokud by Need vyšlo záporné, je tabulka chybně zadána nebo špatně přečtena.</p>
+<h3 id="krok-3-inicializuj-work-a-finish">Krok 3: Inicializuj Work a Finish<a class="headerlink" href="#krok-3-inicializuj-work-a-finish" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Work   = Available          (zkopíruj vektor volných prostředků)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Finish = [false, ..., false] (jedno false pro každé vlákno)
+</span></code></pre></div>
+<p>Work si piš jako vektor v závorce, například <code>Work = (0, 1, 7, 0)</code> pro 4 typy prostředků.</p>
+<h3 id="krok-4-hledej-kandidata-vlakno-ktere-lze-uspokojit">Krok 4: Hledej kandidáta — vlákno, které lze uspokojit<a class="headerlink" href="#krok-4-hledej-kandidata-vlakno-ktere-lze-uspokojit" title="Permanent link">&para;</a></h3>
+<p>Projdi <strong>všechna neuspokojená vlákna</strong> (kde <code>Finish[i] = false</code>) a hledej takové, pro které platí:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Need[i] &lt;= Work     (porovnání po složkách — každá složka Need musí být &lt;= odpovídající složka Work)
+</span></code></pre></div>
+<p>Například pro vlákno s <code>Need = (0, 0, 4, 0)</code> a <code>Work = (0, 1, 7, 0)</code>:
+- složka R0: 0 &lt;= 0 ✓
+- složka R1: 0 &lt;= 1 ✓
+- složka R2: 4 &lt;= 7 ✓
+- složka R3: 0 &lt;= 0 ✓
+- Podmínka splněna — vlákno <strong>lze uspokojit</strong>.</p>
+<p>Pokud žádné takové vlákno neexistuje, přejdi na Krok 6.</p>
+<h3 id="krok-5-uspokojeni-vlakna-aktualizuj-work-a-finish">Krok 5: Uspokojení vlákna — aktualizuj Work a Finish<a class="headerlink" href="#krok-5-uspokojeni-vlakna-aktualizuj-work-a-finish" title="Permanent link">&para;</a></h3>
+<p>Jakmile najdeš vlákno <code>i</code> splňující podmínku z Kroku 4:</p>
+<ol>
+<li>Zaznamenej ho do <strong>bezpečné posloupnosti</strong> (přidej na konec).</li>
+<li>Nastav <code>Finish[i] = true</code>.</li>
+<li>Aktualizuj Work — vlákno doběhne a uvolní všechny své prostředky:</li>
+</ol>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Work = Work + Allocation[i]
+</span></code></pre></div>
+<ol>
+<li>Vrať se na <strong>Krok 4</strong> a hledej dalšího kandidáta.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Proč se přidává Allocation, ne Need?</p>
+<p>Vlákno, které bylo uspokojeno, nejprve dostane zbývající potřebné prostředky (Need), provede svou práci a pak <strong>uvolní vše, co drží</strong> — tedy celý řádek Allocation. Proto přičítáme Allocation, ne Need.</p>
+</div>
+<h3 id="krok-6-vyhodnot-vysledek">Krok 6: Vyhodnoť výsledek<a class="headerlink" href="#krok-6-vyhodnot-vysledek" title="Permanent link">&para;</a></h3>
+<p>Po skončení hlavní smyčky zkontroluj pole Finish:</p>
+<ul>
+<li><strong>Všechna <code>Finish[i] = true</code></strong> → systém je v <strong>bezpečném stavu</strong>. Zaznamenaná posloupnost je bezpečná.</li>
+<li><strong>Aspoň jedno <code>Finish[i] = false</code></strong> → systém je v <strong>nebezpečném stavu</strong>. Vlákna s <code>Finish = false</code> jsou potenciálně uvázlá.</li>
+</ul>
+<h3 id="krok-7-coffmanovy-podminky-a-bezpecny-stav-multichoice">Krok 7: Coffmanovy podmínky a bezpečný stav (multichoice)<a class="headerlink" href="#krok-7-coffmanovy-podminky-a-bezpecny-stav-multichoice" title="Permanent link">&para;</a></h3>
+<p>Toto je <strong>nejčastější past</strong> v multichoice otázkách:</p>
+<div class="admonition warning">
+<p class="admonition-title">Bezpečný stav NEZNAMENÁ, že Coffmanovy podmínky nejsou splněny</p>
+<p>Coffmanovy podmínky jsou <strong>nutné</strong> podmínky deadlocku, nikoli nutné podmínky nebezpečného stavu. V bezpečném stavu mohou být všechny čtyři podmínky splněny — bezpečnost zaručuje existence bezpečné posloupnosti, ne porušení podmínek.</p>
+<p>Správné tvrzení: <em>„Systém je v bezpečném stavu, protože existuje bezpečná posloupnost T1, T3, T0..."</em>
+Špatné tvrzení: <em>„Systém je v bezpečném stavu, protože aspoň jedna Coffmanova podmínka není splněna."</em></p>
+</div>
+<h3 id="krok-8-alokacni-graf">Krok 8: Alokační graf<a class="headerlink" href="#krok-8-alokacni-graf" title="Permanent link">&para;</a></h3>
+<p>Alokační graf je orientovaný graf se dvěma typy uzlů:
+- <strong>Obdélník</strong> = prostředek (tečky uvnitř = instance)
+- <strong>Kružnice</strong> = vlákno</p>
+<p>Hrany:
+- prostředek → vlákno: vlákno <strong>drží</strong> prostředek
+- vlákno → prostředek: vlákno <strong>čeká</strong> na prostředek</p>
+<p><strong>Cyklus v grafu = deadlock</strong> — ale pozor:
+- U prostředků s <strong>jednou instancí</strong>: cyklus je nutná i <strong>postačující</strong> podmínka deadlocku.
+- U prostředků s <strong>více instancemi</strong>: cyklus je nutná, ale <strong>ne postačující</strong> podmínka — musíš použít Bankéřův algoritmus.</p>
+<h3 id="krok-9-overeni-konkretniho-poradi-typicka-multichoice-otazka">Krok 9: Ověření konkrétního pořadí (typická multichoice otázka)<a class="headerlink" href="#krok-9-overeni-konkretniho-poradi-typicka-multichoice-otazka" title="Permanent link">&para;</a></h3>
+<p>Zadání může nabídnout několik pořadí a ptát se, která jsou bezpečná. Pro každé nabídnuté pořadí:</p>
+<ol>
+<li>Nastav <code>Work = Available</code>.</li>
+<li>Procházej vlákna v daném pořadí.</li>
+<li>Pro každé vlákno ověř, zda <code>Need[i] &lt;= Work</code>.</li>
+<li>Pokud ano: <code>Work += Allocation[i]</code>, pokračuj.</li>
+<li>Pokud ne: <strong>toto pořadí není bezpečné</strong> (i když systém může být v bezpečném stavu — jen tímto pořadím nelze projít).</li>
+</ol>
+<h3 id="krok-10-tipujes-li-poradi-zacni-od-vlaken-s-nejmensim-need">Krok 10: Tipuješ-li pořadí, začni od vláken s nejmenším Need<a class="headerlink" href="#krok-10-tipujes-li-poradi-zacni-od-vlaken-s-nejmensim-need" title="Permanent link">&para;</a></h3>
+<p>Pokud hledáš bezpečnou posloupnost od nuly, pomůže tato heuristika:
+- Seřaď vlákna podle součtu Need (vzestupně).
+- Zkus začít od vlákna, jehož Need je po složkách nejmenší — to je nejlepší kandidát na první v pořadí.
+- Neexistuje ale zaručeně jedno bezpečné pořadí — jich může být více; hledej libovolné.</p>
+<hr />
+<h2 id="vzorove-zadani">Vzorové zadání<a class="headerlink" href="#vzorove-zadani" title="Permanent link">&para;</a></h2>
+<div class="admonition example">
+<p class="admonition-title">Zadání</p>
+<p>V systému jsou 4 typy prostředků R0–R3 a 5 vláken T0–T4. Jsou zadány celkové požadavky (Max) a již přidělené prostředky (Allocation):</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Max R0</th>
+<th>Max R1</th>
+<th>Max R2</th>
+<th>Max R3</th>
+<th>Alloc R0</th>
+<th>Alloc R1</th>
+<th>Alloc R2</th>
+<th>Alloc R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>1</td>
+<td>2</td>
+<td>6</td>
+<td>5</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>1</td>
+<td>0</td>
+<td>6</td>
+<td>6</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>5</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>0</td>
+<td>1</td>
+<td>8</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Volné prostředky (Available): R0=0, R1=1, R2=7, R3=0.</p>
+<p><strong>Otázky:</strong></p>
+<ol>
+<li>Je systém v bezpečném stavu? Pokud ano, uveďte bezpečné pořadí uspokojení.</li>
+<li>Vyberte pravdivá tvrzení:<ul>
+<li>(a) Systém je v bezpečném stavu, protože aspoň jedna Coffmanova podmínka není splněna.</li>
+<li>(b) Systém je v bezpečném stavu, protože existuje bezpečná posloupnost.</li>
+<li>(c) Systém je v nebezpečném stavu, protože v alokačním grafu existuje cyklus.</li>
+<li>(d) Systém je v bezpečném stavu, protože v alokačním grafu závislostí není cyklus.</li>
+</ul>
+</li>
+</ol>
+<p><em>Tento typ zadání se opakuje prakticky v každém termínu: 2011, 2014, 2015, 2018, 2023, 2025.</em></p>
+</div>
+<hr />
+<h2 id="reseni-vzoroveho-zadani">Řešení vzorového zadání<a class="headerlink" href="#reseni-vzoroveho-zadani" title="Permanent link">&para;</a></h2>
+<details class="success">
+<summary>Ukázat řešení</summary>
+<h3 id="krok-1-sestav-matici-need-max-allocation">Krok 1: Sestav matici Need = Max - Allocation<a class="headerlink" href="#krok-1-sestav-matici-need-max-allocation" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need R0</th>
+<th>Need R1</th>
+<th>Need R2</th>
+<th>Need R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>1-0=<strong>1</strong></td>
+<td>2-1=<strong>1</strong></td>
+<td>6-0=<strong>6</strong></td>
+<td>5-1=<strong>4</strong></td>
+</tr>
+<tr>
+<td>T1</td>
+<td>1-1=<strong>0</strong></td>
+<td>0-0=<strong>0</strong></td>
+<td>6-2=<strong>4</strong></td>
+<td>6-6=<strong>0</strong></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>2-2=<strong>0</strong></td>
+<td>2-1=<strong>1</strong></td>
+<td>4-1=<strong>3</strong></td>
+<td>5-2=<strong>3</strong></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>0-0=<strong>0</strong></td>
+<td>1-0=<strong>1</strong></td>
+<td>8-0=<strong>8</strong></td>
+<td>0-0=<strong>0</strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>2-0=<strong>2</strong></td>
+<td>1-0=<strong>1</strong></td>
+<td>0-0=<strong>0</strong></td>
+<td>5-1=<strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Přehledná tabulka Need:</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need R0</th>
+<th>Need R1</th>
+<th>Need R2</th>
+<th>Need R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>1</td>
+<td>1</td>
+<td>6</td>
+<td>4</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>0</td>
+<td>1</td>
+<td>3</td>
+<td>3</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>0</td>
+<td>1</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="krok-2-inicializace">Krok 2: Inicializace<a class="headerlink" href="#krok-2-inicializace" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Work   = Available = (0, 1, 7, 0)
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Finish = [false, false, false, false, false]
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Bezpecna posloupnost = []
+</span></code></pre></div>
+<h3 id="krok-3-prvni-pruchod-hledame-vlakno-s-need-work">Krok 3: První průchod — hledáme vlákno s Need &lt;= Work<a class="headerlink" href="#krok-3-prvni-pruchod-hledame-vlakno-s-need-work" title="Permanent link">&para;</a></h3>
+<p><code>Work = (0, 1, 7, 0)</code> — projdeme všechna vlákna:</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need</th>
+<th>Work</th>
+<th>Need &lt;= Work?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>(1,1,6,4)</td>
+<td>(0,1,7,0)</td>
+<td>R0: 1&lt;=0? <strong>NE</strong> — nevyhovuje</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>(0,0,4,0)</td>
+<td>(0,1,7,0)</td>
+<td>0&lt;=0, 0&lt;=1, 4&lt;=7, 0&lt;=0 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>(0,1,3,3)</td>
+<td>(0,1,7,0)</td>
+<td>0&lt;=0, 1&lt;=1, 3&lt;=7, 3&lt;=0? <strong>NE</strong></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>(0,1,8,0)</td>
+<td>(0,1,7,0)</td>
+<td>0&lt;=0, 1&lt;=1, 8&lt;=7? <strong>NE</strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(2,1,0,4)</td>
+<td>(0,1,7,0)</td>
+<td>2&lt;=0? <strong>NE</strong></td>
+</tr>
+</tbody>
+</table>
+<p><strong>T1 vyhovuje.</strong> Uspokojíme T1:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Finish[T1] = true
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Work = Work + Allocation[T1] = (0,1,7,0) + (1,0,2,6) = (1, 1, 9, 6)
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>Bezpecna posloupnost = [T1]
+</span></code></pre></div>
+<h3 id="krok-4-druhy-pruchod-work-1-1-9-6">Krok 4: Druhý průchod — Work = (1, 1, 9, 6)<a class="headerlink" href="#krok-4-druhy-pruchod-work-1-1-9-6" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need</th>
+<th>Work</th>
+<th>Need &lt;= Work?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>(1,1,6,4)</td>
+<td>(1,1,9,6)</td>
+<td>1&lt;=1, 1&lt;=1, 6&lt;=9, 4&lt;=6 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T2</td>
+<td>(0,1,3,3)</td>
+<td>(1,1,9,6)</td>
+<td>0&lt;=1, 1&lt;=1, 3&lt;=9, 3&lt;=6 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>(0,1,8,0)</td>
+<td>(1,1,9,6)</td>
+<td>0&lt;=1, 1&lt;=1, 8&lt;=9, 0&lt;=6 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(2,1,0,4)</td>
+<td>(1,1,9,6)</td>
+<td>2&lt;=1? <strong>NE</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Více vláken vyhovuje — zvolíme první, které splní podmínku (nebo libovolné). Zvolíme <strong>T0</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Finish[T0] = true
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Work = (1,1,9,6) + Allocation[T0] = (1,1,9,6) + (0,1,0,1) = (1, 2, 9, 7)
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Bezpecna posloupnost = [T1, T0]
+</span></code></pre></div>
+<h3 id="krok-5-treti-pruchod-work-1-2-9-7">Krok 5: Třetí průchod — Work = (1, 2, 9, 7)<a class="headerlink" href="#krok-5-treti-pruchod-work-1-2-9-7" title="Permanent link">&para;</a></h3>
+<p>Zbývají: T2, T3, T4.</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need</th>
+<th>Work</th>
+<th>Need &lt;= Work?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T2</td>
+<td>(0,1,3,3)</td>
+<td>(1,2,9,7)</td>
+<td>0&lt;=1, 1&lt;=2, 3&lt;=9, 3&lt;=7 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T3</td>
+<td>(0,1,8,0)</td>
+<td>(1,2,9,7)</td>
+<td>0&lt;=1, 1&lt;=2, 8&lt;=9, 0&lt;=7 — <strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(2,1,0,4)</td>
+<td>(1,2,9,7)</td>
+<td>2&lt;=1? <strong>NE</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Zvolíme <strong>T3</strong> (má nulovou alokaci — uvolní nakonec to, co drží, což je nic; ale postup je správný):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Finish[T3] = true
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Work = (1,2,9,7) + Allocation[T3] = (1,2,9,7) + (0,0,0,0) = (1, 2, 9, 7)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Bezpecna posloupnost = [T1, T0, T3]
+</span></code></pre></div>
+<h3 id="krok-6-ctvrty-pruchod-work-1-2-9-7">Krok 6: Čtvrtý průchod — Work = (1, 2, 9, 7)<a class="headerlink" href="#krok-6-ctvrty-pruchod-work-1-2-9-7" title="Permanent link">&para;</a></h3>
+<p>Zbývají: T2, T4.</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need</th>
+<th>Work</th>
+<th>Need &lt;= Work?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T2</td>
+<td>(0,1,3,3)</td>
+<td>(1,2,9,7)</td>
+<td><strong>ANO</strong></td>
+</tr>
+<tr>
+<td>T4</td>
+<td>(2,1,0,4)</td>
+<td>(1,2,9,7)</td>
+<td>2&lt;=1? <strong>NE</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Uspokojíme <strong>T2</strong>:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Finish[T2] = true
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Work = (1,2,9,7) + Allocation[T2] = (1,2,9,7) + (2,1,1,2) = (3, 3, 10, 9)
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Bezpecna posloupnost = [T1, T0, T3, T2]
+</span></code></pre></div>
+<h3 id="krok-7-paty-pruchod-work-3-3-10-9">Krok 7: Pátý průchod — Work = (3, 3, 10, 9)<a class="headerlink" href="#krok-7-paty-pruchod-work-3-3-10-9" title="Permanent link">&para;</a></h3>
+<p>Zbývá: T4.</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need</th>
+<th>Work</th>
+<th>Need &lt;= Work?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T4</td>
+<td>(2,1,0,4)</td>
+<td>(3,3,10,9)</td>
+<td>2&lt;=3, 1&lt;=3, 0&lt;=10, 4&lt;=9 — <strong>ANO</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Finish[T4] = true
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Work = (3,3,10,9) + Allocation[T4] = (3,3,10,9) + (0,0,0,1) = (3, 3, 10, 10)
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Bezpecna posloupnost = [T1, T0, T3, T2, T4]
+</span></code></pre></div>
+<h3 id="vysledek">Výsledek<a class="headerlink" href="#vysledek" title="Permanent link">&para;</a></h3>
+<p>Všechna <code>Finish[i] = true</code>. <strong>Systém je v bezpečném stavu.</strong></p>
+<p>Bezpečné pořadí: <strong>T1 → T0 → T3 → T2 → T4</strong></p>
+<p>(Také platné: T1 → T0 → T2 → T3 → T4 a další variace — bezpečných pořadí bývá více.)</p>
+<h3 id="odpovedi-na-multichoice-otazky">Odpovědi na multichoice otázky<a class="headerlink" href="#odpovedi-na-multichoice-otazky" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>(a) „Bezpečný stav, protože aspoň jedna Coffmanova podmínka není splněna."</strong> — <strong>NEPRAVDA.</strong> Všechny čtyři Coffmanovy podmínky mohou být splněny i v bezpečném stavu. Bezpečnost zaručuje existence bezpečné posloupnosti, ne porušení podmínek.</li>
+<li><strong>(b) „Bezpečný stav, protože existuje bezpečná posloupnost."</strong> — <strong>PRAVDA.</strong> Toto je přesná definice bezpečného stavu.</li>
+<li><strong>(c) „Nebezpečný stav, protože v alokačním grafu existuje cyklus."</strong> — <strong>NEPRAVDA.</strong> Systém je v bezpečném stavu; navíc u prostředků s více instancemi samotný cyklus nestačí k potvrzení deadlocku.</li>
+<li><strong>(d) „Bezpečný stav, protože v alokačním grafu není cyklus."</strong> — u jednoinstancových prostředků by to bylo dostatečné odůvodnění; u víceinstancových prostředků (jako zde) je správnější odůvodnění přes existenci bezpečné posloupnosti.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Častá chyba v odůvodnění</p>
+<p>U <strong>víceinstancových</strong> prostředků (jako v tomto zadání) absence cyklu
+v alokačním grafu <strong>nestačí</strong> k prokázání bezpečnosti — a naopak přítomnost
+cyklu nemusí znamenat deadlock. Cyklus v grafu je nutnou podmínkou deadlocku
+jen u <strong>jednoinstancových</strong> prostředků. U víceinstancových prostředků vždy
+odůvodňuj bezpečnost přes existenci bezpečné posloupnosti (Bankéřův algoritmus).</p>
+</div>
+</details>
+<hr />
+<h2 id="dalsi-procviceni">Další procvičení<a class="headerlink" href="#dalsi-procviceni" title="Permanent link">&para;</a></h2>
+<h3 id="varianta-a-system-se-3-prostredky">Varianta A — systém se 3 prostředky<a class="headerlink" href="#varianta-a-system-se-3-prostredky" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání A</p>
+<p>Systém: vlákna T1–T4, prostředky R1–R3. Matice Max a Allocation:</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Max R1</th>
+<th>Max R2</th>
+<th>Max R3</th>
+<th>Alloc R1</th>
+<th>Alloc R2</th>
+<th>Alloc R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>3</td>
+<td>2</td>
+<td>6</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>6</td>
+<td>1</td>
+<td>3</td>
+<td>6</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>3</td>
+<td>1</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Existující prostředky: E = (9, 3, 6). Volné: F = (0, 1, 1).</p>
+<p>Je systém v bezpečném stavu? Uveďte bezpečné pořadí.</p>
+</div>
+<details class="success">
+<summary>Ukázat řešení A</summary>
+<p><strong>Need = Max - Allocation:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need R1</th>
+<th>Need R2</th>
+<th>Need R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>2</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>4</td>
+<td>2</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Work = (0, 1, 1)</strong></p>
+<p><strong>Průchod 1:</strong> Hledáme Need &lt;= (0,1,1):
+- T1: (2,2,6) — R1: 2&lt;=0? NE
+- T2: (0,0,1) — 0&lt;=0, 0&lt;=1, 1&lt;=1 — <strong>ANO</strong></p>
+<p>Work += Alloc[T2] = (0,1,1) + (6,1,2) = <strong>(6, 2, 3)</strong> | Posloupnost: [T2]</p>
+<p><strong>Průchod 2:</strong> Work = (6,2,3):
+- T1: (2,2,6) — 2&lt;=6, 2&lt;=2, 6&lt;=3? NE
+- T3: (1,0,3) — 1&lt;=6, 0&lt;=2, 3&lt;=3 — <strong>ANO</strong></p>
+<p>Work += (2,1,1) = <strong>(8, 3, 4)</strong> | Posloupnost: [T2, T3]</p>
+<p><strong>Průchod 3:</strong> Work = (8,3,4):
+- T4: (4,2,0) — 4&lt;=8, 2&lt;=3, 0&lt;=4 — <strong>ANO</strong></p>
+<p>Work += (0,0,2) = <strong>(8, 3, 6)</strong> | Posloupnost: [T2, T3, T4]</p>
+<p><strong>Průchod 4:</strong> Work = (8,3,6):
+- T1: (2,2,6) — 2&lt;=8, 2&lt;=3, 6&lt;=6 — <strong>ANO</strong></p>
+<p>Posloupnost: <strong>[T2, T3, T4, T1]</strong></p>
+<p>Všichni Finish = true. <strong>Systém je v bezpečném stavu.</strong> Bezpečné pořadí: <strong>T2 → T3 → T4 → T1</strong>.</p>
+</details>
+<hr />
+<h3 id="varianta-b-nebezpecny-stav">Varianta B — nebezpečný stav<a class="headerlink" href="#varianta-b-nebezpecny-stav" title="Permanent link">&para;</a></h3>
+<div class="admonition example">
+<p class="admonition-title">Zadání B</p>
+<p>Systém: vlákna T0–T4, prostředky R0–R3. Matice Need (přímo zadána):</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Need R0</th>
+<th>Need R1</th>
+<th>Need R2</th>
+<th>Need R3</th>
+<th>Alloc R0</th>
+<th>Alloc R1</th>
+<th>Alloc R2</th>
+<th>Alloc R3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T0</td>
+<td>6</td>
+<td>2</td>
+<td>2</td>
+<td>4</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T1</td>
+<td>4</td>
+<td>2</td>
+<td>0</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>T2</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>5</td>
+<td>2</td>
+<td>0</td>
+<td>5</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>T4</td>
+<td>2</td>
+<td>1</td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Volné: R0=5, R1=4, R2=2, R3=4.</p>
+<p>Je systém v bezpečném stavu? Ověřte pořadí T1, T2, T0, T4, T3.</p>
+</div>
+<details class="success">
+<summary>Ukázat řešení B</summary>
+<p><strong>Work = (5, 4, 2, 4)</strong></p>
+<p><strong>Průchod 1:</strong>
+- T0: Need (6,2,2,4) — 6&lt;=5? NE
+- T1: Need (4,2,0,2) — 4&lt;=5, 2&lt;=4, 0&lt;=2, 2&lt;=4 — <strong>ANO</strong></p>
+<p>Work += (1,0,0,2) = <strong>(6, 4, 2, 6)</strong> | Posloupnost: [T1]</p>
+<p><strong>Průchod 2:</strong> Work = (6,4,2,6):
+- T0: (6,2,2,4) — 6&lt;=6, 2&lt;=4, 2&lt;=2, 4&lt;=6 — <strong>ANO</strong></p>
+<p>Work += (1,0,0,0) = <strong>(7, 4, 2, 6)</strong> | Posloupnost: [T1, T0]</p>
+<p><strong>Průchod 3:</strong> Work = (7,4,2,6):
+- T2: (0,2,2,1) — <strong>ANO</strong></p>
+<p>Work += (0,0,0,0) = <strong>(7, 4, 2, 6)</strong> | Posloupnost: [T1, T0, T2]</p>
+<p><strong>Průchod 4:</strong> Work = (7,4,2,6):
+- T3: (5,2,0,5) — 5&lt;=7, 2&lt;=4, 0&lt;=2, 5&lt;=6 — <strong>ANO</strong></p>
+<p>Work += (1,1,0,0) = <strong>(8, 5, 2, 6)</strong> | Posloupnost: [T1, T0, T2, T3]</p>
+<p><strong>Průchod 5:</strong> Work = (8,5,2,6):
+- T4: (2,1,4,0) — 2&lt;=8, 1&lt;=5, 4&lt;=2? NE</p>
+<p>Konec smyčky — T4 zůstává s <code>Finish = false</code>.</p>
+<p><strong>Systém je v nebezpečném stavu.</strong> T4 nemůže být uspokojeno.</p>
+<p><strong>Ověření pořadí T1, T2, T0, T4, T3:</strong> Totéž by selhalo na T4 — pořadí T1, T2, T0, T4, T3 <strong>není bezpečné</strong>.</p>
+<p>Poznámka: existuje jiné pořadí T1, T0, T2, T3, kde T4 stále selže — žádné bezpečné pořadí zahrnující T4 neexistuje. Systém je v nebezpečném stavu.</p>
+</details>
+<hr />
+<h2 id="varianty-a-chytaky">Varianty a chytáky<a class="headerlink" href="#varianty-a-chytaky" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Need zadáno přímo vs. Max+Allocation zvlášť</strong> — přečti hlavičky tabulky. Záměna způsobí špatnou matici Need a celý výsledek bude chybný.</li>
+<li><strong>Několik bezpečných pořadí</strong> — stačí najít jedno. Algoritmus přijme libovolné vlákno splňující <code>Need &lt;= Work</code>, takže pořadí nemusí být jednoznačné.</li>
+<li><strong>Nebezpečný stav ≠ okamžitý deadlock</strong> — v nebezpečném stavu deadlock <em>může</em> nastat (záleží na dalším průběhu přidělování); neznamená, že <em>musí</em> nastat.</li>
+<li><strong>T3 s nulovou alokací</strong> (jako ve vzorovém zadání) — uspokojení T3 nic nepřidá do Work, ale Finish[T3] se nastaví na true. To je v pořádku — vlákno, které nic nedrží, může být vždy uspokojeno hned, jakmile jeho Need &lt;= Work.</li>
+<li><strong>Multichoice: ověření nabídnutého pořadí</strong> — proveď Bankéřův algoritmus s daným pořadím krok za krokem. Pokud v libovolném kroku <code>Need[i] &gt; Work</code>, pořadí je špatné. Neplést si „pořadí není bezpečné" s „systém je v nebezpečném stavu".</li>
+<li><strong>Cyklus v alokačním grafu</strong> — u víceinstancových prostředků samo o sobě nic neprokáže. Odpovědi tvrdící „cyklus → deadlock" jsou u víceinstancových prostředků nepravdivé.</li>
+<li><strong>„Porušení Coffmanových podmínek by zabránilo deadlocku"</strong> — technicky pravda jako obecné tvrzení, ale <strong>nesouvisí s bezpečností konkrétního stavu</strong>. Tvrzení „systém je v nebezpečném stavu, ale porušením Coffmanových podmínek by se dalo zabránit deadlocku" je zavádějící — prevence porušením podmínek je statická designová technika, ne vlastnost konkrétního stavu.</li>
+</ul>
+<hr />
+<h2 id="caste-chyby">Časté chyby<a class="headerlink" href="#caste-chyby" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Záměna Need a Max</strong> — do podmínky <code>Need[i] &lt;= Work</code> dosazuji Max místo Need. Zkontroluj výpočet Need = Max - Allocation.</li>
+<li><strong>Záměna Allocation a Need při aktualizaci Work</strong> — po uspokojení vlákna přičítám Need místo Allocation. Správně: <code>Work += Allocation[i]</code>.</li>
+<li><strong>Porovnávání vektoru špatně</strong> — stačí jediná složka, kde <code>Need &gt; Work</code>, a vlákno nevyhovuje. Porovnání musí platit <strong>po každé složce</strong> zvlášť.</li>
+<li><strong>Předpoklad, že bezpečné pořadí je jediné</strong> — bezpečných pořadí může být více; zadání chce jedno libovolné.</li>
+<li><strong>Tvrzení „bezpečný stav = Coffmanovy podmínky nejsou splněny"</strong> — typická past v multichoice; viz Krok 7.</li>
+<li><strong>Zapomenutí na vlákno s nulovou alokací</strong> — vlákno, které nic nedrží, je validní kandidát a jeho „uspokojení" Work nezmění; ale musíš ho přesto zahrnout do průchodu.</li>
+<li><strong>Počítání „celkových" místo „zbývajících" potřeb</strong> — Need je to, co vlákno ještě potřebuje, ne celkové Max.</li>
+</ol>
+<hr />
+<h2 id="souvisejici">Související<a class="headerlink" href="#souvisejici" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="../../../skripta/04-deadlock/">Skripta: Uváznutí (deadlock)</a> — teorie Coffmanových podmínek, alokační graf, strategie prevence a Bankéřův algoritmus s formálním popisem</li>
+<li><a href="../../teorie-truefalse/">Teoretické otázky (True/False)</a> — procvičení tvrzení o bezpečném stavu, Coffmanových podmínkách a alokačním grafu</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../02-synchronizace/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Synchronizace">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Synchronizace
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../04-planovani/" class="md-footer__link md-footer__link--next" aria-label="Další: Plánování procesů">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Plánování procesů
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

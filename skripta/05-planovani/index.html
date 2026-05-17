@@ -1,0 +1,2856 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/skripta/05-planovani/">
+      
+      
+        <link rel="prev" href="../04-deadlock/">
+      
+      
+        <link rel="next" href="../06-pamet/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Plánování procesů a vláken - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementace-procesu-a-vlaken" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Plánování procesů a vláken
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../otazky/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#implementace-procesu-a-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementace procesů a vláken
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementace procesů a vláken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tabulka-procesu-a-process-control-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabulka procesů a Process Control Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obsah-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obsah PCB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-control-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Control Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementace-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementace vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plánování vláken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typy-aplikaci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy aplikací
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cile-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cíle plánování
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typy-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdy-planujeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kdy plánujeme?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategie-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategie plánování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strategie plánování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planovani-s-odnimanim-vs-kooperativni-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování s odnímáním vs. kooperativní plánování
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#round-robin-rr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Round-Robin (RR)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prioritni-rr-se-statickou-prioritou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prioritní RR se statickou prioritou
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prioritní RR se statickou prioritou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixni-kvantum-a-pocet-prepnuti-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixní kvantum a počet přepnutí kontextu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prioritni-rr-s-dynamickou-prioritou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prioritní RR s dynamickou prioritou
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prioritní RR s dynamickou prioritou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-sharing-ts-trida-v-solarisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Sharing (TS) třída v Solarisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#completely-fair-scheduler-cfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Completely Fair Scheduler (CFS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Completely Fair Scheduler (CFS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtualni-behovy-cas-vruntime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální běhový čas (vruntime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priorita-v-cfs-a-nice-hodnota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priorita v CFS a nice hodnota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mechanismus-vyberu-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mechanismus výběru vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kooperativni-planovani-fcfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kooperativní plánování — FCFS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../otazky/prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../otazky/teorie-truefalse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#implementace-procesu-a-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementace procesů a vláken
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementace procesů a vláken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tabulka-procesu-a-process-control-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tabulka procesů a Process Control Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#obsah-pcb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Obsah PCB
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thread-control-block" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thread Control Block
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementace-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Implementace vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování vláken
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Plánování vláken">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#typy-aplikaci" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy aplikací
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cile-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cíle plánování
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#typy-vlaken" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Typy vláken
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kdy-planujeme" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kdy plánujeme?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#strategie-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Strategie plánování
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Strategie plánování">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#planovani-s-odnimanim-vs-kooperativni-planovani" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování s odnímáním vs. kooperativní plánování
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#round-robin-rr" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Round-Robin (RR)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prioritni-rr-se-statickou-prioritou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prioritní RR se statickou prioritou
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prioritní RR se statickou prioritou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#fixni-kvantum-a-pocet-prepnuti-kontextu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fixní kvantum a počet přepnutí kontextu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#prioritni-rr-s-dynamickou-prioritou" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prioritní RR s dynamickou prioritou
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Prioritní RR s dynamickou prioritou">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#time-sharing-ts-trida-v-solarisu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Time Sharing (TS) třída v Solarisu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#completely-fair-scheduler-cfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Completely Fair Scheduler (CFS)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Completely Fair Scheduler (CFS)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#virtualni-behovy-cas-vruntime" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Virtuální běhový čas (vruntime)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priorita-v-cfs-a-nice-hodnota" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Priorita v CFS a nice hodnota
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mechanismus-vyberu-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mechanismus výběru vlákna
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kooperativni-planovani-fcfs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kooperativní plánování — FCFS
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shrnuti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Shrnutí
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#klicove-pojmy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Klíčové pojmy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="planovani-procesu-a-vlaken">Plánování procesů a vláken<a class="headerlink" href="#planovani-procesu-a-vlaken" title="Permanent link">&para;</a></h1>
+<p>Tato kapitola se věnuje tomu, jak operační systém spravuje informace o procesech a vláknech a jak rozhoduje, které vlákno poběží na procesoru v daný okamžik. Nejprve si popíšeme datové struktury, které jádro OS udržuje pro každý proces (<strong>PCB</strong>) a každé vlákno (<strong>TCB</strong>), a různé modely implementace vláken. Poté se zaměříme na samotné <strong>plánování vláken</strong> — jaké jsou cíle plánování, kdy se plánuje a jaké strategie existují: od jednoduchého round-robin přes prioritní plánování se statickou i dynamickou prioritou až po moderní Completely Fair Scheduler a kooperativní FCFS.</p>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#implementace-procesu-a-vlaken">Implementace procesů a vláken</a><ul>
+<li><a href="#tabulka-procesu-a-process-control-block">Tabulka procesů a Process Control Block</a></li>
+<li><a href="#obsah-pcb">Obsah PCB</a></li>
+<li><a href="#thread-control-block">Thread Control Block</a></li>
+<li><a href="#implementace-vlaken">Implementace vláken</a></li>
+</ul>
+</li>
+<li><a href="#planovani-vlaken">Plánování vláken</a><ul>
+<li><a href="#typy-aplikaci">Typy aplikací</a></li>
+<li><a href="#cile-planovani">Cíle plánování</a></li>
+<li><a href="#typy-vlaken">Typy vláken</a></li>
+<li><a href="#kdy-planujeme">Kdy plánujeme?</a></li>
+</ul>
+</li>
+<li><a href="#strategie-planovani">Strategie plánování</a><ul>
+<li><a href="#planovani-s-odnimanim-vs-kooperativni-planovani">Plánování s odnímáním vs. kooperativní plánování</a></li>
+</ul>
+</li>
+<li><a href="#round-robin-rr">Round-Robin (RR)</a></li>
+<li><a href="#prioritni-rr-se-statickou-prioritou">Prioritní RR se statickou prioritou</a><ul>
+<li><a href="#fixni-kvantum-a-pocet-prepnuti-kontextu">Fixní kvantum a počet přepnutí kontextu</a></li>
+</ul>
+</li>
+<li><a href="#prioritni-rr-s-dynamickou-prioritou">Prioritní RR s dynamickou prioritou</a><ul>
+<li><a href="#time-sharing-ts-trida-v-solarisu">Time Sharing (TS) třída v Solarisu</a></li>
+</ul>
+</li>
+<li><a href="#completely-fair-scheduler-cfs">Completely Fair Scheduler (CFS)</a><ul>
+<li><a href="#virtualni-behovy-cas-vruntime">Virtuální běhový čas (vruntime)</a></li>
+<li><a href="#priorita-v-cfs-a-nice-hodnota">Priorita v CFS a nice hodnota</a></li>
+<li><a href="#mechanismus-vyberu-vlakna">Mechanismus výběru vlákna</a></li>
+</ul>
+</li>
+<li><a href="#kooperativni-planovani-fcfs">Kooperativní plánování — FCFS</a></li>
+<li><a href="#shrnuti">Shrnutí</a></li>
+<li><a href="#klicove-pojmy">Klíčové pojmy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="implementace-procesu-a-vlaken">Implementace procesů a vláken<a class="headerlink" href="#implementace-procesu-a-vlaken" title="Permanent link">&para;</a></h2>
+<h3 id="tabulka-procesu-a-process-control-block">Tabulka procesů a Process Control Block<a class="headerlink" href="#tabulka-procesu-a-process-control-block" title="Permanent link">&para;</a></h3>
+<p>Jádro operačního systému si musí o každém běžícím procesu pamatovat celou řadu informací. Nejčastěji jsou tyto informace uloženy v podobě zřetězeného seznamu struktur, který se označuje jako <strong>tabulka procesů</strong> (process table). Jedna položka tohoto seznamu pak reprezentuje jeden konkrétní proces a historicky se nazývá <strong>Process Control Block</strong> (PCB).</p>
+<p>Kolik procesů a vláken může v systému existovat? Maximální počet bývá odvozen od velikosti fyzické paměti (takto to dělají Linux, Solaris a další). Navíc z bezpečnostních důvodů bývá pro běžné uživatele nastaven samostatný limit — chrání to systém například před útočnou technikou zvanou <strong>fork-bomba</strong>, která rekurzivně vytváří nové procesy, dokud nevyčerpá systémové prostředky.</p>
+<div class="admonition example">
+<p class="admonition-title">Limity vláken v Linuxu</p>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># Celkový systémový limit:
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>u1@linux:~&gt; cat /proc/sys/kernel/threads-max
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>15523
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a># Limit pro konkrétního uživatele:
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>u1@linux:~&gt; ulimit -u
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>15567
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a># Nastavení nového limitu a ověření fork-bomby:
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>u1@linux:~&gt; ulimit -u 100
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>u1@linux:~&gt; f(){ f | f &amp; } ; f
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>-bash: fork: retry: Resource temporarily unavailable
+</span></code></pre></div>
+Po nastavení limitu na 100 vláken fork-bomba narazí na strop a lze ji bezpečně ukončit příkazem <code>pkill -u u1</code>.</p>
+</div>
+<h3 id="obsah-pcb">Obsah PCB<a class="headerlink" href="#obsah-pcb" title="Permanent link">&para;</a></h3>
+<p><strong>PCB</strong> obsahuje vše, co si OS musí o procesu pamatovat. Lze ho rozdělit do tří skupin:</p>
+<table>
+<thead>
+<tr>
+<th>Skupina</th>
+<th>Příklady položek</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identifikace procesu</td>
+<td>PID, PPID, SID, jméno procesu</td>
+</tr>
+<tr>
+<td>Bezpečnost a identita</td>
+<td>EUID, RUID, GID, privilegia, access token</td>
+</tr>
+<tr>
+<td>Alokované prostředky</td>
+<td>přidělená fyzická paměť, tabulka deskriptorů souborů, IPC nástroje (semafory, roury, signály)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition info">
+<p class="admonition-title">Kde najít strukturu PCB?</p>
+<p>Strukturu PCB konkrétního OS lze zjistit z:</p>
+<ul>
+<li>dokumentace OS nebo knih jako <em>Windows Internals</em>, <em>Linux Kernel Development</em>, <em>Solaris Internals</em>,</li>
+<li>zdrojového kódu jádra (Linux: <code>sched.h</code>, Solaris: <code>proc.h</code>, <code>thread.h</code>, Windows: <code>winternl.h</code>),</li>
+<li>nástrojů jako Task Manager, Process Explorer (Windows), <code>ps</code>, <code>top</code>, <code>lsof</code> (Linux/Unix),</li>
+<li>debuggerů: WinDbg (Windows), <code>gdb</code> (Linux), <code>mdb</code> (Solaris),</li>
+<li>pseudo-souborového systému <code>/proc</code> v unixových systémech.</li>
+</ul>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Struktura proc_t v Solarisu</p>
+<p><div class="language-c highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">proc</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">vnode</span><span class="w"> </span><span class="o">*</span><span class="n">p_exec</span><span class="p">;</span><span class="w">      </span><span class="cm">/* pointer to a.out vnode */</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">as</span><span class="w">    </span><span class="o">*</span><span class="n">p_as</span><span class="p">;</span><span class="w">        </span><span class="cm">/* process address space pointer */</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">cred</span><span class="w">  </span><span class="o">*</span><span class="n">p_cred</span><span class="p">;</span><span class="w">      </span><span class="cm">/* process credentials */</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">    </span><span class="kt">int</span><span class="w">           </span><span class="n">p_swapcnt</span><span class="p">;</span><span class="w">   </span><span class="cm">/* number of swapped out lwps */</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="kt">char</span><span class="w">          </span><span class="n">p_stat</span><span class="p">;</span><span class="w">      </span><span class="cm">/* status of process */</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="w">    </span><span class="kt">pid_t</span><span class="w">         </span><span class="n">p_ppid</span><span class="p">;</span><span class="w">      </span><span class="cm">/* process id of parent */</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">proc</span><span class="w">  </span><span class="o">*</span><span class="n">p_parent</span><span class="p">;</span><span class="w">    </span><span class="cm">/* ptr to parent process */</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">proc</span><span class="w">  </span><span class="o">*</span><span class="n">p_child</span><span class="p">;</span><span class="w">     </span><span class="cm">/* ptr to first child process */</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">    </span><span class="cm">/* ... signály, synchronizace, ... */</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p">}</span><span class="w"> </span><span class="n">proc_t</span><span class="p">;</span>
+</span></code></pre></div>
+Obsah PCB konkrétního procesu lze v Solarisu zobrazit přímo z běžícího jádra pomocí debuggeru <code>mdb</code>:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>root@solaris:~&gt; echo &quot;ffffa1c0089ca088 ::print -ta proc_t&quot; | mdb -k
+</span></code></pre></div></p>
+</div>
+<p><img alt="Výpis PCB procesu pomocí debuggeru mdb v Solarisu" src="../img/p06-s08-1.png" /></p>
+<h3 id="thread-control-block">Thread Control Block<a class="headerlink" href="#thread-control-block" title="Permanent link">&para;</a></h3>
+<p>Zatímco PCB popisuje proces jako celek, pro každé vlákno si jádro OS udržuje zvláštní datovou strukturu — <strong>Thread Control Block</strong> (TCB). Obsahuje:</p>
+<ul>
+<li><strong>identifikaci vlákna</strong>: číslo vlákna (TID),</li>
+<li><strong>informace pro přepínání kontextu</strong>: hodnoty viditelných registrů CPU, hodnoty řídicích a stavových registrů (čítač instrukcí, příznakový registr), ukazatel na zásobník,</li>
+<li><strong>informace pro plánování</strong>: typ plánovacího algoritmu, priorita, aktuální stav vlákna, informace o čekajících událostech, využitý čas CPU, důvod posledního přepnutí kontextu.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">PCB vs. TCB</p>
+<p>PCB je sdílený pro celý proces — obsahuje prostředky sdílené všemi vlákny (paměť, soubory). TCB je soukromý pro každé vlákno — obsahuje to, co je nutné k přepnutí vlákna na jiné jádro CPU a zpět.</p>
+</div>
+<h3 id="implementace-vlaken">Implementace vláken<a class="headerlink" href="#implementace-vlaken" title="Permanent link">&para;</a></h3>
+<p>Historicky existovaly dva základní způsoby implementace vláken: v uživatelském prostoru nebo přímo v jádru OS. Moderní systémy typicky používají kombinaci nebo čistě jadernou implementaci.</p>
+<h4 id="vlakna-v-uzivatelskem-prostoru-many-to-one">Vlákna v uživatelském prostoru (many-to-one)<a class="headerlink" href="#vlakna-v-uzivatelskem-prostoru-many-to-one" title="Permanent link">&para;</a></h4>
+<p>Vlákna jsou v tomto modelu spravována výhradně uživatelskou knihovnou (<strong>run-time systém</strong>), jádro OS o nich nemá žádné informace. Tato implementace se označuje jako model <strong>many-to-one</strong> — více uživatelských vláken je namapováno na jedno kernel vlákno.</p>
+<p><img alt="Model many-to-one: více uživatelských vláken namapováno na jedno kernel vlákno" src="../img/p06-s12-1.png" /></p>
+<p><strong>Výhody:</strong>
+- Jednoduchá a rychlá správa (vytvoření, přepínání, synchronizace) bez vstupu do jádra OS.</p>
+<p><strong>Nevýhody:</strong>
+- Všechna vlákna jednoho procesu jsou mapována na jediné jádro CPU — nelze využít více jader najednou.
+- Pokud jedno vlákno zavolá blokující systémové volání, zablokují se tím pádem i všechna ostatní vlákna procesu.</p>
+<p>Vlákna v uživatelském prostoru používají <strong>kooperativní plánování</strong> — po určitém čase předají vlákna řízení zpět run-time systému sama od sebe.</p>
+<h4 id="vlakna-v-jadru-os-one-to-one">Vlákna v jádru OS (one-to-one)<a class="headerlink" href="#vlakna-v-jadru-os-one-to-one" title="Permanent link">&para;</a></h4>
+<p>Toto je typická implementace v současných operačních systémech (Linux, MS Windows, Solaris, macOS). Jádro OS přímo spravuje jeden PCB pro každý proces a jeden TCB pro každé vlákno, a poskytuje systémová volání pro jejich vytváření a správu.</p>
+<p>Model se označuje jako <strong>one-to-one</strong> — každé uživatelské vlákno odpovídá právě jednomu kernel vláknu.</p>
+<p><img alt="Model one-to-one: každé uživatelské vlákno mapováno na jedno kernel vlákno" src="../img/p06-s14-1.png" /></p>
+<p><strong>Výhody:</strong>
+- Jádro OS zná všechna vlákna a může je rozmísťovat na různá jádra CPU.
+- Blokující systémové volání zablokuje pouze volající vlákno, ostatní pokračují.</p>
+<p><strong>Nevýhody:</strong>
+- Každá operace s vláknem (vytvoření, přepnutí kontextu, ukončení) vyžaduje přepnutí z user modu do kernel modu — vyšší režie.</p>
+<h4 id="hybridni-implementace-many-to-many">Hybridní implementace (many-to-many)<a class="headerlink" href="#hybridni-implementace-many-to-many" title="Permanent link">&para;</a></h4>
+<p>Hybridní model kombinuje oba přístupy: <strong>m</strong> uživatelských vláken je namapováno na <strong>n</strong> kernel vláken (kde m ≥ n). Kombinuje výhody obou přístupů.</p>
+<p><img alt="Model many-to-many: hybridní implementace vláken" src="../img/p06-s15-1.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Poznámka k terminologii</p>
+<p>V současných OS jsou vlákna implementována v jádru OS (model one-to-one). Pokud dokumentace hovoří o „uživatelských vláknech implementovaných pomocí knihovny", má obvykle na mysli knihovnu implementující právě model one-to-one (např. POSIX pthreads na Linuxu), nikoliv skutečná vlákna v uživatelském prostoru. Termín „kernel vlákno" může také označovat vlákno implementující interní funkci jádra (ne vlákno uživatelského procesu).</p>
+</div>
+<h4 id="priklady-implementace-v-konkretnich-os">Příklady implementace v konkrétních OS<a class="headerlink" href="#priklady-implementace-v-konkretnich-os" title="Permanent link">&para;</a></h4>
+<p><strong>Solaris</strong> historicky rozlišoval tři úrovně: user-level threads (ULT) v adresovém prostoru procesu, kernel threads jako základní plánované jednotky, a lightweight processes (LWP) jako mapování mezi nimi. Od Solarisu 8 (rok 2000) je podporován pouze model one-to-one. Navíc Solaris zavádí abstrakce jako <strong>úloha</strong> (task — množina procesů sdílejících kvóty), <strong>projekt</strong> (project — množina procesů sdílejících kvóty a limity v rámci OS) a <strong>zóna</strong> (zone — virtuální instance OS).</p>
+<p><strong>MS Windows</strong> rozlišuje <strong>Fiber</strong> (vlákno spravované v uživatelském prostoru) a <strong>Thread</strong> (základní jednotka plánovaná jádrem). Skupinu procesů sdílejících limity a kvóty pak označuje jako <strong>Job</strong>.</p>
+<hr />
+<h2 id="planovani-vlaken">Plánování vláken<a class="headerlink" href="#planovani-vlaken" title="Permanent link">&para;</a></h2>
+<p>Kdykoliv se uvolní jádro CPU, musí OS vybrat vhodné vlákno ve stavu <strong>Ready</strong> a přidělit mu procesorový čas. Tento rozhodovací mechanismus se nazývá <strong>plánování vláken</strong> (thread scheduling).</p>
+<h3 id="typy-aplikaci">Typy aplikací<a class="headerlink" href="#typy-aplikaci" title="Permanent link">&para;</a></h3>
+<p>Z hlediska plánování rozlišujeme tři kategorie aplikací:</p>
+<table>
+<thead>
+<tr>
+<th>Typ aplikace</th>
+<th>Charakteristika</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Dávkové úlohy</strong></td>
+<td>Zpracovávají data ze souborů, nekomunikují s uživatelem, vyžadují hodně CPU výkonu.</td>
+</tr>
+<tr>
+<td><strong>Interaktivní aplikace</strong></td>
+<td>Reagují na události z GUI, CLI nebo sítě — důležitá je rychlá odezva.</td>
+</tr>
+<tr>
+<td><strong>Úlohy reálného času</strong></td>
+<td>Nevyžadují nutně velký CPU výkon, ale musí zareagovat na událost v garantovaném čase.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="cile-planovani">Cíle plánování<a class="headerlink" href="#cile-planovani" title="Permanent link">&para;</a></h3>
+<p>Cíle se liší podle toho, z čí perspektivy na plánování nahlížíme:</p>
+<p><strong>Z hlediska systému:</strong></p>
+<ul>
+<li><strong>Spravedlivost</strong> — každý uživatel/proces/vlákno dostane přiměřenou část CPU výkonu.</li>
+<li><strong>Vyváženost</strong> — zátěž je rozložena rovnoměrně na všechny části systému.</li>
+<li><strong>Prosazení strategie</strong> — lze uplatnit zvolenou plánovací strategii.</li>
+</ul>
+<p><strong>Pro dávkové úlohy:</strong></p>
+<ul>
+<li><strong>Doba zpracování (turnaround time)</strong> — čas od spuštění do ukončení úlohy.</li>
+</ul>
+<p><strong>Pro interaktivní aplikace:</strong></p>
+<ul>
+<li><strong>Doba odezvy (response time)</strong> — čas od zadání požadavku do první reakce.</li>
+<li><strong>Přiměřenost (proportionality)</strong> — chování odpovídá očekávání uživatele.</li>
+</ul>
+<p><strong>Pro úlohy reálného času:</strong></p>
+<ul>
+<li><strong>Garantování odezvy (meeting deadlines)</strong> — zabránění ztrátě dat při zmeškání termínu.</li>
+<li><strong>Předvídatelnost</strong> — zamezení degradaci výkonu.</li>
+</ul>
+<h3 id="typy-vlaken">Typy vláken<a class="headerlink" href="#typy-vlaken" title="Permanent link">&para;</a></h3>
+<p>OS při plánování rozlišuje tři typy vláken podle jejich chování:</p>
+<p><img alt="Klasifikace vláken z hlediska plánování" src="../img/p06-s20-1.png" /></p>
+<ol>
+<li><strong>Vlákna orientovaná na CPU (CPU-bound threads)</strong> — CPU je využíváno po dlouhou dobu, málo blokujících operací. Typické pro výpočetně náročné programy.</li>
+<li><strong>Vlákna orientovaná na V/V (I/O-bound threads)</strong> — CPU je využíváno jen krátce, pak vlákno čeká na V/V operaci. Typické pro databázové servery, webové servery.</li>
+<li><strong>Vlákna reálného času (Realtime threads)</strong> — musí zareagovat na událost v daném časovém intervalu bez ohledu na ostatní.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Dynamická klasifikace</p>
+<p>Typ vlákna není pevný — CPU-bound vlákno se může chovat jako I/O-bound, změní-li svůj způsob práce. Typ reálného času je naopak daný účelem vlákna a obvykle se nemění.</p>
+</div>
+<h3 id="kdy-planujeme">Kdy plánujeme?<a class="headerlink" href="#kdy-planujeme" title="Permanent link">&para;</a></h3>
+<p>Plánování nastává ve dvou situacích:</p>
+<p><strong>Vlákno samo uvolní CPU:</strong></p>
+<ul>
+<li>vlákno dokončilo výpočet a zavolalo <code>exit()</code> nebo obdobné systémové volání,</li>
+<li>vlákno se dobrovolně vzdalo CPU voláním <code>pthread_yield()</code> nebo obdobné funkce,</li>
+<li>vlákno zavolalo blokující funkci — <code>read()</code>, <code>write()</code>, <code>pthread_mutex_lock()</code>, ...</li>
+</ul>
+<p><strong>Nastala nějaká událost:</strong></p>
+<ul>
+<li><strong>přerušení od V/V zařízení</strong> — dokončila se V/V operace, je třeba zareagovat,</li>
+<li><strong>přerušení od časovače</strong> — uplynulo časové kvantum přidělené aktuálnímu vláknu.</li>
+</ul>
+<hr />
+<h2 id="strategie-planovani">Strategie plánování<a class="headerlink" href="#strategie-planovani" title="Permanent link">&para;</a></h2>
+<p>Plánovací strategie určuje pravidla, podle nichž OS rozhoduje, které vlákno poběží. Rozlišujeme dva základní přístupy.</p>
+<h3 id="planovani-s-odnimanim-vs-kooperativni-planovani">Plánování s odnímáním vs. kooperativní plánování<a class="headerlink" href="#planovani-s-odnimanim-vs-kooperativni-planovani" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Vlastnost</th>
+<th>Plánování s odnímáním (preemptive)</th>
+<th>Kooperativní plánování (cooperative)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Jak vlákno přichází o CPU</td>
+<td>Po uplynutí časového kvanta — OS ho odebere násilně</td>
+<td>Vlákno CPU samo uvolní (dokončení, blokující volání)</td>
+</tr>
+<tr>
+<td>Počet přepnutí kontextu</td>
+<td>Vyšší</td>
+<td>Nižší</td>
+</tr>
+<tr>
+<td>Využití CPU</td>
+<td>Horší</td>
+<td>Lepší</td>
+</tr>
+<tr>
+<td>Doba odezvy</td>
+<td>Kratší</td>
+<td>Delší</td>
+</tr>
+<tr>
+<td>Vhodné pro</td>
+<td>Interaktivní systémy</td>
+<td>Prověřená/kernel vlákna</td>
+</tr>
+</tbody>
+</table>
+<p>Kooperativní plánování je rizikové pro uživatelská vlákna — jedno špatně napsané vlákno může zablokovat celý systém.</p>
+<hr />
+<h2 id="round-robin-rr">Round-Robin (RR)<a class="headerlink" href="#round-robin-rr" title="Permanent link">&para;</a></h2>
+<p><strong>Round-Robin</strong> je nejjednodušší strategie plánování s odnímáním. Funguje takto:</p>
+<ul>
+<li>Všechna vlákna ve stavu <strong>Ready</strong> čekají v jedné frontě FIFO.</li>
+<li>Každému vláknu je přiděleno jádro CPU na stejně velké <strong>časové kvantum</strong> (time slice).</li>
+<li>Po uplynutí kvanta je vlákno odebráno z CPU, jeho stav se změní zpět na Ready a vlákno je zařazeno na <strong>konec</strong> fronty.</li>
+</ul>
+<p><img alt="Schéma Round-Robin plánování — FIFO fronta vláken" src="../img/p06-s23-1.png" /></p>
+<p>Klíčovým parametrem je velikost časového kvanta:</p>
+<table>
+<thead>
+<tr>
+<th>Velikost kvanta</th>
+<th>Efekt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Krátké (malé)</td>
+<td>Kratší doba odezvy, horší využití CPU (více přepnutí kontextu)</td>
+</tr>
+<tr>
+<td>Dlouhé (velké)</td>
+<td>Lepší využití CPU, delší doba odezvy</td>
+</tr>
+<tr>
+<td>Rozumný kompromis</td>
+<td><strong>10–50 ms</strong></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Pamatujte si vzorce pro RR příklady:</p>
+<ul>
+<li><strong>Efektivita</strong> = <code>tq / (tcs + tq) × 100 %</code></li>
+<li><strong>Doba odezvy vlákna D</strong> (zablokovaného, čekajícího na uvolnění) = <code>pocet_ostatnich_vlaken × (tcs + tq)</code></li>
+</ul>
+<p>kde <code>tcs</code> je doba přepnutí kontextu a <code>tq</code> je velikost časového kvanta.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad výpočtu pro RR</p>
+<p>Jádro CPU sdílejí vlákna A, B, C (Ready/Running) a D (zablokované — odblokuje se těsně po přepnutí kontextu). Doba přepnutí kontextu je <code>tcs</code>, kvantum je <code>tq</code>.</p>
+<p><strong>Varianta 1:</strong> <code>tcs = tq = 10 ms</code></p>
+<ul>
+<li>Efektivita: <code>10 / (10 + 10) × 100 = 50 %</code></li>
+<li>Odezva D: <code>3 × (10 + 10) = 60 ms</code></li>
+</ul>
+<p><strong>Varianta 2:</strong> <code>tcs = 10 ms</code>, <code>tq = 90 ms</code></p>
+<ul>
+<li>Efektivita: <code>90 / (10 + 90) × 100 = 90 %</code></li>
+<li>Odezva D: <code>3 × (10 + 90) = 300 ms</code></li>
+</ul>
+<p>Lepší efektivita přichází za cenu horší odezvy — nutný kompromis.</p>
+</div>
+<p><img alt="Výsledky příkladu RR — efektivita a doba odezvy" src="../img/p06-s24-1.png" /></p>
+<hr />
+<h2 id="prioritni-rr-se-statickou-prioritou">Prioritní RR se statickou prioritou<a class="headerlink" href="#prioritni-rr-se-statickou-prioritou" title="Permanent link">&para;</a></h2>
+<p><strong>Prioritní RR se statickou prioritou</strong> je rozšíření základního RR o prioritní fronty. Každému vláknu je při spuštění přiřazeno číslo priority (1 … N), které se <strong>nikdy nemění</strong>. Platí:</p>
+<ul>
+<li>Volné jádro CPU vždy dostane vlákno s nejvyšší prioritou, které stojí v čele příslušné fronty.</li>
+<li>Pro každou prioritní úroveň existuje vlastní FIFO fronta — uvnitř jedné priority platí RR.</li>
+<li>Časové kvantum může být pro různé priority různě velké.</li>
+</ul>
+<p><img alt="Schéma prioritního RR se statickou prioritou — oddělené fronty pro každou prioritu" src="../img/p06-s26-1.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Hladovění při statické prioritě</p>
+<p>Vlákna s nízkou prioritou mohou čekat na CPU velmi dlouho (potenciálně neomezeně), pokud jsou vždy přítomna vlákna s vyšší prioritou. Tento jev se nazývá <strong>hladovění</strong> (starvation).</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Výpočet doby ukončení vláken při prioritním RR se statickou prioritou je klíčová úloha. Postup:</p>
+<ol>
+<li>Seřaďte vlákna podle priority (sestupně).</li>
+<li>Vlákna s vyšší prioritou vždy předbíhají vlákna s nižší — vyšší priorita se zpracuje jako první, jedno nebo více jader.</li>
+<li>Vlákna se stejnou prioritou se střídají v RR.</li>
+<li>Vlákno s nižší prioritou začne dostávat CPU až když jsou všechna vlákna s vyšší prioritou dokončena.</li>
+</ol>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad — 1 jádro CPU</p>
+<p>Čtyři vlákna spuštěna ve stejný okamžik, kvantum = 100 ms, přepínání kontextu zanedbatelné:</p>
+<table>
+<thead>
+<tr>
+<th>Vlákno</th>
+<th>Priorita</th>
+<th>Požadovaný čas [min]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>99</td>
+<td>6</td>
+</tr>
+<tr>
+<td>B</td>
+<td>75</td>
+<td>10</td>
+</tr>
+<tr>
+<td>C</td>
+<td>75</td>
+<td>4</td>
+</tr>
+<tr>
+<td>D</td>
+<td>50</td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<p>Na <strong>jednom jádře</strong>: A (priorita 99) poběží jako první a skončí za 6 min. Pak B a C (oba priorita 75) se střídají v RR — C skončí za <code>6 + 4 = 10 min</code>, B za <code>6 + 10 = 16 min</code>. D (priorita 50) čeká na obě — skončí za <code>16 + 12 = 28 min</code>.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad — 2 jádra CPU</p>
+<p>Na <strong>dvou jádrech</strong>: A (99) a B nebo C (75) mohou běžet paralelně. A skončí za 6 min. B a C se na druhém jádře střídají — C za 4 min, B za 10 min od startu. D pak dostane obě jádra: skončí za <code>10 + 6 = 16 min</code>.</p>
+</div>
+<h3 id="fixni-kvantum-a-pocet-prepnuti-kontextu">Fixní kvantum a počet přepnutí kontextu<a class="headerlink" href="#fixni-kvantum-a-pocet-prepnuti-kontextu" title="Permanent link">&para;</a></h3>
+<p>Další nevýhoda statického RR: při fixním kvantu nezáleží na tom, kolik práce vlákno skutečně udělalo. CPU-bound vlákno, které potřebuje dobu 1000×T, bude přepnuto přesně <strong>1000×</strong> (dostane-li vždy celé kvantum). To může být pro výpočetně náročná vlákna zbytečná zátěž.</p>
+<p><img alt="Ilustrace počtu přepnutí kontextu při fixním kvantu (1000 přepnutí)" src="../img/p06-s29-1.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">Linux: SCHED_RR</p>
+<p>Linux implementuje prioritní RR se statickou prioritou jako třídu <code>SCHED_RR</code>. Je určena pro systémy reálného času, využívá pevné kvantum (typicky 100 ms, viz <code>/proc/sys/kernel/sched_rr_timeslice_ms</code>) a vyžaduje pečlivou konfiguraci priorit — špatný návrh může vést k hladovění.</p>
+</div>
+<hr />
+<h2 id="prioritni-rr-s-dynamickou-prioritou">Prioritní RR s dynamickou prioritou<a class="headerlink" href="#prioritni-rr-s-dynamickou-prioritou" title="Permanent link">&para;</a></h2>
+<p>Aby OS překonal nevýhody statické priority (hladovění, špatná odezva I/O-bound vláken, zbytečné přepínání CPU-bound vláken), zavádí <strong>prioritní RR s dynamickou prioritou</strong>. Priorita i velikost časového kvanta se mění za běhu vlákna.</p>
+<p>Typická strategie:</p>
+<ul>
+<li>
+<p><strong>Vlákno nevyužije celé kvantum</strong> (např. zavolá blokující I/O operaci — jde o I/O-bound vlákno):
+  → priorita se <strong>zvýší</strong> a kvantum se <strong>sníží</strong> (vlákno dostane CPU rychleji, ale kratší dobu).</p>
+</li>
+<li>
+<p><strong>Vlákno využije celé kvantum</strong> (jde o CPU-bound vlákno):
+  → priorita se <strong>sníží</strong> a kvantum se <strong>zvýší</strong> (vlákno dostane CPU méně často, ale na delší dobu).</p>
+</li>
+<li>
+<p><strong>Vlákno čeká příliš dlouho v Ready frontě</strong> (hrozí hladovění):
+  → priorita se <strong>zvýší</strong> bez ohledu na chování vlákna.</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Výchozí strategie moderních OS</p>
+<p>Dynamická priorita je výchozím plánovacím mechanismem ve všech běžných operačních systémech (Linux, macOS, Windows). Konkrétní implementace se liší.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">U zkoušky</p>
+<p>Klíčový výpočet: kolik přepnutí kontextu proběhne, než CPU-bound vlákno doběhne, při zdvojování kvanta?</p>
+<p>Pracujeme exponenciálně: s každým přepnutím se kvantum zdvojuje. Příklad — vlákno potřebuje 100×T:
+<code>1 + 2 + 4 + 8 + 16 + 32 + 37 = 100</code> → <strong>7 přepnutí kontextu</strong> (poslední kvantum je zkrácené).</p>
+<p>Oproti fixnímu kvantu (100 přepnutí) je to dramatický pokles.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad: dynamická priorita s proměnným kvantem</p>
+<p>Nastavení: startovní priorita P0, kvantum T. Pokud vlákno využije celé kvantum: priorita -1, kvantum ×2. Pokud ne: priorita +1, kvantum /2.</p>
+<p>CPU-bound vlákno vyžadující 100×T:</p>
+<table>
+<thead>
+<tr>
+<th>Běh</th>
+<th>Kvantum</th>
+<th>Spotřeba celkem</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>T</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>2T</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4T</td>
+<td>7</td>
+</tr>
+<tr>
+<td>4</td>
+<td>8T</td>
+<td>15</td>
+</tr>
+<tr>
+<td>5</td>
+<td>16T</td>
+<td>31</td>
+</tr>
+<tr>
+<td>6</td>
+<td>32T</td>
+<td>63</td>
+</tr>
+<tr>
+<td>7</td>
+<td>37T (zbytek)</td>
+<td>100</td>
+</tr>
+</tbody>
+</table>
+<p>Celkem <strong>7 přepnutí kontextu</strong> místo 1000 u fixního kvanta.</p>
+</div>
+<h3 id="time-sharing-ts-trida-v-solarisu">Time Sharing (TS) třída v Solarisu<a class="headerlink" href="#time-sharing-ts-trida-v-solarisu" title="Permanent link">&para;</a></h3>
+<p>Solaris implementuje dynamickou prioritu pomocí třídy <strong>TS (Time Sharing)</strong>. Celý algoritmus je definován tabulkou, kterou lze zobrazit nebo upravit příkazem <code>dispadmin</code>. Tabulka má pro každou prioritní úroveň tyto sloupce:</p>
+<table>
+<thead>
+<tr>
+<th>Sloupec</th>
+<th>Význam</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PRIORITY LEVEL</code></td>
+<td>Hodnota priority</td>
+</tr>
+<tr>
+<td><code>ts_quantum</code></td>
+<td>Velikost časového kvanta pro danou prioritu</td>
+</tr>
+<tr>
+<td><code>ts_tqexp</code></td>
+<td>Nová priorita, pokud vlákno <strong>vyčerpalo</strong> celé kvantum</td>
+</tr>
+<tr>
+<td><code>ts_slpret</code></td>
+<td>Nová priorita, pokud vlákno <strong>nevyčerpalo</strong> kvantum (šlo spát)</td>
+</tr>
+<tr>
+<td><code>ts_maxwait</code></td>
+<td>Počet sekund čekání v Ready frontě, po nichž se priorita zvýší na <code>ts_lwait</code> (0 = po 1 s)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="completely-fair-scheduler-cfs">Completely Fair Scheduler (CFS)<a class="headerlink" href="#completely-fair-scheduler-cfs" title="Permanent link">&para;</a></h2>
+<p><strong>Completely Fair Scheduler</strong> je moderní plánovač, který Linux používá jako výchozí strategii pro běžná vlákna. Místo prioritních FIFO front s pevnými hodnotami priority používá zcela jiný přístup: <strong>červeno-černý strom</strong> uspořádaný podle <strong>virtuálního běhového času</strong>.</p>
+<h3 id="virtualni-behovy-cas-vruntime">Virtuální běhový čas (vruntime)<a class="headerlink" href="#virtualni-behovy-cas-vruntime" title="Permanent link">&para;</a></h3>
+<p>Klíčovým pojmem CFS je <strong>vruntime</strong> (virtual runtime) — vážený čas, po který vlákno běželo na CPU. Jeho vlastnosti:</p>
+<ul>
+<li>Zohledňuje nejen skutečný čas, ale také <strong>prioritu vlákna</strong> (váhu).</li>
+<li>Roste <strong>pomaleji</strong> pro vlákna s vyšší prioritou → dostávají CPU proporcionálně víc.</li>
+<li>Roste <strong>rychleji</strong> pro vlákna s nižší prioritou → dostávají CPU méně.</li>
+<li>Při vytvoření vlákna/procesu se hodnota <strong>dědí od rodiče</strong>.</li>
+<li>Po probuzení z blokujícího volání se vruntime nastaví na <strong>min_vruntime</strong> (nejmenší aktuální vruntime neblokovaných vláken) → vlákno, které čekalo na I/O, dostane CPU brzy, ale ne příliš velké zvýhodnění.</li>
+</ul>
+<p><img alt="Schéma CFS — červeno-černý strom uspořádaný podle vruntime" src="../img/p06-s36-1.png" /></p>
+<h3 id="priorita-v-cfs-a-nice-hodnota">Priorita v CFS a nice hodnota<a class="headerlink" href="#priorita-v-cfs-a-nice-hodnota" title="Permanent link">&para;</a></h3>
+<p>Priorita vlákna v CFS <strong>neslouží k určení pořadí ve frontě</strong> jako u RR — jde o <strong>váhu</strong> při výpočtu vruntime. Priorita vlákna v CFS se nastavuje pomocí tzv. <strong>nice hodnoty</strong> (číslo v rozsahu -20 až 19):</p>
+<ul>
+<li>nice = 0 → váha = 1, vruntime roste stejnou rychlostí jako reálný čas.</li>
+<li>Záporná nice hodnota → vyšší váha → vruntime roste pomaleji → vlákno dostává proporcionálně víc CPU.</li>
+<li>Kladná nice hodnota → nižší váha → vruntime roste rychleji → vlákno dostává méně CPU.</li>
+</ul>
+<h3 id="mechanismus-vyberu-vlakna">Mechanismus výběru vlákna<a class="headerlink" href="#mechanismus-vyberu-vlakna" title="Permanent link">&para;</a></h3>
+<p>Při preempci (uplynutí kvanta nebo blokující volání) CFS:</p>
+<ol>
+<li>Aktualizuje vruntime odloženého vlákna o čas strávený na CPU.</li>
+<li>Zařadí ho zpět do červeno-černého stromu.</li>
+<li>Vybere vlákno s <strong>nejnižším vruntime</strong> — to je vždy nejlevější uzel stromu.</li>
+</ol>
+<p><img alt="Implementace CFS v Linuxu — struktury task_struct, sched_entity a cfs_rq s červeno-černým stromem" src="../img/p06-s38-1.png" /></p>
+<div class="admonition info">
+<p class="admonition-title">CFS v Linuxu — datové struktury</p>
+<div class="language-c highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">struct</span><span class="w"> </span><span class="nc">sched_entity</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">load_weight</span><span class="w"> </span><span class="n">load</span><span class="p">;</span><span class="w">      </span><span class="cm">/* váha (pro výpočet vruntime) */</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">rb_node</span><span class="w">     </span><span class="n">run_node</span><span class="p">;</span><span class="w">  </span><span class="cm">/* uzel v červeno-černém stromě */</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">u64</span><span class="w">                </span><span class="n">vruntime</span><span class="p">;</span><span class="w">  </span><span class="cm">/* virtuální běhový čas */</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="n">u64</span><span class="w">                </span><span class="n">min_vruntime</span><span class="p">;</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="cm">/* ... */</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="p">};</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="k">struct</span><span class="w"> </span><span class="nc">cfs_rq</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="k">struct</span><span class="w"> </span><span class="nc">rb_root_cached</span><span class="w"> </span><span class="n">tasks_timeline</span><span class="p">;</span><span class="w"> </span><span class="cm">/* červeno-černý strom */</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="cm">/* rb_leftmost = vlákno s nejmenším vruntime */</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">};</span>
+</span></code></pre></div>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Linux — třídy využívající CFS</p>
+<ul>
+<li><code>SCHED_OTHER</code> — výchozí strategie pro všechna běžná vlákna.</li>
+<li><code>SCHED_BATCH</code> — pro dlouhé výpočty bez potřeby rychlé odezvy.</li>
+<li><code>SCHED_IDLE</code> — pro vlákna, která mají běžet jen tehdy, je-li systém úplně nevytížen.</li>
+</ul>
+</div>
+<hr />
+<h2 id="kooperativni-planovani-fcfs">Kooperativní plánování — FCFS<a class="headerlink" href="#kooperativni-planovani-fcfs" title="Permanent link">&para;</a></h2>
+<p><strong>First-Come-First-Served</strong> (FCFS) je nejjednodušší forma kooperativního plánování:</p>
+<ul>
+<li>Vlákna čekají ve stavu Ready v jedné nebo více FIFO frontách.</li>
+<li>Když vlákno uvolní CPU (dokončení nebo blokující volání), dostane CPU první vlákno z fronty s nejvyšší prioritou.</li>
+<li>Vlákno, které bylo přerušeno vláknem s vyšší prioritou, se zařadí na <strong>čelo</strong> své fronty (FIFO princip je zachován uvnitř jedné priority).</li>
+</ul>
+<p><strong>Vlastnosti:</strong></p>
+<ul>
+<li>Jednoduché na pochopení i implementaci.</li>
+<li>Minimalizuje počet přepnutí kontextu.</li>
+<li>Nevhodné pro I/O-bound vlákna — ta čekají zbytečně dlouho, až CPU-bound vlákno dokončí svůj běh.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">FCFS není pro uživatelská vlákna</p>
+<p>Jedno špatně napsané vlákno může zablokovat celý systém (nezavolá blokující funkci ani se dobrovolně nevzdá CPU). Proto je FCFS vhodné pouze pro prověřená kernel vlákna, kde je bezpečnost zaručena návrhem systému.</p>
+</div>
+<div class="admonition example">
+<p class="admonition-title">Příklad: SYS třída v Solarisu</p>
+<p>Solaris implementuje FCFS jako třídu <strong>SYS</strong> (systémová vlákna) se statickou prioritou. Tato třída je vyhrazena pro kernel — běžný uživatel do ní vlákno zařadit nemůže:
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>user@solaris:~&gt; ps -eLo class,pri,pid,lwp,comm | grep &quot; *SYS &quot;
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a> SYS 96      0      1 sched
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a> SYS 98      2      1 pageout
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a> SYS 60      3      1 fsflush
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a> SYS 60      7      1 intrd
+</span></code></pre></div>
+Vlákno <code>fsflush</code> například pravidelně zapisuje změny z filesystémové cache na disk.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Linux — SCHED_FIFO</p>
+<p>Linux implementuje kooperativní plánování se statickou prioritou jako <code>SCHED_FIFO</code>. Vlákno v této třídě běží, dokud se samo nevzdá CPU nebo není přerušeno vláknem s <strong>vyšší</strong> prioritou. Pro vlákna stejné priority platí FCFS lokálně. Vhodné pro úlohy reálného času — vyžaduje velmi pečlivou konfiguraci priorit (hladovění je reálné riziko).</p>
+</div>
+<hr />
+<h2 id="shrnuti">Shrnutí<a class="headerlink" href="#shrnuti" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Jádro OS udržuje pro každý proces strukturu <strong>PCB</strong> (identifikace, bezpečnost, alokované prostředky) a pro každé vlákno strukturu <strong>TCB</strong> (registry CPU, zásobník, plánovací informace).</li>
+<li>Vlákna lze implementovat v uživatelském prostoru (many-to-one), v jádru OS (one-to-one) nebo hybridně (many-to-many). Moderní OS používají výhradně one-to-one.</li>
+<li><strong>Plánování s odnímáním</strong> přiděluje CPU na časové kvantum; po jeho uplynutí OS vlákno odebere. Vhodné pro interaktivní systémy.</li>
+<li><strong>Kooperativní plánování</strong> nechá vlákno CPU, dokud ho samo neuvolní. Vhodné jen pro kernel vlákna.</li>
+<li><strong>Round-Robin (RR)</strong> — jednoduchá spravedlivá strategie s odnímáním; větší kvantum = lepší efektivita ale horší odezva.</li>
+<li><strong>Prioritní RR se statickou prioritou</strong> — vlákna s vyšší prioritou vždy předbíhají ostatní; nebezpečí hladovění.</li>
+<li><strong>Prioritní RR s dynamickou prioritou</strong> — priorita a kvantum se mění podle chování vlákna; I/O-bound vlákna dostávají vyšší prioritu, CPU-bound dostávají větší kvantum. Řeší hladovění a snižuje počet přepnutí.</li>
+<li><strong>CFS</strong> (Completely Fair Scheduler) — Linux výchozí plánovač; používá červeno-černý strom uspořádaný podle vruntime; vlákna s vyšší prioritou (nižší nice) mají pomalejší růst vruntime.</li>
+<li><strong>FCFS</strong> — kooperativní FIFO plánování; minimalizuje přepínání, nevhodné pro uživatelská vlákna.</li>
+<li>Maximální počet procesů/vláken lze v unixových systémech zjistit/nastavit přes <code>/proc/sys/kernel/threads-max</code> a <code>ulimit</code>.</li>
+</ul>
+<hr />
+<h2 id="klicove-pojmy">Klíčové pojmy<a class="headerlink" href="#klicove-pojmy" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>PCB (Process Control Block)</strong> — datová struktura v jádru OS uchovávající veškeré informace o jednom procesu (PID, PPID, přidělená paměť, soubory, bezpečnostní identita).</li>
+<li><strong>TCB (Thread Control Block)</strong> — datová struktura uchovávající informace o jednom vláknu potřebné k přepínání kontextu a plánování (TID, registry CPU, zásobník, priorita, stav).</li>
+<li><strong>Tabulka procesů</strong> — zřetězený seznam PCB struktur, který jádro OS udržuje pro všechny aktivní procesy.</li>
+<li><strong>fork-bomba</strong> — útok, při kterém proces rekurzivně vytváří nové procesy, dokud nevyčerpá systémový limit; proti ní chrání <code>ulimit</code>.</li>
+<li><strong>Model many-to-one</strong> — více uživatelských vláken namapováno na jedno kernel vlákno; blokující volání zablokuje celý proces.</li>
+<li><strong>Model one-to-one</strong> — každé uživatelské vlákno odpovídá jednomu kernel vláknu; umožňuje paralelismus na více jádrech.</li>
+<li><strong>Model many-to-many</strong> — m uživatelských vláken namapováno na n kernel vláken; hybridní přístup.</li>
+<li><strong>Plánování s odnímáním (preemptive scheduling)</strong> — OS odebere CPU vláknu po uplynutí časového kvanta.</li>
+<li><strong>Kooperativní plánování (cooperative scheduling)</strong> — vlákno CPU uvolní samo; OS ho nepřeruší násilně.</li>
+<li><strong>Časové kvantum (time slice)</strong> — maximální doba, po kterou vlákno může nepřerušeně běžet na CPU; typicky 10–50 ms.</li>
+<li><strong>CPU-bound vlákno</strong> — vlákno intenzivně využívající CPU, málo blokujících operací.</li>
+<li><strong>I/O-bound vlákno</strong> — vlákno krátce využívající CPU, pak čeká na V/V operace.</li>
+<li><strong>Vlákno reálného času (Realtime thread)</strong> — vlákno, které musí zareagovat na událost v garantovaném čase.</li>
+<li><strong>Round-Robin (RR)</strong> — preemptivní strategie s jednou FIFO frontou; všechna vlákna dostávají stejné kvantum.</li>
+<li><strong>Prioritní RR se statickou prioritou</strong> — každé vlákno má pevnou prioritu; CPU vždy dostane vlákno z nejvyšší obsazené fronty.</li>
+<li><strong>Hladovění (starvation)</strong> — stav, kdy vlákno s nízkou prioritou nedostává CPU po neomezeně dlouhou dobu, protože jsou neustále přítomna vlákna s vyšší prioritou.</li>
+<li><strong>Prioritní RR s dynamickou prioritou</strong> — priorita a velikost kvanta se mění podle chování vlákna; I/O-bound vlákna získávají vyšší prioritu, CPU-bound vlákna větší kvantum.</li>
+<li><strong>FCFS (First-Come-First-Served)</strong> — kooperativní strategie; vlákno běží, dokud samo neuvolní CPU; FIFO fronta.</li>
+<li><strong>Turnaround time (doba zpracování)</strong> — čas od spuštění úlohy do jejího dokončení; kritická metrika pro dávkové úlohy.</li>
+<li><strong>Response time (doba odezvy)</strong> — čas od zadání požadavku do první reakce systému; kritická metrika pro interaktivní aplikace.</li>
+<li><strong>Efektivita CPU</strong> — podíl doby, kdy CPU vykonává užitečnou práci; <code>tq / (tcs + tq)</code> pro RR.</li>
+<li><strong>CFS (Completely Fair Scheduler)</strong> — výchozí plánovač Linuxu pro běžná vlákna; zajišťuje proporcionální přidělování CPU pomocí vruntime a červeno-černého stromu.</li>
+<li><strong>vruntime (virtual runtime)</strong> — vážený běhový čas vlákna v CFS; roste pomaleji pro vlákna s vyšší váhou (nižší nice); vlákno s nejnižším vruntime dostane CPU jako další.</li>
+<li><strong>nice hodnota</strong> — číslo -20 až 19 nastavující váhu vlákna v CFS; záporná hodnota = vyšší váha = více CPU; kladná = nižší váha = méně CPU.</li>
+<li><strong>min_vruntime</strong> — nejmenší vruntime z aktuálně neblokovaných vláken; při probuzení z blokujícího volání se vruntime vlákna nastaví na tuto hodnotu.</li>
+<li><strong>Červeno-černý strom</strong> — vyvážená datová struktura, do které CFS ukládá vlákna setříděná podle vruntime; operace vložení/odebrání v O(log n).</li>
+<li><strong>SCHED_OTHER</strong> — výchozí třída plánování Linuxu pro běžná vlákna (používá CFS).</li>
+<li><strong>SCHED_BATCH</strong> — třída Linuxu pro výpočetně náročné dávkové úlohy (CFS, snížená odezva).</li>
+<li><strong>SCHED_IDLE</strong> — třída Linuxu pro vlákna běžící pouze při nulové zátěži systému.</li>
+<li><strong>SCHED_RR</strong> — třída Linuxu pro real-time vlákna s preemptivním prioritním RR; statická priorita, pevné kvantum (100 ms).</li>
+<li><strong>SCHED_FIFO</strong> — třída Linuxu pro real-time vlákna s kooperativním FCFS; vlákno běží bez přerušení, dokud se samo nevzdá nebo nepřijde vlákno s vyšší prioritou.</li>
+<li><strong>TS (Time Sharing) třída v Solarisu</strong> — preemptivní plánování s dynamickou prioritou a proměnným kvantem; parametry definovány tabulkou příkazu <code>dispadmin</code>.</li>
+<li><strong>SYS třída v Solarisu</strong> — kooperativní plánování se statickou prioritou; vyhrazeno pro kernel vlákna, přiřazuje pouze jádro OS.</li>
+<li><strong>LWP (Lightweight Process)</strong> — v Solarisu mapování mezi user-level threads a kernel threads; od Solarisu 8 je podporován pouze model one-to-one.</li>
+<li><strong>Zóna (Solaris)</strong> — virtuální instance OS, která využívá pouze prostředky přidělené dané zóně; obdoba kontejnerů.</li>
+<li><strong>Job (Windows)</strong> — množina procesů sdílejících kvóty a limity (CPU, paměť, počet procesů).</li>
+<li><strong>Fiber (Windows)</strong> — vlákno spravované výhradně v uživatelském prostoru (analogie user-level thread).</li>
+<li><strong>ulimit</strong> — unixový příkaz pro nastavení limitů procesů/vláken na úrovni uživatele (např. <code>ulimit -u 100</code> omezí počet procesů).</li>
+<li><strong><code>/proc</code> (Linux)</strong> — pseudo-souborový systém existující pouze v paměti; umožňuje číst a nastavovat parametry jádra a informace o procesech.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../04-deadlock/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Uváznutí (deadlock)">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Uváznutí (deadlock)
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../06-pamet/" class="md-footer__link md-footer__link--next" aria-label="Další: Správa paměti">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Správa paměti
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

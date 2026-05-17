@@ -1,0 +1,2319 @@
+
+<!doctype html>
+<html lang="cs" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Wiki k předmětu BI-OSY (Operační systémy) na FIT ČVUT">
+      
+      
+      
+        <link rel="canonical" href="https://martulens.github.io/osyWiki/otazky/teorie-truefalse/">
+      
+      
+        <link rel="prev" href="../prakticke/07-souborove-systemy/">
+      
+      
+        <link rel="next" href="../../sbirka/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Teoretické otázky (pravda / nepravda) - BI-OSY Wiki</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#operacni-systemy-obecne" class="md-skip">
+          Přeskočit obsah
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Záhlaví">
+    <a href="../.." title="BI-OSY Wiki" class="md-header__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            BI-OSY Wiki
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Teoretické otázky (pravda / nepravda)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hledat" placeholder="Hledat" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Vyhledávání">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Vyčistit" aria-label="Vyčistit" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializace vyhledávání
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Karty" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Úvod
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../skripta/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Skripta
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../rozcestnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Rozcestník pojmů
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Testové otázky
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../sbirka/" class="md-tabs__link">
+          
+  
+  
+    
+  
+  Sbírka úloh
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../pomocnik/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Učební pomocník
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigace" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="BI-OSY Wiki" class="md-nav__button md-logo" aria-label="BI-OSY Wiki" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    BI-OSY Wiki
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../skripta/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Skripta
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Skripta
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/01-uvod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Úvod do operačních systémů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/02-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/03-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace a meziprocesová komunikace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/04-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí (deadlock)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/05-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/06-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../skripta/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Datová úložiště a souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rozcestnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rozcestník pojmů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testové otázky
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Testové otázky
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../prakticke/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Praktické příklady
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Praktické příklady
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/01-procesy-vlakna/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Procesy a vlákna
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/02-synchronizace/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Synchronizace
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/03-deadlock/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Deadlock
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování procesů
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/05-pamet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/06-disky-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Disky a RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../prakticke/07-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Souborové systémy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoretické otázky (pravda / nepravda)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#operacni-systemy-obecne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operační systémy obecně
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procesy-a-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procesy a vlákna
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uvaznuti-deadlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uváznutí (deadlock)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování procesů
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa paměti
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datova-uloziste-a-souborove-systemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datová úložiště a souborové systémy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../sbirka/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Sbírka úloh
+  
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Sbírka úloh
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/01-raid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    RAID
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/02-forky/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Forky
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/03-uvaznuti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uváznutí
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/04-planovani/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Plánování vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/05-vytvareni-procesu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vytváření procesů a vláken
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/06-souborove-systemy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Systémy souborů – i-node
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sbirka/07-sprava-pameti/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Správa paměti – multichoice
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pomocnik/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Učební pomocník
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Obsah">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Obsah
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#operacni-systemy-obecne" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operační systémy obecně
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#procesy-a-vlakna" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Procesy a vlákna
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronizace" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synchronizace
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#uvaznuti-deadlock" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Uváznutí (deadlock)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#planovani-procesu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Plánování procesů
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sprava-pameti" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Správa paměti
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#datova-uloziste-a-souborove-systemy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Datová úložiště a souborové systémy
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="teoreticke-otazky-pravda-nepravda">Teoretické otázky (pravda / nepravda)<a class="headerlink" href="#teoreticke-otazky-pravda-nepravda" title="Permanent link">&para;</a></h1>
+<p>Teoretická část zkoušky BI-OSY je test tvrzení, u kterých student rozhoduje <strong>PRAVDA / NEPRAVDA</strong>, případně krátké teoretické otázky s výběrem jedné správné možnosti. Na ProgTestu se generuje náhodný výběr otázek z poolu, takže se vyplatí projít všechny typy.</p>
+<div class="admonition tip">
+<p class="admonition-title">Jak stránku používat</p>
+<ol>
+<li>Přečti si tvrzení / otázku.</li>
+<li>Sám se rozhodni, zda je <strong>PRAVDA</strong> nebo <strong>NEPRAVDA</strong> (případně urči správnou možnost).</li>
+<li>Rozbal blok <strong>Odpověď</strong> a porovnej se zdůvodněním.</li>
+</ol>
+<p>Tvrzení jsou seskupena podle kapitol skript a <strong>deduplikována</strong> — ekvivalentní tvrzení z různých termínů jsou uvedena jen jednou.</p>
+</div>
+<hr />
+<details class="abstract">
+<summary>Obsah stránky</summary>
+<div class="toc">
+<ul>
+<li><a href="#operacni-systemy-obecne">Operační systémy obecně</a></li>
+<li><a href="#procesy-a-vlakna">Procesy a vlákna</a></li>
+<li><a href="#synchronizace">Synchronizace</a></li>
+<li><a href="#uvaznuti-deadlock">Uváznutí (deadlock)</a></li>
+<li><a href="#planovani-procesu">Plánování procesů</a></li>
+<li><a href="#sprava-pameti">Správa paměti</a></li>
+<li><a href="#datova-uloziste-a-souborove-systemy">Datová úložiště a souborové systémy</a></li>
+</ul>
+</div>
+</details>
+<h2 id="operacni-systemy-obecne">Operační systémy obecně<a class="headerlink" href="#operacni-systemy-obecne" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o jádru, systémových voláních, režimech CPU a architektuře počítače.</p>
+<ol>
+<li>
+<p>Standardní knihovna C je součástí operačního systému.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — standardní knihovna C není součástí OS; přes ABI (Application Binary Interface) pouze zprostředkuje aplikaci přístup ke službám jádra (systémovým voláním).</p>
+</details>
+</li>
+<li>
+<p>Procesor po resetu začíná vykonávat instrukce v user módu a do kernel módu se musí později sám přepnout.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — po resetu procesor startuje v privilegovaném (kernel/supervisor) režimu, aby mohl provést inicializaci systému.</p>
+</details>
+</li>
+<li>
+<p>Procesor může odmítnout požadavek na přístup k I/O zařízení, pokud není v privilegovaném režimu — v tom případě vyvolá výjimku.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — privilegované instrukce (přístup k I/O, správa přerušení apod.) lze provést jen v kernel módu; pokus v user módu vede k výjimce.</p>
+</details>
+</li>
+<li>
+<p>Přetečení časovače je jedním ze zdrojů vnějšího přerušení.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — časovač je hardwarové zařízení mimo CPU a jeho přetečení generuje vnější (hardwarové) přerušení, na kterém stojí mj. plánování procesů.</p>
+</details>
+</li>
+<li>
+<p>Vyberte správné tvrzení: V jakém režimu běží jádro (kernel) operačního systému?</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p>Správně: <strong>„Kernel běží typicky v režimu supervisor.“</strong> — Nepravdivé jsou varianty tvrdící, že kernel běží v user módu, že moduly/ovladače běží jen v user módu nebo že ve virtuálním stroji běží jen v user módu.</p>
+</details>
+</li>
+<li>
+<p>Vyberte správné tvrzení: V jakém režimu běží uživatelský proces?</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p>Správně: <strong>„Uživatelský proces běží typicky v režimu user.“</strong> — Nepravdivé jsou varianty „pokud běží jako root, běží v supervisor“ nebo „v supervisor“; spuštění jako root nemění režim CPU, mění jen oprávnění v rámci OS.</p>
+</details>
+</li>
+<li>
+<p>Které z následujících instrukcí jsou na procesoru x86 dostupné v režimu user: <code>LIDT</code>, <code>CLI</code>, <code>OUT dx, eax</code>, <code>MOV ax, bx</code>, <code>SHL eax, 3</code>?</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p>Dostupné v user módu: <strong><code>MOV ax, bx</code></strong> a <strong><code>SHL eax, 3</code></strong> (běžné výpočetní instrukce). Privilegované (jen kernel mód): <code>LIDT</code> (načtení tabulky přerušení), <code>CLI</code> (zákaz přerušení), <code>OUT</code> (zápis na periferii).</p>
+</details>
+</li>
+<li>
+<p>Moderní víceprocesorový počítač (např. notebook s vícejádrovým CPU) je architektury MIMD.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — víceprocesorové/vícejádrové počítače vykonávají více instrukčních proudů nad více datovými proudy, tedy MIMD.</p>
+</details>
+</li>
+<li>
+<p>Operační systém Windows na běžném vícejádrovém počítači podporuje SMP (symetrický multiprocesoring).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — moderní OS podporují SMP, kde jsou si všechna jádra/procesory rovnocenná.</p>
+</details>
+</li>
+<li>
+<p>Plánování procesů a přepínání kontextu řídí část jádra, která reaguje na přerušení časovače nebo na události (I/O, <code>sleep()</code>) a rozhoduje, který proces poběží dál.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — to je přesně role plánovače (scheduler) jako součásti jádra.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/01-uvod/">Skripta → Úvod</a></p>
+<hr />
+<h2 id="procesy-a-vlakna">Procesy a vlákna<a class="headerlink" href="#procesy-a-vlakna" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o procesech, vláknech, systémových voláních <code>fork</code>/<code>exec</code>/<code>wait</code> a sdílených prostředcích.</p>
+<ol>
+<li>
+<p>Vlákna v rámci jednoho procesu sdílejí globální proměnné a otevřené soubory.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — vlákna jednoho procesu sdílejí adresní prostor (data, halda, kód) i tabulku otevřených souborů; vlastní mají jen zásobník a registry.</p>
+</details>
+</li>
+<li>
+<p>Volání <code>execve()</code> přepne běžící vlákno do jiného již existujícího procesu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — <code>execve()</code> nahradí obraz <em>aktuálního</em> procesu novým programem; nevytváří nový proces ani se nepřepíná do jiného existujícího procesu.</p>
+</details>
+</li>
+<li>
+<p>Když potomek skončí dříve než rodič a rodič se ukončí bez volání <code>wait()</code>, zůstane potomek trvale zombie a nepůjde odstranit.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — osiřelý proces (i zombie) převezme proces <code>init</code> (PID 1), který za něj zavolá <code>wait()</code> a uklidí ho.</p>
+</details>
+</li>
+<li>
+<p>Thread Control Block (TCB) obsahuje identifikaci vlákna (TID), informace pro přepínání kontextu (obsah registrů, ukazatel zásobníku) a informace pro plánování (priorita, plánovací algoritmus).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — to je přesně obsah TCB.</p>
+</details>
+</li>
+<li>
+<p>Vícevláknový proces s N vlákny sdílí jednu stránkovací tabulku, a tedy i stejný virtuální adresní prostor.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — všechna vlákna procesu sdílejí stejný virtuální adresní prostor a tím i stránkovací tabulku.</p>
+</details>
+</li>
+<li>
+<p>V C se po <code>fork()</code> rodiči vrátí PID potomka (kladné číslo) a potomkovi 0.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — <code>fork()</code> vrací 0 v potomkovi, kladný PID potomka v rodiči a -1 při chybě.</p>
+</details>
+</li>
+<li>
+<p>Po neúspěšném <code>fork()</code> (např. při dosažení limitu počtu procesů) vrátí volání hodnotu -1.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — po vyčerpání limitu procesů/vláken <code>fork()</code> selže a vrací -1; nový proces nevznikne.</p>
+</details>
+</li>
+<li>
+<p>Staticky alokované pole (např. <code>char a[N]</code>) se umisťuje na zásobník, dynamicky alokovaná paměť přes <code>malloc()</code> na haldu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — lokální pole jde na zásobník (stack), <code>malloc()</code> alokuje na haldě (heap).</p>
+</details>
+</li>
+<li>
+<p>Potomek vytvořený <code>fork()</code> dostává kopii adresního prostoru rodiče, takže globální proměnná má v rodiči i potomkovi stejnou adresu, ale zápis do ní v jednom procesu se neprojeví v druhém.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — po <code>fork()</code> má potomek vlastní (zkopírovaný) adresní prostor; virtuální adresa proměnné je stejná, ale fyzicky jde o oddělené paměti, takže změny nejsou viditelné v druhém procesu.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/02-procesy-vlakna/">Skripta → Procesy a vlákna</a></p>
+<hr />
+<h2 id="synchronizace">Synchronizace<a class="headerlink" href="#synchronizace" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o zámcích, semaforech, kritické sekci, aktivním čekání a časově závislých chybách.</p>
+<ol>
+<li>
+<p>Kritická sekce je jakákoliv část kódu mezi uzamčením a odemčením zámku (např. mezi <code>pthread_mutex_lock()</code> a <code>pthread_mutex_unlock()</code>).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — kritická sekce je úsek kódu chráněný zámkem, ve kterém smí být současně nejvýše jedno vlákno.</p>
+</details>
+</li>
+<li>
+<p>Jeden mutex chrání jeden nebo skupinu sdílených prostředků, ale nelze používat více různých mutexů k ochraně téhož sdíleného prostředku (bez vnořeného zamykání).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — pokud by tentýž prostředek chránily různé mutexy nezávisle, ztratí se vzájemné vyloučení; vzájemné vyloučení garantuje jen jeden společný mutex.</p>
+</details>
+</li>
+<li>
+<p>Program, který ze dvou a více vláken současně zapisuje do sdílené proměnné bez dostatečné synchronizace, obsahuje časově závislou chybu (data race).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — současný zápis více vláken bez ochrany kritické sekce je klasická časově závislá chyba.</p>
+</details>
+</li>
+<li>
+<p>Pokud je semafor inicializován hodnotou ≥ 2, může do kritické sekce chráněné jen tímto semaforem vstoupit současně více vláken, což u operace typu „přičti ke sdílené proměnné“ způsobuje časově závislou chybu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — semafor s počáteční hodnotou 2 pustí dovnitř dvě vlákna zároveň; pro vzájemné vyloučení by musel být inicializován na 1 (binární semafor / mutex). Proto úlohy se <code>sem_init(&amp;sem, 0, 2)</code> obsahují data race.</p>
+</details>
+</li>
+<li>
+<p>Semafor lze implementovat pomocí mutexu a podmíněné proměnné.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — semafor se dá sestavit z čítače chráněného mutexem a podmíněné proměnné, na které vlákna čekají, je-li čítač nulový.</p>
+</details>
+</li>
+<li>
+<p>Při buzení čekajícího vlákna je u implementace semaforu vhodnější <code>pthread_cond_signal()</code> než <code>pthread_cond_broadcast()</code>.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — stačí probudit jedno vlákno; <code>broadcast</code> probudí zbytečně všechna vlákna (i když principiálně korektní, je to neefektivní).</p>
+</details>
+</li>
+<li>
+<p>Vzájemné vyloučení lze řešit aktivním čekáním pomocí atomické instrukce TSL nebo XCHG.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — TSL/XCHG atomicky přečte a nastaví zámek; vstup do kritické sekce se realizuje smyčkou testující zámek (busy waiting).</p>
+</details>
+</li>
+<li>
+<p>Při optimálním a korektním řešení problému spících holičů (N holičů, M zákazníků) stačí 3 semafory: mutex pro sdílené proměnné, jeden pro uspání holičů a jeden pro uspání zákazníků.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — klasické řešení používá tři semafory: binární mutex a dva synchronizační semafory.</p>
+</details>
+</li>
+<li>
+<p>Pro problém inverze priorit: nastane, když proces s nízkou prioritou drží zámek potřebný procesu s vysokou prioritou a je přitom předbíhán procesy se střední prioritou.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — inverze priorit nastává u pevných (statických) priorit, kdy proces s vysokou prioritou nepřímo čeká na proces s nízkou prioritou.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/03-synchronizace/">Skripta → Synchronizace</a></p>
+<hr />
+<h2 id="uvaznuti-deadlock">Uváznutí (deadlock)<a class="headerlink" href="#uvaznuti-deadlock" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o uváznutí, Coffmanových podmínkách, bankéřově algoritmu, prevenci uváznutí a livelocku.</p>
+<ol>
+<li>
+<p>Pokud bankéřův algoritmus neoznačí aktuální stav za bezpečný, znamená to, že systém je právě v uváznutí.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — nebezpečný stav znamená jen, že <em>může</em> dojít k uváznutí; systém v uváznutí ještě nemusí být.</p>
+</details>
+</li>
+<li>
+<p>Neodnímatelné prostředky lze procesu odebrat bez rizika narušení konzistence jeho výpočtu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — neodnímatelný prostředek z definice nelze bezpečně odebrat; jeho odejmutí by narušilo probíhající operaci. (Neodnímatelnost je jedna z Coffmanových podmínek.)</p>
+</details>
+</li>
+<li>
+<p>Prevence uváznutí číslováním prostředků: prostředky se alokují jen v předem stanoveném pořadí, čímž se eliminuje kruhové čekání.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — pevné pořadí alokace znemožní vznik cyklu v grafu čekání, a tím i kruhové čekání.</p>
+</details>
+</li>
+<li>
+<p>Systém je v bezpečném stavu, pokud existuje pořadí, ve kterém lze postupně uspokojit všechny procesy/vlákna.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — bezpečný stav je definován existencí bezpečné posloupnosti uspokojení všech procesů.</p>
+</details>
+</li>
+<li>
+<p>Jsou-li splněny všechny čtyři Coffmanovy podmínky, je systém vždy v uváznutí.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — splnění všech čtyř Coffmanových podmínek je <em>nutné</em>, ne <em>postačující</em>; systém může být i bezpečný (zkouškové úlohy explicitně uvádějí variantu „bezpečný stav, přestože všechny Coffmanovy podmínky jsou splněné“).</p>
+</details>
+</li>
+<li>
+<p>Pokud graf alokačních závislostí neobsahuje cyklus, systém není v uváznutí (je v bezpečném stavu).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — pro prostředky s jednou instancí platí, že absence cyklu znamená absenci uváznutí. (U více instancí na typ je třeba ověřit bankéřovým algoritmem.)</p>
+</details>
+</li>
+<li>
+<p>Vyhladovění (livelock/starvation) je totéž jako deadlock.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — při deadlocku jsou vlákna trvale zablokována a nic nedělají; při livelocku vlákna stále něco vykonávají (reagují na sebe), ale nepostupují kupředu.</p>
+</details>
+</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Ověřit</p>
+<p>Konkrétní úlohy s kódem typu <code>lock_guard</code> nad polem mutexů (<code>g_M[pos % 4]</code>, <code>g_M[(pos+1) % 4]</code>, …) mají odpovědi (deadlock / livelock / busy waiting / možné hodnoty proměnné) závislé na <em>konkrétních</em> hodnotách <code>pos</code> a pořadí zamykání. Vyhodnocuj je vždy individuálně podle zadaného příkladu — obecně platí jen, že zamykání více mutexů v různém pořadí může vést k deadlocku, a že <code>lock_guard</code> nad jediným hromadným <code>lock(...)</code> (atomické uzamčení více zámků) deadlocku zabrání, ale může vést k livelocku.</p>
+</div>
+<p><a href="../../skripta/04-deadlock/">Skripta → Uváznutí (deadlock)</a></p>
+<hr />
+<h2 id="planovani-procesu">Plánování procesů<a class="headerlink" href="#planovani-procesu" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o plánovači, prioritách, časovém kvantu a přepínání kontextu.</p>
+<ol>
+<li>
+<p>Při plánování s dynamickou prioritou se obvykle sníží priorita i časové kvantum procesu, který v posledním běhu vyčerpal celé své časové kvantum.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — proces, který spotřebuje celé kvantum (CPU-bound), je typicky penalizován snížením priority; I/O-bound proces, který kvantum nevyčerpá, je naopak zvýhodněn.</p>
+</details>
+</li>
+<li>
+<p>Přepnutí kontextu mezi vlákny je v Linuxu implementováno výhradně pomocí systémového volání <code>sched_yield()</code>.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — přepnutí kontextu nastává hlavně při přerušení časovače, při blokujících operacích (I/O, <code>sleep()</code>) apod.; <code>sched_yield()</code> je jen jeden z mnoha možných spouštěčů, nikoli jediný.</p>
+</details>
+</li>
+<li>
+<p>Při statické (pevné) prioritě se proces s nízkou prioritou nemusí vůbec dostat na CPU, pokud jsou stále připraveny procesy s vyšší prioritou.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — pevné priority mohou vést k vyhladovění nízkoprioritních procesů.</p>
+</details>
+</li>
+<li>
+<p>Pokud běh vícevláknového procesu probíhá většinu času ve stavu BLOCKED, zrychlení procesoru ani přidání jader dobu jeho běhu výrazně nezkrátí.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — doba běhu I/O-bound procesu (vlákna převážně BLOCKED) je dána čekáním, ne výpočetním výkonem, takže rychlejší/další jádra nepomohou.</p>
+</details>
+</li>
+<li>
+<p>Pokud jsou vlákna procesu většinu času ve stavu READY/RUNNING (CPU-bound) a běží na omezeném počtu jader, je celkový výpočetní výkon konstantní — proto lze dobu běhu přepočítat trojčlenkou podle počtu dostupných vláken procesoru.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — celkový potřebný výpočet (vlákna × čas) je konstanta; doba běhu se mění nepřímo úměrně počtu dostupných hardwarových vláken.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/05-planovani/">Skripta → Plánování procesů</a></p>
+<hr />
+<h2 id="sprava-pameti">Správa paměti<a class="headerlink" href="#sprava-pameti" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o virtuální paměti, stránkování, TLB, tabulkách stránek, algoritmech náhrady stránek a alokátorech.</p>
+<ol>
+<li>
+<p>Bit „present“ v záznamu stránkové tabulky indikuje, zda je stránka aktuálně namapována do fyzické paměti.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — present bit říká, zda je stránka přítomna ve fyzické paměti; je-li 0, přístup vyvolá výpadek stránky (page fault).</p>
+</details>
+</li>
+<li>
+<p>Když dojde k výpadku stránky (page fault), systém ukončí běžící proces, protože nelze pokračovat.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — page fault běžně obslouží jádro: chybějící stránku nahraje do fyzické paměti (případně vyhodí jinou) a běh procesu pokračuje.</p>
+</details>
+</li>
+<li>
+<p>Algoritmus LRU (Least Recently Used) pro náhradu stránek nelze implementovat.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — LRU implementovat lze (např. čítače, seznam); jen je nákladný, proto se v praxi používají aproximace (NRU, Clock, Aging, Second chance).</p>
+</details>
+</li>
+<li>
+<p>Algoritmus pro náhradu stránek se spouští vždy, když MMU vygeneruje výjimku/trap.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — algoritmus náhrady se spustí jen při výpadku stránky, kdy je potřeba uvolnit rámec a žádný volný není; ne každá výjimka MMU je page fault a ne každý page fault vyžaduje náhradu.</p>
+</details>
+</li>
+<li>
+<p>Virtuální adresní prostor uživatelského procesu je typicky rozdělen (od nejnižších adres k vyšším) v pořadí: Text, Data, Heap, …, Stack.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — typické rozvržení je Text (kód), Data, Heap rostoucí nahoru a Stack na vysokých adresách rostoucí dolů.</p>
+</details>
+</li>
+<li>
+<p>Funkce <code>free()</code> vždy okamžitě vrací uvolněnou paměť jádru pomocí <code>munmap()</code> nebo <code>brk()</code>.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — <code>free()</code> zpravidla vrátí blok jen do uživatelského alokátoru (arény) pro budoucí použití; jádru se paměť vrací jen někdy a ne okamžitě.</p>
+</details>
+</li>
+<li>
+<p>Funkce <code>free()</code> v glibc může sloučit sousední volné bloky, ale jen v rámci stejné arény.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — slučování (coalescing) sousedních volných bloků probíhá v rámci jedné arény, kde jsou bloky správcovány společně.</p>
+</details>
+</li>
+<li>
+<p>Cache hit ratio TLB se může zvýšit, pokud systém použije pro proces větší stránky.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — větší stránky pokryjí stejným počtem položek TLB větší adresní prostor, čímž roste úspěšnost vyhledání v TLB.</p>
+</details>
+</li>
+<li>
+<p>Cache hit ratio TLB se může zvýšit, pokud systém použije pro proces menší stránky.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — menší stránky pokryjí méně paměti, hit ratio TLB naopak klesá.</p>
+</details>
+</li>
+<li>
+<p>Současné serverové a desktopové procesory umožňují používat různě velké stránky pro různé procesy.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — moderní procesory podporují více velikostí stránek (huge pages apod.).</p>
+</details>
+</li>
+<li>
+<p>Současné procesory umožňují aplikacím za běhu měnit velikost TLB podle potřeby.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — velikost TLB je pevně daná hardwarem; aplikace ji měnit nemůže.</p>
+</details>
+</li>
+<li>
+<p>Offset adresy definuje pozici dat uvnitř rámce (resp. stránky).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — offset určuje pozici uvnitř rámce/stránky; pro různě velké stránky má offset různý počet bitů.</p>
+</details>
+</li>
+<li>
+<p>Logická (virtuální) adresa se skládá z čísla stránky a offsetu; fyzická adresa z čísla rámce a offsetu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — virtuální adresa = číslo stránky + offset, fyzická adresa = číslo rámce + offset. Velikost offsetu je u obou dána velikostí stránky/rámce.</p>
+</details>
+</li>
+<li>
+<p>U klasické (přímé) tabulky stránek si jádro musí pamatovat pro každý proces právě jednu tabulku stránek.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — klasická tabulka stránek je per-proces; při N procesech tedy existuje aspoň N tabulek.</p>
+</details>
+</li>
+<li>
+<p>U invertované tabulky stránek si jádro musí pamatovat jen jednu (společnou) tabulku stránek.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — invertovaná tabulka je jedna pro celý systém; má jeden řádek na každý fyzický rámec.</p>
+</details>
+</li>
+<li>
+<p>Na řádce klasické tabulky stránek je uloženo číslo rámce a bity present, modify a reference.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — řádek klasické tabulky obsahuje číslo rámce + řídicí bity (present, modify/dirty, reference). Číslo stránky se v ní neukládá (slouží jako index).</p>
+</details>
+</li>
+<li>
+<p>Na řádce invertované tabulky stránek je uloženo číslo stránky a číslo procesu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — invertovaná tabulka indexovaná číslem rámce ukládá na řádku číslo stránky a číslo procesu (plus present/modify/reference). Offset se v tabulkách nikdy neukládá.</p>
+</details>
+</li>
+<li>
+<p>Na řádce TLB je uloženo číslo stránky, číslo rámce a bity reference/modify.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — TLB je cache mapování stránka → rámec; na řádce je číslo stránky, číslo rámce a řídicí bity. Offset v TLB není.</p>
+</details>
+</li>
+<li>
+<p>Při překladu adresy přes invertovanou tabulku stránek lze použít rozptylovací (hash) funkci k urychlení vyhledávání.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — invertovaná tabulka se prohledává podle (proces, stránka); aby se nemusela procházet lineárně, používá se hašování. U klasické tabulky se hash nepoužívá (přímá indexace).</p>
+</details>
+</li>
+<li>
+<p>Při překladu adresy se číslo rámce používá jako index do TLB.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — TLB se prohledává podle čísla <em>stránky</em>, ne rámce; výsledkem je číslo rámce.</p>
+</details>
+</li>
+<li>
+<p>Počet řádků klasické tabulky stránek je dán počtem stránek (2 na velikost čísla stránky); počet řádků invertované tabulky je dán počtem rámců (2 na velikost čísla rámce).</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — klasická tabulka má řádek na každou virtuální stránku, invertovaná na každý fyzický rámec.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/06-pamet/">Skripta → Správa paměti</a></p>
+<hr />
+<h2 id="datova-uloziste-a-souborove-systemy">Datová úložiště a souborové systémy<a class="headerlink" href="#datova-uloziste-a-souborove-systemy" title="Permanent link">&para;</a></h2>
+<p>Tvrzení o discích, RAID, NAS, inodech, souborových systémech a typech odkazů.</p>
+<ol>
+<li>
+<p>SSD disky nemají pohyblivé mechanické části, zatímco HDD obsahují otáčející se plotny a pohyblivou čtecí hlavu.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — to je základní konstrukční rozdíl mezi SSD a HDD.</p>
+</details>
+</li>
+<li>
+<p>RAID 2, 3 a 4 se v běžných datových úložištích prakticky nepoužívají.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — v praxi převažují RAID 0, 1, 5, 6, 10; úrovně 2, 3 a 4 jsou dnes spíše historické.</p>
+</details>
+</li>
+<li>
+<p>Pro NAS (Network-Attached Storage) platí, že data jsou přístupná na úrovni (distribuovaného) souborového systému přes síťové protokoly.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — NAS poskytuje přístup na úrovni souborů přes protokoly jako NFS či SMB (na rozdíl od SAN, které pracuje na úrovni bloků).</p>
+</details>
+</li>
+<li>
+<p>RAID 10 se čtyřmi identickými disky nenabízí oproti RAID 5 (rovněž 4 disky) žádné výhody, protože hůře využívá kapacitu a rychlost čtení i zápisu je v obou případech stejná.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — RAID 10 sice využívá kapacitu hůře (poloviční), ale má jiný (zpravidla lepší) výkon zápisu a odlišnou odolnost proti výpadkům; rychlosti tedy nejsou v obou případech stejné.</p>
+</details>
+</li>
+<li>
+<p>Každý soubor je v unixovém OS jednoznačně identifikován číslem inode v rámci daného souborového systému.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — inode číslo je jednoznačné v rámci jednoho souborového systému (proto hard link nemůže přesáhnout hranici FS).</p>
+</details>
+</li>
+<li>
+<p>Obsah adresáře je podobně jako obsah souboru uložen v jednom nebo více datových blocích.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — adresář je speciální soubor, jehož „obsahem“ jsou položky (jméno → inode) uložené v datových blocích.</p>
+</details>
+</li>
+<li>
+<p>Symbolický link (soft link) může odkazovat napříč různými souborovými systémy, zatímco hard link jen v rámci téhož souborového systému.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — soft link uchovává cestu (řetězec) a může mířit kamkoliv; hard link je další jméno pro tentýž inode, a inode čísla jsou jen lokální v rámci FS.</p>
+</details>
+</li>
+<li>
+<p>Operační systém nemůže používat více souborových systémů současně, pokud jsou na stejném fyzickém disku.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>NEPRAVDA</strong> — na jednom fyzickém disku může být více oddílů s různými souborovými systémy a OS je všechny může připojit a používat současně.</p>
+</details>
+</li>
+<li>
+<p>Při mazání souboru je třeba načíst inody celé cesty včetně mazaného souboru, ale obsah datových bloků samotného souboru se kvůli smazání číst nemusí.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — pro smazání stačí načíst inody po cestě a uvolnit bloky podle odkazů; vlastní data souboru se nečtou.</p>
+</details>
+</li>
+<li>
+<p>Při operaci <code>mv</code> mezi dvěma adresáři na témže souborovém systému se obsah souboru fyzicky nekopíruje — mění se jen adresářové položky.</p>
+<details class="success">
+<summary>Odpověď</summary>
+<p><strong>PRAVDA</strong> — přesun v rámci jednoho FS jen přepojí adresářovou položku (inode zůstává). Mezi různými FS je <code>mv</code> naopak kopírováním a smazáním, takže se data přenášejí blok po bloku.</p>
+</details>
+</li>
+</ol>
+<p><a href="../../skripta/07-souborove-systemy/">Skripta → Datová úložiště a souborové systémy</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Zpět na začátek
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Zápatí" >
+        
+          
+          <a href="../prakticke/07-souborove-systemy/" class="md-footer__link md-footer__link--prev" aria-label="Předchozí: Souborové systémy">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Předchozí
+              </span>
+              <div class="md-ellipsis">
+                Souborové systémy
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../sbirka/" class="md-footer__link md-footer__link--next" aria-label="Další: Přehled">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Další
+              </span>
+              <div class="md-ellipsis">
+                Přehled
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "navigation.footer", "navigation.indexes", "navigation.tabs", "navigation.top", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Zkop\u00edrov\u00e1no do schr\u00e1nky", "clipboard.copy": "Kop\u00edrovat do schr\u00e1nky", "search.result.more.one": "1 dal\u0161\u00ed na t\u00e9to str\u00e1nce", "search.result.more.other": "# v\u00edce na t\u00e9to str\u00e1nce", "search.result.none": "Nenalezeny \u017e\u00e1dn\u00e9 dokumenty", "search.result.one": "Nalezen\u00fd dokument: 1", "search.result.other": "Nalezen\u00e9 dokumenty: #", "search.result.placeholder": "Pi\u0161te co se m\u00e1 vyhledat", "search.result.term.missing": "Chyb\u011bj\u00edc\u00ed", "select.version": "Vyberte verzi"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
