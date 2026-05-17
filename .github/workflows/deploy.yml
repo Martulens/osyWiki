@@ -1,7 +1,8 @@
 name: Deploy wiki
 
 # Při každém pushi do master se wiki sestaví a publikuje na GitHub Pages.
-# Jednorázové nastavení: Settings → Pages → Source: GitHub Actions.
+# MkDocs sestaví web a `gh-deploy` ho nahraje do větve gh-pages.
+# Jednorázové nastavení: Settings → Pages → Source: Deploy from a branch → gh-pages / (root).
 
 on:
   push:
@@ -9,16 +10,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,21 +31,5 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Build with MkDocs
-        run: mkdocs build --strict
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Deploy with MkDocs
+        run: mkdocs gh-deploy --force --strict
