@@ -186,8 +186,8 @@ Program `/bin/sleep n` bude po spuštění `n` sekund ve stavu BLOCKED a potom s
       =0    !=0
       P3     P2
      /   \
-   =0    !=0
-   P4     P3
+    =0    !=0
+    P4     P3
     ```
 
     **5 procesů.**
