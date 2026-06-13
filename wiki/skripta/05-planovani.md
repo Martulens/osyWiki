@@ -354,7 +354,7 @@ Typická strategie:
     | 6 | 32T | 63 |
     | 7 | 37T (zbytek) | 100 |
 
-    Celkem **7 přepnutí kontextu** místo 1000 u fixního kvanta.
+    Celkem **7 přepnutí kontextu** místo 100 u fixního kvanta.
 
 ### Time Sharing (TS) třída v Solarisu
 
